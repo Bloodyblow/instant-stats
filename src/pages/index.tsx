@@ -9,6 +9,7 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import PieChartIcon from "@mui/icons-material/PieChart";
 import Button from "@mui/material/Button";
 import { Stack } from "@mui/system";
+import Layout from "./components/Layout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,46 +28,17 @@ export default function Home() {
   ];
 
   return (
-    <>
-      <Head>
-        <title>Instant stats</title>
-        <meta
-          name="description"
-          content="Enter and display easily and rapidly your data"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <Stack sx={{ width: "80vw", minHeight: "80vh" }} alignItems="center">
-          <AnimatedTitle title="Instant stats" />
-          <Box
-            sx={{
-              maxWidth: "500px",
-              gcolor: "background.paper",
-              // border: "1px solid red",
-              display: "flex",
-              flexGrow: 1,
-              flexDirection: "column",
-              width: "80%",
-              justifyContent: "space-around",
-              padding: "3rem 0",
-            }}
-          >
-            <CategoriesList
-              onClick={(id) => Router.push(`category/${id}`)}
-              categories={categories}
-            />
-            <Button
-              variant="contained"
-              sx={{ width: "fit-content", alignSelf: "end" }}
-            >
-              Add a category
-            </Button>
-          </Box>
-        </Stack>
-      </main>
-    </>
+    <Layout pageTitle="Instant stats">
+      <CategoriesList
+        onClick={(id) => Router.push(`category/${id}`)}
+        categories={categories}
+      />
+      <Button
+        variant="contained"
+        sx={{ width: "fit-content", alignSelf: "end" }}
+      >
+        Add a category
+      </Button>
+    </Layout>
   );
 }
