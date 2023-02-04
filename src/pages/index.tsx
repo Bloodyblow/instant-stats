@@ -4,6 +4,7 @@ import { Inter } from "@next/font/google";
 import styles from "@/styles/Home.module.css";
 import { ThemeProvider } from "@mui/system";
 import theme from "@/theme";
+import AnimatedTitle from "./components/AnimatedTitle";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -54,7 +55,7 @@ export default function Home() {
               height={37}
               priority
             /> */}
-            <h1 className={styles.title}>Instant stats</h1>
+            <AnimatedTitle title="Instant stats" />
           </div>
 
           <div className={styles.grid}>
