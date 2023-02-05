@@ -1,15 +1,11 @@
-import Head from "next/head";
 import { Inter } from "@next/font/google";
-import Box from "@mui/material/Box";
 import Router from "next/router";
-import styles from "@/styles/Home.module.css";
-import AnimatedTitle from "./components/AnimatedTitle";
-import CategoriesList, { Category } from "./components/CategoriesList";
+import CategoriesList from "./components/CategoriesList";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import PieChartIcon from "@mui/icons-material/PieChart";
 import Button from "@mui/material/Button";
-import { Stack } from "@mui/system";
 import Layout from "./components/Layout";
+import { Category } from "@/app/types";
 
 const inter = Inter({ subsets: ["latin"] });
 

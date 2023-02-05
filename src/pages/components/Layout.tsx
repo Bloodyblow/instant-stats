@@ -28,14 +28,14 @@ export default function Layout({
           <AnimatedTitle title={pageTitle} />
           <Box
             sx={{
-              maxWidth: "500px",
               gcolor: "background.paper",
-              // border: "1px solid red",
+              border: "1px solid red",
               display: "flex",
               flexGrow: 1,
               flexDirection: "column",
               width: "80%",
               justifyContent: "space-around",
+              alignItems: "center",
               padding: "3rem 0",
             }}
           >

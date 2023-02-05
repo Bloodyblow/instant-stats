@@ -4,8 +4,8 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import { Category } from "@/app/types";
 
-export type Category = { id: number; name: string; icon: JSX.Element };
 export default function CategoriesList({
   onClick,
   categories,
@@ -14,7 +14,7 @@ export default function CategoriesList({
   categories: Category[];
 }) {
   return (
-    <List sx={{ width: "100%" }}>
+    <List sx={{ width: "300px", border: "1px solid blue" }}>
       {categories.map((item) => (
         <ListItem disablePadding>
           <ListItemButton onClick={() => onClick(item.id)}>
