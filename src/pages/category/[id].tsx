@@ -1,13 +1,18 @@
 import Link from "next/link";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Layout from "../components/Layout";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import { CategoryExtend } from "@/app/types";
 import ValuesTable from "../components/ValuesTable";
 import ValueForm from "../components/ValueForm";
+import { useDispatch } from "react-redux";
+import { setCategory } from "./categorySlice";
 
 const Category = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+
   const { id } = router.query;
   const categoryData: CategoryExtend = {
     id: 1,
@@ -22,6 +27,13 @@ const Category = () => {
       { id: 5, date: "2021-01-05", value: 50 },
     ],
   };
+
+  useEffect(() => {
+    if (id !== undefined) {
+      dispatch(setCategory(categoryData));
+    }
+  }, [id]);
+
   const isUpdate = id !== undefined;
 
   return (
@@ -29,7 +41,7 @@ const Category = () => {
       pageTitle={isUpdate ? categoryData.name : "Create a new set of data"}
     >
       <ValueForm />
-      <ValuesTable values={categoryData.values} unit={categoryData.unit} />
+      <ValuesTable />
       <Link href="/">Go back</Link>
     </Layout>
   );

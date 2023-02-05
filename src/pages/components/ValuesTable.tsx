@@ -7,17 +7,17 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Value } from "@/app/types";
-import { Button, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { RootState } from "@/app/store";
+import { useSelector } from "react-redux";
 
-export default function ValuesTable({
-  values,
-  unit,
-}: {
-  values: Value[];
-  unit: string;
-}) {
+export default function ValuesTable() {
+  const { category } = useSelector((state: RootState) => state.category);
+  const { values, unit } = category!!;
+
+  if (!values) return null;
   return (
     <TableContainer
       component={Paper}
@@ -39,7 +39,7 @@ export default function ValuesTable({
           </TableRow>
         </TableHead>
         <TableBody>
-          {values.map((value) => (
+          {values.map((value: Value) => (
             <TableRow
               key={value.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
