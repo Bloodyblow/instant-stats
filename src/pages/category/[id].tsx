@@ -4,6 +4,7 @@ import Layout from "../components/Layout";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import { CategoryExtend } from "@/app/types";
 import ValuesTable from "../components/ValuesTable";
+import ValueForm from "../components/ValueForm";
 
 const Category = () => {
   const router = useRouter();
@@ -27,6 +28,7 @@ const Category = () => {
     <Layout
       pageTitle={isUpdate ? categoryData.name : "Create a new set of data"}
     >
+      <ValueForm />
       <ValuesTable values={categoryData.values} unit={categoryData.unit} />
       <Link href="/">Go back</Link>
     </Layout>

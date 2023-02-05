@@ -16,7 +16,7 @@ export default function CategoriesList({
   return (
     <List sx={{ width: "300px", border: "1px solid blue" }}>
       {categories.map((item) => (
-        <ListItem disablePadding>
+        <ListItem disablePadding key={item.id}>
           <ListItemButton onClick={() => onClick(item.id)}>
             <ListItemIcon>{item.icon}</ListItemIcon>
             <ListItemText primary={item.name} />

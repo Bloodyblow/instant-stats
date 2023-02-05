@@ -29,7 +29,7 @@ export default function Layout({
           <Box
             sx={{
               gcolor: "background.paper",
-              border: "1px solid red",
+              // border: "1px solid red",
               display: "flex",
               flexGrow: 1,
               flexDirection: "column",

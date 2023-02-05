@@ -11,19 +11,19 @@ export const roboto = Roboto({
 const themeOptions: ThemeOptions = {
   palette: {
     mode: "dark",
-    primary: {
-      main: "#77e09e",
-    },
-    secondary: {
-      main: "#fdfd67",
-    },
-    success: {
-      main: "#346cc1",
-    },
-    background: {
-      default: "#030a03",
-      paper: "#202320",
-    },
+    //   primary: {
+    //     main: "#77e09e",
+    //   },
+    //   secondary: {
+    //     main: "#fdfd67",
+    //   },
+    //   success: {
+    //     main: "#346cc1",
+    //   },
+    //   background: {
+    //     default: "#030a03",
+    //     paper: "#202320",
+    //   },
   },
 };
 
