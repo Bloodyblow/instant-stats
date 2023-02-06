@@ -15,9 +15,8 @@ import { useSelector } from "react-redux";
 
 export default function ValuesTable() {
   const { category } = useSelector((state: RootState) => state.category);
+  if (!category) return null;
   const { values, unit } = category!!;
-
-  if (!values) return null;
   return (
     <TableContainer
       component={Paper}

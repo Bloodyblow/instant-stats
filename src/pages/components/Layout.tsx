@@ -37,6 +37,7 @@ export default function Layout({
               justifyContent: "space-around",
               alignItems: "center",
               padding: "3rem 0",
+              gap: "2rem",
             }}
           >
             {children}

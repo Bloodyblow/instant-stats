@@ -8,6 +8,7 @@ import ValuesTable from "../components/ValuesTable";
 import ValueForm from "../components/ValueForm";
 import { useDispatch } from "react-redux";
 import { setCategory } from "./categorySlice";
+import Chart from "../components/Chart";
 
 const Category = () => {
   const router = useRouter();
@@ -41,7 +42,9 @@ const Category = () => {
       pageTitle={isUpdate ? categoryData.name : "Create a new set of data"}
     >
       <ValueForm />
+      <Chart />
       <ValuesTable />
+
       <Link href="/">Go back</Link>
     </Layout>
   );
