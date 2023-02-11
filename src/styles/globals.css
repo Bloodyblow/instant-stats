@@ -38,6 +38,10 @@
   --callout-border-rgb: 172, 175, 176;
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
+
+  /* Customs */
+  --background-gradient: linear-gradient(
+    194deg, #060303, #020b26,  #060303,#0d021f)
 }
 
 @media (prefers-color-scheme: dark) {
@@ -87,12 +91,7 @@ body {
 
 body {
   /* color: rgb(var(--foreground-rgb)); */
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb)); 
+  background: var(--background-gradient);
 }
 
 a {

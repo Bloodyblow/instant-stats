@@ -1,6 +1,6 @@
 h1.title {
   font-size: 2.5rem;
-  box-shadow: 0px 2px 8px -1px #dbdbdb2e;
+  /* box-shadow: 0px 2px 8px -1px #dbdbdb2e; */
   font-weight: 700;
   border-radius: var(--border-radius);
   padding: 25px 20px;
@@ -8,7 +8,8 @@ h1.title {
   position: relative;
   background-color: transparent;
   overflow: hidden;
-  width: fit-content;
+  width: 100%;
+  text-align: center;
 }
 
 h1.title::before,
@@ -21,11 +22,11 @@ h1.title::after {
 /* Conic Gradient Animation */
 h1.title::before {
   animation: 6s rotate linear infinite;
-  width: 10em;
-  height: 10em;
+  width: 25em;
+  height: 25em;
   background: var(--tile-border);
-  top: -4em;
-  left: -2em;
+  top: -12em;
+  left: -3em;
 }
 
 /* Inner Square */
@@ -33,9 +34,7 @@ h1.title::after {
   inset: 0;
   padding: 1px;
   border-radius: var(--border-radius);
-  background: linear-gradient(to bottom right,
-      rgba(var(--tile-start-rgb), 1),
-      rgba(var(--tile-end-rgb), 1));
+background: linear-gradient(45deg, #020b26, #040714);
   background-clip: content-box;
 }
 

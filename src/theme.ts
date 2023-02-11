@@ -20,10 +20,13 @@ const themeOptions: ThemeOptions = {
     //   success: {
     //     main: "#346cc1",
     //   },
-    //   background: {
-    //     default: "#030a03",
-    //     paper: "#202320",
-    //   },
+    background: {
+      default: "#00112d",
+      paper: "#00112d",
+    },
+  },
+  shape: {
+    borderRadius: 4,
   },
 };
 

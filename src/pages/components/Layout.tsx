@@ -24,7 +24,17 @@ export default function Layout({
       </Head>
 
       <main className={styles.main}>
-        <Stack sx={{ width: "80vw", minHeight: "80vh" }} alignItems="center">
+        <Stack
+          sx={{
+            width: "80vw",
+            maxWidth: "800px",
+            minHeight: "80vh",
+            justifyContent: "space-between",
+            // border: "1px solid red",
+            gap: "2rem",
+          }}
+          alignItems="center"
+        >
           <AnimatedTitle title={pageTitle} />
           <Box
             sx={{
@@ -33,10 +43,9 @@ export default function Layout({
               display: "flex",
               flexGrow: 1,
               flexDirection: "column",
-              width: "80%",
+              width: "100%",
               justifyContent: "space-around",
               alignItems: "center",
-              padding: "3rem 0",
               gap: "2rem",
             }}
           >

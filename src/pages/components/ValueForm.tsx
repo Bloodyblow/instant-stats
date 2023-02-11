@@ -35,7 +35,7 @@ export default function ValueForm() {
       sx={{
         backgroundColor: "background.paper",
         color: "secondary.contrastText",
-        width: "calc(100% + 60px)",
+        width: "100%",
         padding: "20px 40px",
         alignItems: "center",
       }}
