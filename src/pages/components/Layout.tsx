@@ -1,9 +1,8 @@
 import Head from "next/head";
 import Box from "@mui/material/Box";
 import styles from "./Layout.module.css";
-import AnimatedTitle from "./AnimatedTitle";
 import { Stack } from "@mui/system";
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import Navbar from "./Navbar";
 
 export default function Layout({
@@ -33,7 +32,6 @@ export default function Layout({
             maxWidth: "800px",
             minHeight: "80vh",
             justifyContent: "space-between",
-            // border: "1px solid red",
             gap: "2rem",
           }}
           alignItems="center"
@@ -45,12 +43,10 @@ export default function Layout({
           <Box
             sx={{
               gcolor: "background.paper",
-              // border: "1px solid red",
               display: "flex",
               flexGrow: 1,
               flexDirection: "column",
               width: "100%",
-              justifyContent: "space-around",
               alignItems: "center",
               gap: "2rem",
             }}
