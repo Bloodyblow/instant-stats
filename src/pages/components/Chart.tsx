@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Card } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store";
 import BarChart from "./charts/BarChart";
@@ -8,14 +8,14 @@ export default function Chart() {
   if (!category) return null;
 
   return (
-    <Box
+    <Card
       sx={{
-        height: "200px",
+        height: "400px",
         width: "100%",
         backgroundColor: "background.paper",
       }}
     >
       <BarChart category={category} />
-    </Box>
+    </Card>
   );
 }

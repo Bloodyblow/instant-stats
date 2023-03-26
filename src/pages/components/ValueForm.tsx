@@ -14,6 +14,8 @@ import {
   Typography,
 } from "@mui/material";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import Card from "@mui/material/Card/Card";
+import CardHeader from "@mui/material/CardHeader/CardHeader";
 
 export default function ValueForm() {
   const [date, setDate] = useState<Dayjs | null>(null);
@@ -30,78 +32,78 @@ export default function ValueForm() {
   };
 
   return (
-    <Box
-      component="form"
-      sx={{
-        backgroundColor: "background.paper",
-        color: "secondary.contrastText",
-        width: "100%",
-        padding: "20px 40px",
-        alignItems: "center",
-      }}
-      noValidate
-      autoComplete="off"
-      onSubmit={onSubmit}
-    >
-      <Typography
-        variant="h2"
-        component="h2"
-        sx={{ fontSize: "1.5rem", color: "white", m: 1 }}
+    <Card sx={{ width: "100%" }}>
+      <CardHeader
+        title="Add data"
+        sx={{ backgroundColor: "secondary.main" }}
+      ></CardHeader>
+
+      <Box
+        component="form"
+        sx={{
+          backgroundColor: "background.paper",
+          color: "secondary.contrastText",
+          width: "100%",
+          padding: "20px 40px",
+          alignItems: "center",
+        }}
+        noValidate
+        autoComplete="off"
+        onSubmit={onSubmit}
       >
-        Add data
-      </Typography>
-      <FormControl sx={{ m: 1, width: "100%" }}>
-        <FormGroup
-          row
-          sx={{ justifyContent: "space-between", alignItems: "center" }}
-        >
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              label="Date"
-              value={date}
-              onChange={(newValue) => {
-                setDate(newValue);
-              }}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </LocalizationProvider>
-          <TextField
-            id="outlined-basic"
-            label="Value"
-            variant="outlined"
-            type="number"
-            sx={{
-              color: "secondary.contrastText",
-              flexGrow: 1,
-              margin: "0 20px",
-            }}
-            value={value || ""}
-            onChange={(e) => setValue(e.target.value)}
-          />
-          <Tooltip title="Add data">
-            <Button
-              variant="contained"
-              type="submit"
-              sx={{
-                width: "fit-content",
-                padding: "15px",
-                marginRight: "20px",
-              }}
-            >
-              <CheckIcon />
-            </Button>
-          </Tooltip>
-          <Tooltip title="Reset form">
-            <Button
+        <FormControl sx={{ m: 1, width: "100%" }}>
+          <FormGroup
+            row
+            sx={{ justifyContent: "space-between", alignItems: "center" }}
+          >
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="Date"
+                value={date}
+                onChange={(newValue) => {
+                  setDate(newValue);
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
+            <TextField
+              id="outlined-basic"
+              label="Value"
               variant="outlined"
-              sx={{ width: "fit-content", padding: "15px" }}
-              onClick={onReset}
-            >
-              <RestartAltIcon />
-            </Button>
-          </Tooltip>
-        </FormGroup>
-      </FormControl>
-    </Box>
+              type="number"
+              sx={{
+                color: "secondary.contrastText",
+                flexGrow: 1,
+                margin: "0 20px",
+              }}
+              value={value || ""}
+              onChange={(e) => setValue(e.target.value)}
+            />
+            <Tooltip title="Add data">
+              <Button
+                variant="contained"
+                type="submit"
+                sx={{
+                  width: "fit-content",
+                  padding: "15px",
+                  marginRight: "20px",
+                }}
+              >
+                <CheckIcon />
+              </Button>
+            </Tooltip>
+            <Tooltip title="Reset form">
+              <Button
+                variant="outlined"
+                sx={{ width: "fit-content", padding: "15px" }}
+                onClick={onReset}
+              >
+                <RestartAltIcon />
+              </Button>
+            </Tooltip>
+          </FormGroup>
+        </FormControl>
+      </Box>
+    </Card>
   );
 }

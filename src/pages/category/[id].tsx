@@ -41,8 +41,8 @@ const Category = () => {
     <Layout
       pageTitle={isUpdate ? categoryData.name : "Create a new set of data"}
     >
-      <ValueForm />
       <Chart />
+      <ValueForm />
       <ValuesTable />
     </Layout>
   );

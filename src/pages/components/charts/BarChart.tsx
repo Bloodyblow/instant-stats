@@ -8,7 +8,7 @@ export default function BarChart({ category }: { category: CategoryExtend }) {
   return (
     <Box
       sx={{
-        height: "200px",
+        height: "400px",
         width: "100%",
         backgroundColor: "background.paper",
       }}
