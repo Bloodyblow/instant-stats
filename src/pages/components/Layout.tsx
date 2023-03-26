@@ -3,6 +3,8 @@ import Box from "@mui/material/Box";
 import styles from "./Layout.module.css";
 import AnimatedTitle from "./AnimatedTitle";
 import { Stack } from "@mui/system";
+import { AppBar, Toolbar, Typography } from "@mui/material";
+import Navbar from "./Navbar";
 
 export default function Layout({
   pageTitle,
@@ -22,6 +24,7 @@ export default function Layout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Navbar />
 
       <main className={styles.main}>
         <Stack
@@ -35,7 +38,10 @@ export default function Layout({
           }}
           alignItems="center"
         >
-          <AnimatedTitle title={pageTitle} />
+          {/* <AnimatedTitle title={pageTitle} /> */}
+          <Typography variant="h1" component="h1">
+            {pageTitle}
+          </Typography>
           <Box
             sx={{
               gcolor: "background.paper",

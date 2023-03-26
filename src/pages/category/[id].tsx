@@ -44,8 +44,6 @@ const Category = () => {
       <ValueForm />
       <Chart />
       <ValuesTable />
-
-      <Link href="/">Go back</Link>
     </Layout>
   );
 };

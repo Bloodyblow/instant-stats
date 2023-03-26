@@ -50,7 +50,6 @@ export default function ValueForm() {
       >
         Add data
       </Typography>
-      ;
       <FormControl sx={{ m: 1, width: "100%" }}>
         <FormGroup
           row
