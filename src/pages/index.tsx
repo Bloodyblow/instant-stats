@@ -1,27 +1,15 @@
 import { Inter } from "@next/font/google";
 import Router from "next/router";
 import CategoriesList from "./components/CategoriesList";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import PieChartIcon from "@mui/icons-material/PieChart";
 import Button from "@mui/material/Button";
 import Layout from "./components/Layout";
-import { Category } from "@/app/types";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/store";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const categories: Category[] = [
-    {
-      id: 1,
-      name: "Bar chart",
-      icon: <BarChartIcon />,
-    },
-    {
-      id: 2,
-      name: "Pie chart",
-      icon: <PieChartIcon />,
-    },
-  ];
+  const categories = useSelector((state: RootState) => state.app.categories);
 
   return (
     <Layout pageTitle="Instant stats">

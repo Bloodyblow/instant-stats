@@ -14,11 +14,36 @@ import MenuItem from "@mui/material/MenuItem";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import BarChart from "@mui/icons-material/BarChart";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/app/store";
+import { setCategories } from "@/app/appSlice";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import { useEffect } from "react";
+import PieChartIcon from "@mui/icons-material/PieChart";
+import { Category } from "@/app/types";
 
-const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function ResponsiveAppBar() {
+  const dispatch = useDispatch();
+
+  const categories = useSelector((state: RootState) => state.app.categories);
+  React.useEffect(() => {
+    const cats = [
+      {
+        id: 1,
+        name: "Bar chart",
+        icon: <BarChartIcon />,
+      },
+      {
+        id: 2,
+        name: "Pie chart",
+        icon: <PieChartIcon />,
+      },
+    ];
+    dispatch(setCategories(cats));
+  }, []);
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -78,45 +103,53 @@ function ResponsiveAppBar() {
 
           {/* Mobile */}
           {!isHomePage && (
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              <MenuItem disabled key="go-to">
-                Go to chart
-              </MenuItem>
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: "block", md: "none" },
+                  "& .MuiList-root": {
+                    backgroundColor: "primary.main",
+                  },
+                }}
+              >
+                <MenuItem disabled key="go-to">
+                  Go to chart
                 </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+                {categories.map((category: Category) => (
+                  <MenuItem key={category.id} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">
+                      {category.icon}
+                      <span style={{ marginLeft: ".5rem" }}>
+                        {category.name}
+                      </span>
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
           )}
 
           {/* Mobile */}
@@ -153,10 +186,20 @@ function ResponsiveAppBar() {
                     >
                       Go to chart
                     </Button>
-                    <Menu {...bindMenu(popupState)}>
-                      {pages.map((page) => (
-                        <MenuItem onClick={popupState.close} key={page}>
-                          {page}
+                    <Menu
+                      {...bindMenu(popupState)}
+                      sx={{
+                        "& .MuiList-root": {
+                          backgroundColor: "primary.main",
+                        },
+                      }}
+                    >
+                      {categories.map((category) => (
+                        <MenuItem onClick={popupState.close} key={category.id}>
+                          {category.icon}
+                          <span style={{ marginLeft: ".5rem" }}>
+                            {category.name}
+                          </span>
                         </MenuItem>
                       ))}
                     </Menu>
