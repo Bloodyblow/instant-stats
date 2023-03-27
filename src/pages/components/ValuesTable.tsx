@@ -23,10 +23,7 @@ export default function ValuesTable() {
       sx={{
         width: "100%",
         maxHeight: "300px",
-        overflowY: "hidden",
-        "&:hover": {
-          overflowY: "auto",
-        },
+        overflowY: "auto",
       }}
     >
       <Table aria-label="simple table">
