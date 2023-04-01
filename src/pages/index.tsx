@@ -38,7 +38,11 @@ export default function Home() {
           onClick={(id) => Router.push(`category/${id}`)}
           categories={categories}
         />
-        <Button variant="contained" sx={{ width: "100%", alignSelf: "end" }}>
+        <Button
+          variant="contained"
+          sx={{ width: "100%", alignSelf: "end" }}
+          onClick={() => Router.push("category/new")}
+        >
           Add a category
         </Button>
       </Card>
