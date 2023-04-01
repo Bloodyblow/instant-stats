@@ -1,12 +1,14 @@
 {
   "name": "instant-stats",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prisma:seed": "npx ts-node --esm prisma/seed.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -17,6 +19,7 @@
     "@next/font": "13.1.6",
     "@nivo/bar": "^0.80.0",
     "@nivo/core": "^0.80.0",
+    "@prisma/client": "^4.12.0",
     "@reduxjs/toolkit": "^1.9.2",
     "@types/node": "18.11.18",
     "@types/react": "18.0.27",
@@ -30,5 +33,8 @@
     "react-dom": "18.2.0",
     "react-redux": "^8.0.5",
     "typescript": "4.9.5"
+  },
+  "devDependencies": {
+    "prisma": "^4.12.0"
   }
 }
