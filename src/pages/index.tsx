@@ -1,17 +1,22 @@
-import { Inter } from "@next/font/google";
 import Router from "next/router";
 import CategoriesList from "./components/CategoriesList";
 import Button from "@mui/material/Button";
 import Layout from "./components/Layout";
-import { useSelector } from "react-redux";
-import { RootState } from "@/app/store";
 import { Card, Typography } from "@mui/material";
+import { GetServerSideProps } from "next";
+import prisma from "prisma/prisma";
+import { Category } from "@/app/types";
 
-const inter = Inter({ subsets: ["latin"] });
+export const getServerSideProps: GetServerSideProps = async () => {
+  const categories = await prisma.category.findMany();
+  return {
+    props: { categories },
+    revalidate: 10,
+  };
+};
 
-export default function Home() {
-  const categories = useSelector((state: RootState) => state.app.categories);
-
+export default function Home({ categories }: { categories: Category[] }) {
+  console.log(categories, "categories in homepage");
   return (
     <Layout pageTitle="Instant stats">
       <Typography sx={{ marginTop: "3rem" }}>
@@ -34,10 +39,12 @@ export default function Home() {
           marginTop: "1rem",
         }}
       >
-        <CategoriesList
-          onClick={(id) => Router.push(`category/${id}`)}
-          categories={categories}
-        />
+        {categories && categories.length > 0 && (
+          <CategoriesList
+            onClick={(id) => Router.push(`category/${id}`)}
+            categories={categories}
+          />
+        )}
         <Button
           variant="contained"
           sx={{ width: "100%", alignSelf: "end" }}
