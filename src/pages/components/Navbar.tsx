@@ -47,6 +47,10 @@ function Navbar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const handleClickOnCategory = (id: number, popupState: any) => {
+    popupState.close();
+    router.push(`/category/${id}`);
+  };
 
   const isHomePage = router.pathname === "/";
 
@@ -178,7 +182,9 @@ function Navbar() {
                       {categories?.length > 0 &&
                         categories.map((category: any) => (
                           <MenuItem
-                            onClick={popupState.close}
+                            onClick={() =>
+                              handleClickOnCategory(category.id, popupState)
+                            }
                             key={category.id}
                           >
                             {category.icon}
