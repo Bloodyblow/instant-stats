@@ -14,35 +14,16 @@ import MenuItem from "@mui/material/MenuItem";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import BarChart from "@mui/icons-material/BarChart";
 import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/app/store";
-import { setCategories } from "@/app/appSlice";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import { useEffect } from "react";
-import PieChartIcon from "@mui/icons-material/PieChart";
 import { Category } from "@/app/types";
+import { useQuery } from "@tanstack/react-query";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-function ResponsiveAppBar() {
-  const dispatch = useDispatch();
-
-  const categories = useSelector((state: RootState) => state.app.categories);
-  React.useEffect(() => {
-    const cats = [
-      {
-        id: 1,
-        name: "Bar chart",
-        icon: <BarChartIcon />,
-      },
-      {
-        id: 2,
-        name: "Pie chart",
-        icon: <PieChartIcon />,
-      },
-    ];
-    dispatch(setCategories(cats));
-  }, []);
+function Navbar() {
+  const { data: categories } = useQuery({
+    queryKey: ["categories"],
+    queryFn: () => fetch("/api/categories").then((res) => res.json()),
+  });
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -60,11 +41,9 @@ function ResponsiveAppBar() {
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
-
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
@@ -114,41 +93,43 @@ function ResponsiveAppBar() {
               >
                 <MenuIcon />
               </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: "block", md: "none" },
-                  "& .MuiList-root": {
-                    backgroundColor: "primary.main",
-                  },
-                }}
-              >
-                <MenuItem disabled key="go-to">
-                  Go to chart
-                </MenuItem>
-                {categories.map((category: Category) => (
-                  <MenuItem key={category.id} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">
-                      {category.icon}
-                      <span style={{ marginLeft: ".5rem" }}>
-                        {category.name}
-                      </span>
-                    </Typography>
+              {categories?.length > 0 && (
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorElNav}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                  }}
+                  open={Boolean(anchorElNav)}
+                  onClose={handleCloseNavMenu}
+                  sx={{
+                    display: { xs: "block", md: "none" },
+                    "& .MuiList-root": {
+                      backgroundColor: "primary.main",
+                    },
+                  }}
+                >
+                  <MenuItem disabled key="go-to">
+                    Go to chart
                   </MenuItem>
-                ))}
-              </Menu>
+                  {categories.map((category: Category) => (
+                    <MenuItem key={category.id} onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">
+                        {category.icon}
+                        <span style={{ marginLeft: ".5rem" }}>
+                          {category.name}
+                        </span>
+                      </Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              )}
             </Box>
           )}
 
@@ -194,14 +175,18 @@ function ResponsiveAppBar() {
                         },
                       }}
                     >
-                      {categories.map((category) => (
-                        <MenuItem onClick={popupState.close} key={category.id}>
-                          {category.icon}
-                          <span style={{ marginLeft: ".5rem" }}>
-                            {category.name}
-                          </span>
-                        </MenuItem>
-                      ))}
+                      {categories?.length > 0 &&
+                        categories.map((category: any) => (
+                          <MenuItem
+                            onClick={popupState.close}
+                            key={category.id}
+                          >
+                            {category.icon}
+                            <span style={{ marginLeft: ".5rem" }}>
+                              {category.name}
+                            </span>
+                          </MenuItem>
+                        ))}
                     </Menu>
                   </React.Fragment>
                 )}
@@ -213,7 +198,7 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src="" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -244,4 +229,4 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
-export default ResponsiveAppBar;
+export default Navbar;

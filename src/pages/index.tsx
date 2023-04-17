@@ -9,14 +9,10 @@ import { Category } from "@/app/types";
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const categories = await prisma.category.findMany();
-  return {
-    props: { categories },
-    revalidate: 10,
-  };
+  return { props: { categories } };
 };
 
 export default function Home({ categories }: { categories: Category[] }) {
-  console.log(categories, "categories in homepage");
   return (
     <Layout pageTitle="Instant stats">
       <Typography sx={{ marginTop: "3rem" }}>
