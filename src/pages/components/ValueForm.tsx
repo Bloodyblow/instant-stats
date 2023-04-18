@@ -17,6 +17,12 @@ import {
 } from "@mui/material";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 
+const textFieldSx = {
+  color: "secondary.contrastText",
+  flexGrow: 1,
+  margin: "0 20px",
+};
+
 export default function ValueForm() {
   const [date, setDate] = useState<Dayjs | null>(null);
   const [value, setValue] = useState<string | null>(null);
@@ -71,11 +77,7 @@ export default function ValueForm() {
               label="Value"
               variant="outlined"
               type="number"
-              sx={{
-                color: "secondary.contrastText",
-                flexGrow: 1,
-                margin: "0 20px",
-              }}
+              sx={textFieldSx}
               value={value || ""}
               onChange={(e) => setValue(e.target.value)}
             />
