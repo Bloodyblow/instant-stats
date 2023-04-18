@@ -10,7 +10,7 @@ const userData: Prisma.UserCreateInput[] = [
         {
           name: "Work",
           icon: "work",
-          units: "hours",
+          unit: "hours",
         },
       ],
     },

@@ -4,7 +4,7 @@ export type Value = {
   value: number;
 };
 
-export type Category = { id: number; name: string; icon: JSX.Element };
+export type Category = { id: string; name: string; icon: string };
 
 export type CategoryExtend = Category & {
   unit: string;
@@ -14,8 +14,8 @@ export type CategoryExtend = Category & {
 export type Message = {
   text: string;
   type: "success" | "error" | "info";
-}
+};
 
 export type StoredMessage = Message & {
   id: number;
-}
+};

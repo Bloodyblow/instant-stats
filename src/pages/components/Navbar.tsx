@@ -16,13 +16,14 @@ import BarChart from "@mui/icons-material/BarChart";
 import { useRouter } from "next/router";
 import { Category } from "@/app/types";
 import { useQuery } from "@tanstack/react-query";
+import { getCategories } from "@/app/apiService";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function Navbar() {
   const { data: categories } = useQuery({
     queryKey: ["categories"],
-    queryFn: () => fetch("/api/categories").then((res) => res.json()),
+    queryFn: () => getCategories(),
   });
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(

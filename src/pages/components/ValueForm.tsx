@@ -16,7 +16,7 @@ import {
   Typography,
 } from "@mui/material";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
-
+import { useSelector } from "react-redux";
 const textFieldSx = {
   color: "secondary.contrastText",
   flexGrow: 1,
@@ -24,6 +24,8 @@ const textFieldSx = {
 };
 
 export default function ValueForm() {
+  const { category } = useSelector((state: any) => state.category);
+  console.log(category);
   const [date, setDate] = useState<Dayjs | null>(null);
   const [value, setValue] = useState<string | null>(null);
 
@@ -74,7 +76,7 @@ export default function ValueForm() {
             </LocalizationProvider>
             <TextField
               id="outlined-basic"
-              label="Value"
+              label={`Value (${category?.unit})`}
               variant="outlined"
               type="number"
               sx={textFieldSx}

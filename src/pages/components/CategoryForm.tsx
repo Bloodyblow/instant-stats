@@ -6,6 +6,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
 import {
   Button,
   FormControl,
@@ -17,22 +18,43 @@ import {
   Stack,
 } from "@mui/material";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import { CategoryExtend } from "@/app/types";
 
-export const textFieldSx = {
+const textFieldSx = {
   color: "secondary.contrastText",
   flexGrow: 1,
   margin: "10px 0",
   width: "100%",
 };
 
-export default function CatergoryForm() {
-  const [name, setName] = useState<string | null>(null);
-  const [unit, setUnit] = useState<string | null>(null);
-  const [icon, setIcon] = useState<string | null>(null);
+const buttonSx = {
+  width: "fit-content",
+  padding: "15px",
+  marginRight: "10px",
+  height: "fit-content",
+};
+
+export default function CatergoryForm({
+  initialValues,
+  onFinish,
+  onCancel,
+}: {
+  initialValues?: Partial<CategoryExtend>;
+  onFinish: (values: Partial<CategoryExtend>) => void;
+  onCancel: () => void;
+}) {
+  const [name, setName] = useState<string | null>(initialValues?.name || null);
+  const [unit, setUnit] = useState<string | null>(initialValues?.unit || null);
+  const [icon, setIcon] = useState<string | null>(initialValues?.icon || null);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(name, unit, icon);
+    onFinish({
+      name: name || "",
+      unit: unit || "",
+      icon: icon || "",
+    });
   };
 
   const onReset = () => {
@@ -43,11 +65,6 @@ export default function CatergoryForm() {
 
   return (
     <Card sx={{ width: "100%" }}>
-      {/* <CardHeader
-        title="Create category"
-        sx={{ backgroundColor: "secondary.main" }}
-      ></CardHeader> */}
-
       <Box
         component="form"
         sx={{
@@ -102,26 +119,21 @@ export default function CatergoryForm() {
                   variant="contained"
                   type="submit"
                   sx={{
-                    width: "fit-content",
-                    padding: "15px",
+                    ...buttonSx,
                     marginRight: "10px",
-                    height: "fit-content",
                   }}
                 >
                   <CheckIcon />
                 </Button>
               </Tooltip>
               <Tooltip title="Reset form">
-                <Button
-                  variant="outlined"
-                  sx={{
-                    width: "fit-content",
-                    padding: "15px",
-                    height: "fit-content",
-                  }}
-                  onClick={onReset}
-                >
+                <Button variant="outlined" sx={buttonSx} onClick={onReset}>
                   <RestartAltIcon />
+                </Button>
+              </Tooltip>
+              <Tooltip title="Cancel">
+                <Button variant="outlined" sx={buttonSx} onClick={onCancel}>
+                  <CloseIcon />
                 </Button>
               </Tooltip>
             </Stack>

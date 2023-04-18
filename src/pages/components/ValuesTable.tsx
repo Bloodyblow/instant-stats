@@ -15,7 +15,8 @@ import { useSelector } from "react-redux";
 
 export default function ValuesTable() {
   const { category } = useSelector((state: RootState) => state.category);
-  if (!category) return null;
+  if (!category || !category.values || category.values.length === 0)
+    return null;
   const { values, unit } = category!!;
   return (
     <TableContainer
@@ -35,7 +36,7 @@ export default function ValuesTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {values.map((value: Value) => (
+          {(values || []).map((value: Value) => (
             <TableRow
               key={value.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

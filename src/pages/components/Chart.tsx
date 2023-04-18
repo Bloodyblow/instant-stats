@@ -5,7 +5,8 @@ import BarChart from "./charts/BarChart";
 
 export default function Chart() {
   const { category } = useSelector((state: RootState) => state.category);
-  if (!category) return null;
+  if (!category || !category.values || category.values.length === 0)
+    return null;
 
   return (
     <Card

@@ -6,51 +6,63 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import { CategoryExtend } from "@/app/types";
 import ValuesTable from "../components/ValuesTable";
 import ValueForm from "../components/ValueForm";
-import { useDispatch } from "react-redux";
-import { setCategory } from "./categorySlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setCategory, setEditCategory } from "./categorySlice";
 import Chart from "../components/Chart";
 import { useQuery } from "@tanstack/react-query";
 import LinearProgress from "@mui/material/LinearProgress";
+import { getCategory } from "@/app/apiService";
+import { RootState } from "@/app/store";
+import CategoryForm from "../components/CategoryForm";
+import { GetServerSideProps } from "next";
+import { Context } from "vm";
+import prisma from "prisma/prisma";
 
-const Category = () => {
+export const getServerSideProps: GetServerSideProps = async (
+  context: Context
+) => {
+  const { id } = context.params;
+  const categoryData = await prisma.category.findUnique({
+    where: {
+      id: Number(id),
+    },
+  });
+  return { props: { categoryData } };
+};
+
+const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
+  console.log("categoryData", categoryData);
   const router = useRouter();
   const dispatch = useDispatch();
-
-  const { id } = router.query;
-  // const categoryData: CategoryExtend = {
-  //   id: 1,
-  //   name: "Bar chart",
-  //   icon: <BarChartIcon />,
-  //   unit: "€",
-  //   values: [
-  //     { id: 1, date: "2021-01-01", value: 10 },
-  //     { id: 2, date: "2021-01-02", value: 20 },
-  //     { id: 3, date: "2021-01-03", value: 30 },
-  //     { id: 4, date: "2021-01-04", value: 40 },
-  //     { id: 5, date: "2021-01-05", value: 50 },
-  //   ],
-  // };
-  const {
-    data: categoryData,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["category", id],
-    queryFn: () => fetch(`/api/categories/${id}`).then((res) => res.json()),
-  });
+  const { editCategory } = useSelector((state: RootState) => state.category);
 
   useEffect(() => {
-    if (id !== undefined) {
-      dispatch(setCategory(categoryData));
-    }
-  }, [categoryData, dispatch, id]);
+    dispatch(setCategory(categoryData));
+  }, [categoryData, dispatch]);
 
-  const isUpdate = id !== "new";
-  if (isLoading) return <LinearProgress color="success" />;
-  const pageTitle = isUpdate ? categoryData.name : "Create a new set of data";
+  // if (isLoading) return <LinearProgress color="success" />;
+  const pageTitle = categoryData?.name || "Get my data"; // TODO: add title
+
+  const onFinishCategoryForm = (category: Partial<CategoryExtend>) => {
+    // save category + go to category page
+    console.log(category);
+    dispatch(setEditCategory(false));
+  };
+
+  const onCancelCategoryForm = () => {
+    dispatch(setEditCategory(false));
+  };
 
   return (
     <Layout pageTitle={pageTitle}>
+      {editCategory && (
+        <CategoryForm
+          initialValues={categoryData}
+          onCancel={onCancelCategoryForm}
+          onFinish={onFinishCategoryForm}
+        />
+      )}
+
       <Chart />
       <ValueForm />
       <ValuesTable />

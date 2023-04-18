@@ -4,10 +4,12 @@ import { CategoryExtend, Value } from "@/app/types";
 
 export interface CategoryState {
   category: CategoryExtend | null;
+  editCategory: boolean;
 }
 
 const initialState: CategoryState = {
   category: null,
+  editCategory: false,
 };
 
 export const categorySlice = createSlice({
@@ -41,6 +43,9 @@ export const categorySlice = createSlice({
         state.category.name = action.payload;
       }
     },
+    setEditCategory: (state, action: PayloadAction<boolean>) => {
+      state.editCategory = action.payload;
+    },
   },
 });
 
@@ -50,6 +55,7 @@ export const {
   removeValue,
   updateValue,
   setCategoryName,
+  setEditCategory,
 } = categorySlice.actions;
 
 export default categorySlice.reducer;
