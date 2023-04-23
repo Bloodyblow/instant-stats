@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Layout from "../components/Layout";
 import BarChartIcon from "@mui/icons-material/BarChart";
-import { CategoryExtend } from "@/app/types";
+import { CategoryExtend, Value, ValueFormData } from "@/app/types";
 import ValuesTable from "../components/ValuesTable";
 import ValueForm from "../components/ValueForm";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,22 +26,33 @@ export const getServerSideProps: GetServerSideProps = async (
     where: {
       id: Number(id),
     },
+    include: {
+      values: true,
+    },
   });
   return { props: { categoryData } };
 };
 
 const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
-  console.log("categoryData", categoryData);
-  const router = useRouter();
   const dispatch = useDispatch();
   const { editCategory } = useSelector((state: RootState) => state.category);
 
-  useEffect(() => {
-    dispatch(setCategory(categoryData));
-  }, [categoryData, dispatch]);
+  const {
+    data: category,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["category"],
+    queryFn: () => getCategory(categoryData.id),
+    initialData: categoryData,
+    enabled: false,
+  });
 
-  // if (isLoading) return <LinearProgress color="success" />;
-  const pageTitle = categoryData?.name || "Get my data"; // TODO: add title
+  useEffect(() => {
+    dispatch(setCategory(category));
+  }, [category, dispatch]);
+
+  const pageTitle = category?.name || "Get my data"; // TODO: add title
 
   const onFinishCategoryForm = (category: Partial<CategoryExtend>) => {
     // save category + go to category page
@@ -53,18 +64,23 @@ const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
     dispatch(setEditCategory(false));
   };
 
+  const onFinishAddValue = () => {
+    console.log("Value added");
+    refetch();
+  };
+
   return (
     <Layout pageTitle={pageTitle}>
       {editCategory && (
         <CategoryForm
-          initialValues={categoryData}
+          initialValues={category}
           onCancel={onCancelCategoryForm}
           onFinish={onFinishCategoryForm}
         />
       )}
 
       <Chart />
-      <ValueForm />
+      <ValueForm onFinish={onFinishAddValue} />
       <ValuesTable />
     </Layout>
   );

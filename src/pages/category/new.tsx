@@ -2,34 +2,20 @@ import { useRouter } from "next/router";
 import React from "react";
 import Layout from "../components/Layout";
 import CategoryForm from "../components/CategoryForm";
-import { CategoryExtend } from "@/app/types";
+import { CategoryExtend, CategoryFormData } from "@/app/types";
 import { useMutation } from "@tanstack/react-query";
 import { createCategory } from "@/app/apiService";
 
 const Category = () => {
   const router = useRouter();
-  const {
-    data,
-    error,
-    isError,
-    isIdle,
-    isLoading,
-    isPaused,
-    isSuccess,
-    failureCount,
-    failureReason,
-    mutate,
-    mutateAsync,
-    reset,
-    status,
-  } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: createCategory,
-    onSuccess: (category: Partial<CategoryExtend>) => {
+    onSuccess: (category: Omit<CategoryExtend, "values">) => {
       router.push("/category/" + category.id);
     },
   });
 
-  const onFinish = (category: Partial<CategoryExtend>) => {
+  const onFinish = (category: CategoryFormData) => {
     mutate(category);
   };
 

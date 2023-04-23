@@ -13,25 +13,40 @@ import {
   Tooltip,
   Card,
   CardHeader,
-  Typography,
 } from "@mui/material";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import { useSelector } from "react-redux";
+import { ValueFormData } from "@/app/types";
+import { RootState } from "@/app/store";
+import { useMutation } from "@tanstack/react-query";
+import { addValue } from "@/app/apiService";
 const textFieldSx = {
   color: "secondary.contrastText",
   flexGrow: 1,
   margin: "0 20px",
 };
 
-export default function ValueForm() {
-  const { category } = useSelector((state: any) => state.category);
-  console.log(category);
+export default function ValueForm({ onFinish }: { onFinish: () => void }) {
+  const { category } = useSelector((state: RootState) => state.category);
   const [date, setDate] = useState<Dayjs | null>(null);
   const [value, setValue] = useState<string | null>(null);
 
+  const { mutate } = useMutation({
+    mutationFn: addValue,
+    onSuccess: (value: ValueFormData) => {
+      onReset();
+    },
+  });
+
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(date, value);
+    if (!category || !date || !value) return;
+    mutate({
+      date: date?.format("YYYY-MM-DD"),
+      value: parseInt(value),
+      categoryId: category.id,
+    });
+    onFinish();
   };
 
   const onReset = () => {

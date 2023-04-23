@@ -98,7 +98,7 @@ function Navbar() {
               >
                 <MenuIcon />
               </IconButton>
-              {categories?.length > 0 && (
+              {categories && categories?.length > 0 && (
                 <Menu
                   id="menu-appbar"
                   anchorEl={anchorElNav}
@@ -180,7 +180,8 @@ function Navbar() {
                         },
                       }}
                     >
-                      {categories?.length > 0 &&
+                      {categories?.length &&
+                        categories?.length > 0 &&
                         categories.map((category: any) => (
                           <MenuItem
                             onClick={() =>

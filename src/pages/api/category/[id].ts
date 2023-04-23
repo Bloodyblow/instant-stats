@@ -13,6 +13,9 @@ export default async function handler(
         where: {
           id: Number(id),
         },
+        include: {
+          values: true,
+        },
       });
       return res.status(200).json(category);
     default:

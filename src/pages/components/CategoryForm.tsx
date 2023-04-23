@@ -1,10 +1,6 @@
 import React, { useState, FormEvent } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { Dayjs } from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import {
@@ -13,12 +9,10 @@ import {
   FormGroup,
   Tooltip,
   Card,
-  CardHeader,
-  Typography,
   Stack,
 } from "@mui/material";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
-import { CategoryExtend } from "@/app/types";
+import { CategoryExtend, CategoryFormData } from "@/app/types";
 
 const textFieldSx = {
   color: "secondary.contrastText",
@@ -40,7 +34,7 @@ export default function CatergoryForm({
   onCancel,
 }: {
   initialValues?: Partial<CategoryExtend>;
-  onFinish: (values: Partial<CategoryExtend>) => void;
+  onFinish: (values: CategoryFormData) => void;
   onCancel: () => void;
 }) {
   const [name, setName] = useState<string | null>(initialValues?.name || null);
