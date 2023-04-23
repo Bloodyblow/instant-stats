@@ -3,17 +3,37 @@ import React from "react";
 import Layout from "../components/Layout";
 import CategoryForm from "../components/CategoryForm";
 import { CategoryExtend } from "@/app/types";
+import { useMutation } from "@tanstack/react-query";
+import { createCategory } from "@/app/apiService";
 
 const Category = () => {
   const router = useRouter();
+  const {
+    data,
+    error,
+    isError,
+    isIdle,
+    isLoading,
+    isPaused,
+    isSuccess,
+    failureCount,
+    failureReason,
+    mutate,
+    mutateAsync,
+    reset,
+    status,
+  } = useMutation({
+    mutationFn: createCategory,
+    onSuccess: (category: Partial<CategoryExtend>) => {
+      router.push("/category/" + category.id);
+    },
+  });
 
   const onFinish = (category: Partial<CategoryExtend>) => {
-    // save category + go to category page
-    console.log(category);
-    router.push("/category/" + category.id);
+    mutate(category);
   };
 
-  const onCancel = () => {
+  const onCancel: () => void = () => {
     router.push("/");
   };
 
