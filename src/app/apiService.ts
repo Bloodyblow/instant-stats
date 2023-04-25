@@ -2,6 +2,7 @@ import {
   Category,
   CategoryExtend,
   CategoryFormData,
+  DeleteValueFormData,
   ValueFormData,
 } from "./types";
 
@@ -39,5 +40,14 @@ export const updateValue = (formData: ValueFormData) => {
     method: "PUT",
     headers,
     body: JSON.stringify(value),
+  }).then((res) => res.json());
+};
+
+export const deleteValue = (formData: DeleteValueFormData) => {
+  const { categoryId, valueId } = formData;
+  return fetch(`/api/value/${categoryId}`, {
+    method: "DELETE",
+    headers,
+    body: JSON.stringify({ valueId }),
   }).then((res) => res.json());
 };

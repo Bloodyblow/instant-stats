@@ -54,20 +54,10 @@ const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
 
   const pageTitle = category?.name || "Get my data"; // TODO: add title
 
-  const onFinishCategoryForm = (category: Partial<CategoryExtend>) => {
-    // save category + go to category page
-    console.log(category);
-    dispatch(setEditCategory(false));
-  };
-
-  const onCancelCategoryForm = () => {
-    dispatch(setEditCategory(false));
-  };
-
-  const onFinishAddValue = () => {
-    console.log("Value added");
-    refetch();
-  };
+  const onFinishCategoryForm = () => dispatch(setEditCategory(false));
+  const onCancelCategoryForm = () => dispatch(setEditCategory(false));
+  const onFinishAddValue = () => refetch();
+  const onValueDeleted = () => refetch();
 
   return (
     <Layout pageTitle={pageTitle}>
@@ -81,7 +71,7 @@ const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
 
       <Chart />
       <ValueForm onFinish={onFinishAddValue} />
-      <ValuesTable />
+      <ValuesTable onValueDeleted={onValueDeleted} />
     </Layout>
   );
 };

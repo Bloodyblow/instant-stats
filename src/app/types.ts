@@ -9,6 +9,11 @@ export type ValueFormData = Omit<Value, "id"> & {
   categoryId: number;
 };
 
+export type DeleteValueFormData = {
+  valueId: number;
+  categoryId: number;
+};
+
 export type Category = { id: number; name: string; icon: string };
 
 export type CategoryExtend = Category & {

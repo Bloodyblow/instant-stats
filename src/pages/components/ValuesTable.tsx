@@ -13,12 +13,27 @@ import EditIcon from "@mui/icons-material/Edit";
 import { RootState } from "@/app/store";
 import { useSelector, useDispatch } from "react-redux";
 import { setSelectedValue } from "../category/categorySlice";
+import { deleteValue } from "@/app/apiService";
+import { useMutation } from "@tanstack/react-query";
 
-export default function ValuesTable() {
-  const { category } = useSelector((state: RootState) => state.category);
+export default function ValuesTable({
+  onValueDeleted,
+}: {
+  onValueDeleted: () => void;
+}) {
   const dispatch = useDispatch();
+  const { category } = useSelector((state: RootState) => state.category);
+  const { mutate: mutateDeleteValue } = useMutation({
+    mutationFn: deleteValue,
+    onSuccess: (value: Value) => {
+      dispatch(setSelectedValue(null));
+      onValueDeleted();
+    },
+  });
+
   if (!category || !category.values || category.values.length === 0)
     return null;
+
   const { values, unit } = category!!;
   return (
     <TableContainer
@@ -59,8 +74,10 @@ export default function ValuesTable() {
                 <IconButton
                   aria-label="delete"
                   onClick={() => {
-                    // dispatch(deleteValue(value.id));
-                    console.log(value.id);
+                    mutateDeleteValue({
+                      valueId: value.id,
+                      categoryId: category.id,
+                    });
                   }}
                 >
                   <DeleteIcon />
