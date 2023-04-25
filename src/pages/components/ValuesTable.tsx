@@ -15,6 +15,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setSelectedValue } from "../category/categorySlice";
 import { deleteValue } from "@/app/apiService";
 import { useMutation } from "@tanstack/react-query";
+import ConfirmDialog from "./ConfirmDialog";
 
 export default function ValuesTable({
   onValueDeleted,
@@ -22,6 +23,8 @@ export default function ValuesTable({
   onValueDeleted: () => void;
 }) {
   const dispatch = useDispatch();
+  const [openConfirmDelete, setOpenConfirmDelete] = React.useState(false);
+  const [valueToDelete, setValueToDelete] = React.useState<Value | null>(null);
   const { category } = useSelector((state: RootState) => state.category);
   const { mutate: mutateDeleteValue } = useMutation({
     mutationFn: deleteValue,
@@ -35,58 +38,76 @@ export default function ValuesTable({
     return null;
 
   const { values, unit } = category!!;
+
+  const onCloseConfirmDialog = () => setOpenConfirmDelete(false);
+  const onConfirmDialog = () => {
+    setOpenConfirmDelete(false);
+    if (!valueToDelete) return;
+    mutateDeleteValue({
+      valueId: valueToDelete?.id,
+      categoryId: category.id,
+    });
+  };
+
   return (
-    <TableContainer
-      component={Paper}
-      sx={{
-        width: "100%",
-        maxHeight: "300px",
-        overflowY: "auto",
-      }}
-    >
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="left">Date</TableCell>
-            <TableCell align="left">Values&nbsp;({unit})</TableCell>
-            <TableCell align="left">Actions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {(values || []).map((value: Value) => (
-            <TableRow
-              key={value.id}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell align="left">{value.date}</TableCell>
-              <TableCell align="left">{value.value}</TableCell>
-              <TableCell align="left">
-                <IconButton
-                  aria-label="edit"
-                  color="primary"
-                  onClick={() => {
-                    dispatch(setSelectedValue(value));
-                    console.log(value.id);
-                  }}
-                >
-                  <EditIcon />
-                </IconButton>
-                <IconButton
-                  aria-label="delete"
-                  onClick={() => {
-                    mutateDeleteValue({
-                      valueId: value.id,
-                      categoryId: category.id,
-                    });
-                  }}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </TableCell>
+    <>
+      <TableContainer
+        component={Paper}
+        sx={{
+          width: "100%",
+          maxHeight: "300px",
+          overflowY: "auto",
+        }}
+      >
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="left">Date</TableCell>
+              <TableCell align="left">Values&nbsp;({unit})</TableCell>
+              <TableCell align="left">Actions</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {(values || []).map((value: Value) => (
+              <TableRow
+                key={value.id}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell align="left">{value.date}</TableCell>
+                <TableCell align="left">{value.value}</TableCell>
+                <TableCell align="left">
+                  <IconButton
+                    aria-label="edit"
+                    color="primary"
+                    onClick={() => {
+                      dispatch(setSelectedValue(value));
+                      console.log(value.id);
+                    }}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton
+                    aria-label="delete"
+                    onClick={() => {
+                      setOpenConfirmDelete(true);
+                      setValueToDelete(value);
+                    }}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <ConfirmDialog
+        open={openConfirmDelete}
+        onClose={onCloseConfirmDialog}
+        onConfirm={onConfirmDialog}
+        title="Delete value"
+        content={`Are you sure you want to delete the value ${valueToDelete?.value} at the date ${valueToDelete?.date}?`}
+      />
+    </>
   );
 }
