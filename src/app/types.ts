@@ -5,6 +5,7 @@ export type Value = {
 };
 
 export type ValueFormData = Omit<Value, "id"> & {
+  id?: number;
   categoryId: number;
 };
 

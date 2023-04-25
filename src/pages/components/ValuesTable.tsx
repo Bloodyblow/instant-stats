@@ -11,10 +11,12 @@ import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { RootState } from "@/app/store";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setSelectedValue } from "../category/categorySlice";
 
 export default function ValuesTable() {
   const { category } = useSelector((state: RootState) => state.category);
+  const dispatch = useDispatch();
   if (!category || !category.values || category.values.length === 0)
     return null;
   const { values, unit } = category!!;
@@ -48,7 +50,7 @@ export default function ValuesTable() {
                   aria-label="edit"
                   color="primary"
                   onClick={() => {
-                    // dispatch(editValue(value.id));
+                    dispatch(setSelectedValue(value));
                     console.log(value.id);
                   }}
                 >

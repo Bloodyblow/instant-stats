@@ -1,7 +1,7 @@
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, useEffect } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -14,12 +14,13 @@ import {
   Card,
   CardHeader,
 } from "@mui/material";
-import RestartAltIcon from "@mui/icons-material/RestartAlt";
-import { useSelector } from "react-redux";
+import ClearIcon from "@mui/icons-material/Clear";
+import { useDispatch, useSelector } from "react-redux";
 import { ValueFormData } from "@/app/types";
 import { RootState } from "@/app/store";
 import { useMutation } from "@tanstack/react-query";
-import { addValue } from "@/app/apiService";
+import { addValue, updateValue } from "@/app/apiService";
+import { setSelectedValue } from "../category/categorySlice";
 const textFieldSx = {
   color: "secondary.contrastText",
   flexGrow: 1,
@@ -28,11 +29,31 @@ const textFieldSx = {
 
 export default function ValueForm({ onFinish }: { onFinish: () => void }) {
   const { category } = useSelector((state: RootState) => state.category);
-  const [date, setDate] = useState<Dayjs | null>(null);
-  const [value, setValue] = useState<string | null>(null);
+  const { selectedValue } = useSelector((state: RootState) => state.category);
+  const dispatch = useDispatch();
+  const [date, setDate] = useState<Dayjs | null>(
+    selectedValue ? dayjs(selectedValue?.date) : null
+  );
+  const [value, setValue] = useState<number | null>(
+    selectedValue?.value || null
+  );
 
-  const { mutate } = useMutation({
+  useEffect(() => {
+    if (selectedValue) {
+      setDate(dayjs(selectedValue?.date));
+      setValue(selectedValue?.value);
+    }
+  }, [selectedValue]);
+
+  const { mutate: mutateCreateValue } = useMutation({
     mutationFn: addValue,
+    onSuccess: (value: ValueFormData) => {
+      onReset();
+    },
+  });
+
+  const { mutate: mutateUpdateValue } = useMutation({
+    mutationFn: updateValue,
     onSuccess: (value: ValueFormData) => {
       onReset();
     },
@@ -41,17 +62,33 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!category || !date || !value) return;
-    mutate({
+    const data = {
       date: date?.format("YYYY-MM-DD"),
-      value: parseInt(value),
+      value,
       categoryId: category.id,
-    });
+    };
+
+    if (selectedValue) {
+      mutateUpdateValue({
+        ...data,
+        id: selectedValue.id,
+      });
+    } else {
+      mutateCreateValue(data);
+    }
     onFinish();
   };
 
   const onReset = () => {
     setDate(null);
     setValue(null);
+    if (selectedValue) {
+      dispatch(setSelectedValue(null));
+    }
+  };
+
+  const onCancel = () => {
+    onReset();
   };
 
   return (
@@ -96,7 +133,7 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
               type="number"
               sx={textFieldSx}
               value={value || ""}
-              onChange={(e) => setValue(e.target.value)}
+              onChange={(e) => setValue(parseInt(e.target.value))}
             />
             <Tooltip title="Add data">
               <Button
@@ -117,7 +154,7 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
                 sx={{ width: "fit-content", padding: "15px" }}
                 onClick={onReset}
               >
-                <RestartAltIcon />
+                <ClearIcon />
               </Button>
             </Tooltip>
           </FormGroup>

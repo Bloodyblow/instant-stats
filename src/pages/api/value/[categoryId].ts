@@ -7,8 +7,8 @@ export default async function handler(
   res: NextApiResponse<Value | null>
 ) {
   const method = req.method;
+  const { categoryId } = req.query;
   if (method === "POST") {
-    const { categoryId } = req.query;
     const { date, value } = req.body;
     const newValue = await prisma.value.create({
       data: {
@@ -19,25 +19,18 @@ export default async function handler(
     });
     return res.status(200).json(newValue);
   } else if (method === "DELETE") {
-    const { valueId } = req.query;
+    const { valueId } = req.body;
     const deletedValue = await prisma.value.delete({
       where: { id: parseInt(valueId as string) },
     });
     return res.status(200).json(deletedValue);
   } else if (method === "PUT") {
-    const { valueId } = req.query;
-    const { date, value } = req.body;
+    const { date, value, id } = req.body;
     const updatedValue = await prisma.value.update({
-      where: { id: parseInt(valueId as string) },
+      where: { id: parseInt(id as string) },
       data: { date, value },
     });
     return res.status(200).json(updatedValue);
-  } else if (method === "GET") {
-    const { valueId } = req.query;
-    const value = await prisma.value.findUnique({
-      where: { id: parseInt(valueId as string) },
-    });
-    return res.status(200).json(value);
   } else {
     return res.status(404).json(null);
   }

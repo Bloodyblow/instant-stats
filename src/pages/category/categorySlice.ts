@@ -5,11 +5,13 @@ import { CategoryExtend, Value } from "@/app/types";
 export interface CategoryState {
   category: CategoryExtend | null;
   editCategory: boolean;
+  selectedValue: Value | null;
 }
 
 const initialState: CategoryState = {
   category: null,
   editCategory: false,
+  selectedValue: null,
 };
 
 export const categorySlice = createSlice({
@@ -46,6 +48,9 @@ export const categorySlice = createSlice({
     setEditCategory: (state, action: PayloadAction<boolean>) => {
       state.editCategory = action.payload;
     },
+    setSelectedValue: (state, action: PayloadAction<Value | null>) => {
+      state.selectedValue = action.payload;
+    },
   },
 });
 
@@ -56,6 +61,7 @@ export const {
   updateValue,
   setCategoryName,
   setEditCategory,
+  setSelectedValue,
 } = categorySlice.actions;
 
 export default categorySlice.reducer;
