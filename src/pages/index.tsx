@@ -43,7 +43,14 @@ export default function Home({ categories }: { categories: Category[] }) {
         )}
         <Button
           variant="contained"
-          sx={{ width: "100%", alignSelf: "end" }}
+          sx={{
+            width: "100%",
+            alignSelf: "end",
+            backgroundColor: "#16a18f",
+            "&:hover, &:active, &:focus": {
+              backgroundColor: "#1cc9b3",
+            },
+          }}
           onClick={() => Router.push("category/new")}
         >
           Add a category

@@ -18,7 +18,14 @@ export default function CategoriesList({
     <List sx={{ width: "100%" }}>
       {categories.map((item) => (
         <ListItem disablePadding key={item.id}>
-          <ListItemButton onClick={() => onClick(item.id)}>
+          <ListItemButton
+            onClick={() => onClick(item.id)}
+            sx={{
+              "&:hover": {
+                backgroundColor: "#e8ff0021",
+              },
+            }}
+          >
             <ListItemIcon>
               <CategoryIcon name={item.icon} />
             </ListItemIcon>
