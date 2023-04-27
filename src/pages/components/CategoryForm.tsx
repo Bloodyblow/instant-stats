@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import { CategoryExtend, CategoryFormData } from "@/app/types";
+import SelectIcon from "./SelectIcon";
 
 const textFieldSx = {
   color: "secondary.contrastText",
@@ -24,7 +25,6 @@ const textFieldSx = {
 const buttonSx = {
   width: "fit-content",
   padding: "15px",
-  marginRight: "10px",
   height: "fit-content",
 };
 
@@ -91,14 +91,9 @@ export default function CatergoryForm({
               value={unit || ""}
               onChange={(e) => setUnit(e.target.value)}
             />
-            <TextField
-              id="icon"
-              label="Icon"
-              variant="outlined"
-              type="text"
-              sx={textFieldSx}
-              value={icon || ""}
-              onChange={(e) => setIcon(e.target.value)}
+            <SelectIcon
+              selectedIconName={icon}
+              setSelectedIconName={(iconName) => setIcon(iconName)}
             />
             <Stack
               direction="row"
@@ -112,21 +107,29 @@ export default function CatergoryForm({
                 <Button
                   variant="contained"
                   type="submit"
-                  sx={{
-                    ...buttonSx,
-                    marginRight: "10px",
-                  }}
+                  color="secondary"
+                  sx={buttonSx}
                 >
                   <CheckIcon />
                 </Button>
               </Tooltip>
               <Tooltip title="Reset form">
-                <Button variant="outlined" sx={buttonSx} onClick={onReset}>
+                <Button
+                  variant="outlined"
+                  sx={buttonSx}
+                  onClick={onReset}
+                  color="info"
+                >
                   <RestartAltIcon />
                 </Button>
               </Tooltip>
               <Tooltip title="Cancel">
-                <Button variant="outlined" sx={buttonSx} onClick={onCancel}>
+                <Button
+                  variant="outlined"
+                  sx={buttonSx}
+                  onClick={onCancel}
+                  color="info"
+                >
                   <CloseIcon />
                 </Button>
               </Tooltip>

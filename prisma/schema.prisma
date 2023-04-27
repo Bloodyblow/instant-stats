@@ -19,9 +19,9 @@ model User {
 
 model Category {
   id     Int     @id @default(autoincrement())
-  name   String  @unique
+  name   String
   icon   String?
-  unit   String 
+  unit   String
   values Value[]
   user   User?   @relation(fields: [userId], references: [id])
   userId Int?

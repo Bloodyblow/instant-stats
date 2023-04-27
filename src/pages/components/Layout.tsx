@@ -9,7 +9,7 @@ export default function Layout({
   pageTitle,
   children,
 }: {
-  pageTitle: string;
+  pageTitle: string | React.ReactNode;
   children: React.ReactNode;
 }) {
   return (

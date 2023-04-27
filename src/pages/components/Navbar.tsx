@@ -17,6 +17,7 @@ import { useRouter } from "next/router";
 import { Category } from "@/app/types";
 import { useQuery } from "@tanstack/react-query";
 import { getCategories } from "@/app/apiService";
+import { CategoryIcon } from "./CategoryIcon";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -126,7 +127,7 @@ function Navbar() {
                   {categories.map((category: Category) => (
                     <MenuItem key={category.id} onClick={handleCloseNavMenu}>
                       <Typography textAlign="center">
-                        {category.icon}
+                        <CategoryIcon name={category.icon} />
                         <span style={{ marginLeft: ".5rem" }}>
                           {category.name}
                         </span>
@@ -189,7 +190,7 @@ function Navbar() {
                             }
                             key={category.id}
                           >
-                            {category.icon}
+                            <CategoryIcon name={category.icon} />
                             <span style={{ marginLeft: ".5rem" }}>
                               {category.name}
                             </span>

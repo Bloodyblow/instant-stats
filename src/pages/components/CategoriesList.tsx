@@ -5,6 +5,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { Category } from "@/app/types";
+import { CategoryIcon } from "./CategoryIcon";
 
 export default function CategoriesList({
   onClick,
@@ -18,7 +19,9 @@ export default function CategoriesList({
       {categories.map((item) => (
         <ListItem disablePadding key={item.id}>
           <ListItemButton onClick={() => onClick(item.id)}>
-            <ListItemIcon>{item.icon}</ListItemIcon>
+            <ListItemIcon>
+              <CategoryIcon name={item.icon} />
+            </ListItemIcon>
             <ListItemText primary={item.name} />
           </ListItemButton>
         </ListItem>

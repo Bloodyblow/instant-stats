@@ -17,6 +17,8 @@ import CategoryForm from "../components/CategoryForm";
 import { GetServerSideProps } from "next";
 import { Context } from "vm";
 import prisma from "prisma/prisma";
+import { CategoryIcon } from "../components/CategoryIcon";
+import { Box } from "@mui/material";
 
 export const getServerSideProps: GetServerSideProps = async (
   context: Context
@@ -52,7 +54,24 @@ const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
     dispatch(setCategory(category));
   }, [category, dispatch]);
 
-  const pageTitle = category?.name || "Get my data"; // TODO: add title
+  const pageTitle =
+    (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          "& svg": {
+            color: "#49c575",
+            height: "100%",
+            fontSize: "3rem",
+            marginRight: "10px",
+          },
+        }}
+      >
+        <CategoryIcon name={category.icon} />
+        {category?.name}
+      </Box>
+    ) || "Get my data"; // TODO: add title
 
   const onFinishCategoryForm = () => dispatch(setEditCategory(false));
   const onCancelCategoryForm = () => dispatch(setEditCategory(false));
