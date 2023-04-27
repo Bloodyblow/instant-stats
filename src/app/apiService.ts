@@ -24,6 +24,13 @@ export const createCategory = (category: CategoryFormData) =>
     body: JSON.stringify(category),
   }).then((res) => res.json());
 
+export const updateCategory = (category: CategoryFormData) =>
+  fetch(`/api/category/${category.id}`, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(category),
+  }).then((res) => res.json());
+
 // Values
 export const addValue = (formData: ValueFormData) => {
   const { categoryId, ...value } = formData;

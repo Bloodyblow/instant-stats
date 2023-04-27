@@ -21,7 +21,9 @@ export type CategoryExtend = Category & {
   values: Value[];
 };
 
-export type CategoryFormData = Omit<CategoryExtend, "id" | "values">;
+export type CategoryFormData = Omit<CategoryExtend, "id" | "values"> & {
+  id?: number;
+};
 
 export type Message = {
   text: string;

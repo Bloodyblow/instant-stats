@@ -43,11 +43,11 @@ export default function CatergoryForm({
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(name, unit, icon);
     onFinish({
       name: name || "",
       unit: unit || "",
       icon: icon || "",
+      ...(initialValues?.id && { id: initialValues.id }),
     });
   };
 

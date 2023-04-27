@@ -22,7 +22,7 @@ import { CategoryIcon } from "./CategoryIcon";
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const categoriesDropdownSx = {
-  transition: "background-color .5s ease-in-out",
+  transition: "background-color .3s ease-in-out",
   "&:hover": {
     backgroundColor: "#005d68",
   },

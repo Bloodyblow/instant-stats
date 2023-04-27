@@ -12,6 +12,15 @@ export default function SelectIcon({
   selectedIconName: string | null;
   setSelectedIconName: (iconName: string) => void;
 }) {
+  const getIconName = (): string => {
+    if (
+      selectedIconName &&
+      Object.keys(ICON_NAMES).includes(selectedIconName)
+    ) {
+      return `: ${ICON_NAMES[selectedIconName]}`;
+    }
+    return "";
+  };
   return (
     <Stack
       direction="column"
@@ -30,7 +39,7 @@ export default function SelectIcon({
       }}
     >
       <Typography sx={{ textTransform: "capitalize" }}>
-        Icon {selectedIconName && `: ${ICON_NAMES[selectedIconName]}`}
+        Icon {getIconName()}
       </Typography>
       <Stack
         direction="row"
