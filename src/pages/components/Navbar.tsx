@@ -21,6 +21,13 @@ import { CategoryIcon } from "./CategoryIcon";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
+const categoriesDropdownSx = {
+  transition: "background-color .5s ease-in-out",
+  "&:hover": {
+    backgroundColor: "#005d68",
+  },
+};
+
 function Navbar() {
   const { data: categories } = useQuery({
     queryKey: ["categories"],
@@ -125,7 +132,11 @@ function Navbar() {
                     Go to chart
                   </MenuItem>
                   {categories.map((category: Category) => (
-                    <MenuItem key={category.id} onClick={handleCloseNavMenu}>
+                    <MenuItem
+                      key={category.id}
+                      onClick={handleCloseNavMenu}
+                      sx={categoriesDropdownSx}
+                    >
                       <Typography textAlign="center">
                         <CategoryIcon name={category.icon} />
                         <span style={{ marginLeft: ".5rem" }}>
@@ -189,6 +200,7 @@ function Navbar() {
                               handleClickOnCategory(category.id, popupState)
                             }
                             key={category.id}
+                            sx={categoriesDropdownSx}
                           >
                             <CategoryIcon name={category.icon} />
                             <span style={{ marginLeft: ".5rem" }}>
