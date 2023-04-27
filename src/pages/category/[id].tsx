@@ -15,7 +15,7 @@ import { GetServerSideProps } from "next";
 import { Context } from "vm";
 import prisma from "prisma/prisma";
 import { CategoryIcon } from "../components/CategoryIcon";
-import { Box, Button, Stack, Tooltip } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import CategoryFormInModal from "../components/CategoryFormInModal";
 
 export const getServerSideProps: GetServerSideProps = async (
@@ -39,7 +39,7 @@ const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
 
   const {
     data: category,
-    isLoading,
+    isFetching,
     refetch,
   } = useQuery({
     queryKey: ["category"],
@@ -75,6 +75,11 @@ const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
 
   return (
     <Layout pageTitle={pageTitle}>
+      {isFetching && (
+        <div style={{ width: "100%", position: "absolute", top: "64px" }}>
+          <LinearProgress color="info" />
+        </div>
+      )}
       <Stack
         spacing={2}
         alignItems="center"

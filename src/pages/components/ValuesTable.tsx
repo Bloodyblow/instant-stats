@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Value } from "@/app/types";
-import { IconButton, Tooltip } from "@mui/material";
+import { IconButton, LinearProgress, Tooltip } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { RootState } from "@/app/store";
@@ -26,7 +26,7 @@ export default function ValuesTable({
   const [openConfirmDelete, setOpenConfirmDelete] = React.useState(false);
   const [valueToDelete, setValueToDelete] = React.useState<Value | null>(null);
   const { category } = useSelector((state: RootState) => state.category);
-  const { mutate: mutateDeleteValue } = useMutation({
+  const { mutate: mutateDeleteValue, isLoading } = useMutation({
     mutationFn: deleteValue,
     onSuccess: (value: Value) => {
       dispatch(setSelectedValue(null));
@@ -50,7 +50,15 @@ export default function ValuesTable({
   };
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        width: "100%",
+      }}
+    >
+      {isLoading && <LinearProgress color="secondary" />}
       <TableContainer
         component={Paper}
         sx={{
@@ -113,6 +121,6 @@ export default function ValuesTable({
         title="Delete value"
         content={`Are you sure you want to delete the value ${valueToDelete?.value} at the date ${valueToDelete?.date}?`}
       />
-    </>
+    </div>
   );
 }

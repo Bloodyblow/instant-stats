@@ -13,6 +13,7 @@ import {
   Tooltip,
   Card,
   CardHeader,
+  LinearProgress,
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,7 +46,7 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
     }
   }, [selectedValue]);
 
-  const { mutate: mutateCreateValue } = useMutation({
+  const { mutate: mutateCreateValue, isLoading } = useMutation({
     mutationFn: addValue,
     onSuccess: (value: ValueFormData) => {
       onReset();
@@ -87,16 +88,13 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
     }
   };
 
-  const onCancel = () => {
-    onReset();
-  };
-
   return (
     <Card sx={{ width: "100%" }}>
       <CardHeader
         title="Add data"
         sx={{ backgroundColor: "secondary.main" }}
       ></CardHeader>
+      {isLoading && <LinearProgress color="info" />}
 
       <Box
         component="form"
