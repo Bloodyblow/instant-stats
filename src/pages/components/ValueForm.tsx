@@ -143,6 +143,12 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
                   width: "fit-content",
                   padding: "15px",
                   marginRight: "20px",
+                  backgroundColor: "#d7c702",
+                  transition: "all 0.3s ease",
+                  "&:hover, &:active, &:focus": {
+                    backgroundColor: "#dc8100",
+                  },
+                  color: "primary.main",
                 }}
               >
                 <CheckIcon />
@@ -153,6 +159,7 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
                 variant="outlined"
                 sx={{ width: "fit-content", padding: "15px" }}
                 onClick={onReset}
+                color="info"
               >
                 <ClearIcon />
               </Button>

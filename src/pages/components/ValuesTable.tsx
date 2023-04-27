@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Value } from "@/app/types";
-import { IconButton } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { RootState } from "@/app/store";
@@ -76,25 +76,30 @@ export default function ValuesTable({
                 <TableCell align="left">{value.date}</TableCell>
                 <TableCell align="left">{value.value}</TableCell>
                 <TableCell align="left">
-                  <IconButton
-                    aria-label="edit"
-                    color="primary"
-                    onClick={() => {
-                      dispatch(setSelectedValue(value));
-                      console.log(value.id);
-                    }}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton
-                    aria-label="delete"
-                    onClick={() => {
-                      setOpenConfirmDelete(true);
-                      setValueToDelete(value);
-                    }}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
+                  <Tooltip title="Edit value">
+                    <IconButton
+                      aria-label="edit"
+                      onClick={() => {
+                        dispatch(setSelectedValue(value));
+                        console.log(value.id);
+                      }}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Delete value">
+                    <IconButton
+                      aria-label="delete"
+                      color="secondary"
+                      sx={{ color: "secondary.light" }}
+                      onClick={() => {
+                        setOpenConfirmDelete(true);
+                        setValueToDelete(value);
+                      }}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </Tooltip>
                 </TableCell>
               </TableRow>
             ))}
