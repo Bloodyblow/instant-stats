@@ -9,6 +9,7 @@ import {
 } from "../../app/store/categorySlice";
 import { useMutation } from "@tanstack/react-query";
 import { updateCategory } from "@/app/apiService";
+import { useSnackbar } from "notistack";
 
 const CategoryFormInModal = ({
   initialValues,
@@ -21,13 +22,20 @@ const CategoryFormInModal = ({
   const { showCategoryForm } = useSelector(
     (state: RootState) => state.category
   );
+  const { enqueueSnackbar } = useSnackbar();
 
   const { mutate, isLoading } = useMutation({
     mutationFn: updateCategory,
     onSuccess: (category: Omit<CategoryExtend, "values">) => {
       dispatch(setShowCategoryForm(false));
       dispatch(setShouldRefreshCategories(true));
+      enqueueSnackbar("Category updated", { variant: "success" });
       onFinish();
+    },
+    onError: () => {
+      enqueueSnackbar("An error occurred while updating category", {
+        variant: "error",
+      });
     },
   });
 

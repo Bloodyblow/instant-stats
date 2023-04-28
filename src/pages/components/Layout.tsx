@@ -2,8 +2,10 @@ import Head from "next/head";
 import Box from "@mui/material/Box";
 import styles from "./Layout.module.css";
 import { Stack } from "@mui/system";
-import { Typography } from "@mui/material";
+import { Snackbar, Typography } from "@mui/material";
 import Navbar from "./Navbar";
+
+const MESSAGE_DURATION = 6000;
 
 export default function Layout({
   pageTitle,

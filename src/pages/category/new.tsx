@@ -8,15 +8,23 @@ import { createCategory } from "@/app/apiService";
 import { LinearProgress } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { setShouldRefreshCategories } from "@/app/store/categorySlice";
+import { useSnackbar } from "notistack";
 
 const Category = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
   const { mutate, isLoading } = useMutation({
     mutationFn: createCategory,
     onSuccess: (category: Omit<CategoryExtend, "values">) => {
+      enqueueSnackbar("Category created", { variant: "success" });
       router.push("/category/" + category.id);
       dispatch(setShouldRefreshCategories(true));
+    },
+    onError: () => {
+      enqueueSnackbar("An error occurred while creating category", {
+        variant: "error",
+      });
     },
   });
 

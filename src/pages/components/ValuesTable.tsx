@@ -16,6 +16,7 @@ import { setSelectedValue } from "../../app/store/categorySlice";
 import { deleteValue } from "@/app/apiService";
 import { useMutation } from "@tanstack/react-query";
 import ConfirmDialog from "./ConfirmDialog";
+import { useSnackbar } from "notistack";
 
 export default function ValuesTable({
   onValueDeleted,
@@ -23,6 +24,7 @@ export default function ValuesTable({
   onValueDeleted: () => void;
 }) {
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
   const [openConfirmDelete, setOpenConfirmDelete] = React.useState(false);
   const [valueToDelete, setValueToDelete] = React.useState<Value | null>(null);
   const { category } = useSelector((state: RootState) => state.category);
@@ -30,7 +32,13 @@ export default function ValuesTable({
     mutationFn: deleteValue,
     onSuccess: (value: Value) => {
       dispatch(setSelectedValue(null));
+      enqueueSnackbar("Value deleted", { variant: "success" });
       onValueDeleted();
+    },
+    onError: () => {
+      enqueueSnackbar("An error occurred while deleting value", {
+        variant: "error",
+      });
     },
   });
 

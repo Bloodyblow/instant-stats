@@ -22,6 +22,8 @@ import { RootState } from "@/app/store/store";
 import { useMutation } from "@tanstack/react-query";
 import { addValue, updateValue } from "@/app/apiService";
 import { setSelectedValue } from "../../app/store/categorySlice";
+import { useSnackbar } from "notistack";
+
 const textFieldSx = {
   color: "secondary.contrastText",
   flexGrow: 1,
@@ -31,6 +33,7 @@ const textFieldSx = {
 export default function ValueForm({ onFinish }: { onFinish: () => void }) {
   const { category } = useSelector((state: RootState) => state.category);
   const { selectedValue } = useSelector((state: RootState) => state.category);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const [date, setDate] = useState<Dayjs | null>(
     selectedValue ? dayjs(selectedValue?.date) : null
@@ -49,14 +52,26 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
   const { mutate: mutateCreateValue, isLoading } = useMutation({
     mutationFn: addValue,
     onSuccess: (value: ValueFormData) => {
+      enqueueSnackbar("Value added", { variant: "success" });
       onReset();
+    },
+    onError: () => {
+      enqueueSnackbar("An error occurred while adding value", {
+        variant: "error",
+      });
     },
   });
 
   const { mutate: mutateUpdateValue } = useMutation({
     mutationFn: updateValue,
-    onSuccess: (value: ValueFormData) => {
+    onSuccess: () => {
+      enqueueSnackbar("Value updated", { variant: "success" });
       onReset();
+    },
+    onError: () => {
+      enqueueSnackbar("An error occurred while updating value", {
+        variant: "error",
+      });
     },
   });
 
