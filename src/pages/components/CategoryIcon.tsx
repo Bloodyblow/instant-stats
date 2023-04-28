@@ -1,4 +1,3 @@
-import { ICON_NAMES } from "@/app/constants";
 import React from "react";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import ChildCareIcon from "@mui/icons-material/ChildCare";
@@ -11,27 +10,41 @@ import TableChartIcon from "@mui/icons-material/TableChart";
 import TimerIcon from "@mui/icons-material/Timer";
 import WorkIcon from "@mui/icons-material/Work";
 import QuestionIcon from "@mui/icons-material/HelpOutline";
+
+export const ICON_NAMES = [
+  "bar chart",
+  "child",
+  "height",
+  "pie chart",
+  "scale",
+  "show chart",
+  "table",
+  "timer",
+  "weight",
+  "work",
+];
+
 export function CategoryIcon({ name }: { name: string }) {
   switch (name) {
-    case ICON_NAMES.bar:
+    case "bar chart":
       return <BarChartIcon />;
-    case ICON_NAMES.child:
+    case "child":
       return <ChildCareIcon />;
-    case ICON_NAMES.height:
+    case "height":
       return <HeightIcon />;
-    case ICON_NAMES.pie:
+    case "height":
       return <PieChartIcon />;
-    case ICON_NAMES.scale:
+    case "scale":
       return <ScaleIcon />;
-    case ICON_NAMES.show:
+    case "show chart":
       return <ShowChartIcon />;
-    case ICON_NAMES.table:
+    case "table":
       return <TableChartIcon />;
-    case ICON_NAMES.timer:
+    case "timer":
       return <TimerIcon />;
-    case ICON_NAMES.weight:
+    case "weight":
       return <FitnessCenterIcon />;
-    case ICON_NAMES.work:
+    case "work":
       return <WorkIcon />;
     default:
       return <QuestionIcon sx={{ color: "grey" }} />;

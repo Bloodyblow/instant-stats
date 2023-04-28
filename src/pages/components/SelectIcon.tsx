@@ -1,4 +1,4 @@
-import { ICON_NAMES } from "@/app/constants";
+import { ICON_NAMES } from "./CategoryIcon";
 import Stack from "@mui/material/Stack";
 import React from "react";
 import Button from "@mui/material/Button";
@@ -12,15 +12,6 @@ export default function SelectIcon({
   selectedIconName: string | null;
   setSelectedIconName: (iconName: string) => void;
 }) {
-  const getIconName = (): string => {
-    if (
-      selectedIconName &&
-      Object.keys(ICON_NAMES).includes(selectedIconName)
-    ) {
-      return `: ${ICON_NAMES[selectedIconName]}`;
-    }
-    return "";
-  };
   return (
     <Stack
       direction="column"
@@ -39,22 +30,24 @@ export default function SelectIcon({
       }}
     >
       <Typography sx={{ textTransform: "capitalize" }}>
-        Icon {getIconName()}
+        Icon {selectedIconName ? `: ${selectedIconName}` : ""}
       </Typography>
       <Stack
         direction="row"
         spacing={1}
         sx={{ flexWrap: "wrap", justifyContent: "start" }}
       >
-        {Object.keys(ICON_NAMES).map((icon: string, index) => (
+        {ICON_NAMES.map((iconName: string, index) => (
           <Button
-            onClick={() => setSelectedIconName(icon)}
+            onClick={() => {
+              setSelectedIconName(iconName);
+            }}
             color="secondary"
             variant="contained"
             sx={{
               backgroundColor:
-                selectedIconName === icon ? "#f9f3c7" : "primary.light",
-              color: selectedIconName === icon ? "primary.main" : "white",
+                selectedIconName === iconName ? "#f9f3c7" : "primary.light",
+              color: selectedIconName === iconName ? "primary.main" : "white",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -68,8 +61,8 @@ export default function SelectIcon({
             }}
             key={index}
           >
-            <CategoryIcon name={ICON_NAMES[icon]} />
-            <Typography variant="caption">{ICON_NAMES[icon]}</Typography>
+            <CategoryIcon name={iconName} />
+            <Typography variant="caption">{iconName}</Typography>
           </Button>
         ))}
       </Stack>
