@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import theme from "@/theme";
 import { ThemeProvider } from "@mui/material";
-import { store } from "@/app/store";
+import { store } from "@/app/store/store";
 import { Provider } from "react-redux";
 import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";

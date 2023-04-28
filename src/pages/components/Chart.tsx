@@ -1,6 +1,6 @@
 import { Card } from "@mui/material";
 import { useSelector } from "react-redux";
-import { RootState } from "@/app/store";
+import { RootState } from "@/app/store/store";
 import BarChart from "./charts/BarChart";
 
 export default function Chart() {

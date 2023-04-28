@@ -4,13 +4,16 @@ import { CategoryExtend } from "@/app/types";
 import ValuesTable from "../components/ValuesTable";
 import ValueForm from "../components/ValueForm";
 import { useDispatch, useSelector } from "react-redux";
-import { setCategory, setEditCategory } from "./categorySlice";
+import {
+  setCategory,
+  setShowCategoryForm,
+} from "../../app/store/categorySlice";
 import Chart from "../components/Chart";
 import { useQuery } from "@tanstack/react-query";
 import LinearProgress from "@mui/material/LinearProgress";
 import EditIcon from "@mui/icons-material/Edit";
 import { getCategory } from "@/app/apiService";
-import { RootState } from "@/app/store";
+import { RootState } from "@/app/store/store";
 import { GetServerSideProps } from "next";
 import { Context } from "vm";
 import prisma from "prisma/prisma";
@@ -35,7 +38,9 @@ export const getServerSideProps: GetServerSideProps = async (
 
 const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
   const dispatch = useDispatch();
-  const { editCategory } = useSelector((state: RootState) => state.category);
+  const { showCategoryForm } = useSelector(
+    (state: RootState) => state.category
+  );
 
   const {
     data: category,
@@ -90,7 +95,7 @@ const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
         }}
       >
         <Button
-          onClick={() => dispatch(setEditCategory(true))}
+          onClick={() => dispatch(setShowCategoryForm(true))}
           startIcon={<EditIcon />}
           color="info"
         >
@@ -102,7 +107,7 @@ const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
       <ValueForm onFinish={onFinish} />
       <ValuesTable onValueDeleted={onFinish} />
 
-      {editCategory && (
+      {showCategoryForm && (
         <CategoryFormInModal initialValues={category} onFinish={onFinish} />
       )}
     </Layout>

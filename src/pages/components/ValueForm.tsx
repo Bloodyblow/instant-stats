@@ -18,10 +18,10 @@ import {
 import ClearIcon from "@mui/icons-material/Clear";
 import { useDispatch, useSelector } from "react-redux";
 import { ValueFormData } from "@/app/types";
-import { RootState } from "@/app/store";
+import { RootState } from "@/app/store/store";
 import { useMutation } from "@tanstack/react-query";
 import { addValue, updateValue } from "@/app/apiService";
-import { setSelectedValue } from "../category/categorySlice";
+import { setSelectedValue } from "../../app/store/categorySlice";
 const textFieldSx = {
   color: "secondary.contrastText",
   flexGrow: 1,

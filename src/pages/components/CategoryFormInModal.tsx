@@ -1,9 +1,9 @@
-import { CategoryExtend, Value, ValueFormData } from "@/app/types";
+import { CategoryExtend } from "@/app/types";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/app/store";
+import { RootState } from "@/app/store/store";
 import CategoryForm from "../components/CategoryForm";
 import { Modal, Stack, Typography } from "@mui/material";
-import { setEditCategory } from "../category/categorySlice";
+import { setShowCategoryForm } from "../../app/store/categorySlice";
 import { useMutation } from "@tanstack/react-query";
 import { updateCategory } from "@/app/apiService";
 
@@ -15,21 +15,23 @@ const CategoryFormInModal = ({
   onFinish: () => void;
 }) => {
   const dispatch = useDispatch();
-  const { editCategory } = useSelector((state: RootState) => state.category);
+  const { showCategoryForm } = useSelector(
+    (state: RootState) => state.category
+  );
 
   const { mutate } = useMutation({
     mutationFn: updateCategory,
     onSuccess: (category: Omit<CategoryExtend, "values">) => {
-      dispatch(setEditCategory(false));
+      dispatch(setShowCategoryForm(false));
       onFinish();
     },
   });
 
-  const onCancelCategoryForm = () => dispatch(setEditCategory(false));
+  const onCancelCategoryForm = () => dispatch(setShowCategoryForm(false));
 
   return (
     <Modal
-      open={editCategory}
+      open={showCategoryForm}
       onClose={onCancelCategoryForm}
       aria-labelledby="edit-category"
       aria-describedby="Edit the name, unit and icon of the current category"
