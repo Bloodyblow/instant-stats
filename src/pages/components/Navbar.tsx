@@ -18,6 +18,9 @@ import { Category } from "@/app/types";
 import { useQuery } from "@tanstack/react-query";
 import { getCategories } from "@/app/apiService";
 import { CategoryIcon } from "./CategoryIcon";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/app/store/store";
+import { setShouldRefreshCategories } from "@/app/store/categorySlice";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -29,10 +32,22 @@ const categoriesDropdownSx = {
 };
 
 function Navbar() {
-  const { data: categories } = useQuery({
+  const { shouldRefetchCategories } = useSelector(
+    (state: RootState) => state.category
+  );
+  const { data: categories, refetch } = useQuery({
     queryKey: ["categories"],
     queryFn: () => getCategories(),
   });
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    if (shouldRefetchCategories) {
+      refetch();
+      dispatch(setShouldRefreshCategories(false));
+    }
+  }, [shouldRefetchCategories, refetch, dispatch]);
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -40,7 +55,6 @@ function Navbar() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
-  const router = useRouter();
 
   const appTitle = "Instant stats";
 
@@ -55,10 +69,6 @@ function Navbar() {
   };
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
-  };
-  const handleClickOnCategory = (id: number, popupState: any) => {
-    popupState.close();
-    router.push(`/category/${id}`);
   };
 
   const isHomePage = router.pathname === "/";
@@ -132,12 +142,12 @@ function Navbar() {
                     Go to chart
                   </MenuItem>
                   {categories.map((category: Category) => (
-                    <MenuItem
-                      key={category.id}
-                      onClick={handleCloseNavMenu}
-                      sx={categoriesDropdownSx}
-                    >
-                      <Typography textAlign="center">
+                    <MenuItem key={category.id} sx={categoriesDropdownSx}>
+                      <Typography
+                        component="a"
+                        href={`/category/${category.id}`}
+                        sx={{ display: "flex", alignItems: "center" }}
+                      >
                         <CategoryIcon name={category.icon} />
                         <span style={{ marginLeft: ".5rem" }}>
                           {category.name}
@@ -195,17 +205,17 @@ function Navbar() {
                       {categories?.length &&
                         categories?.length > 0 &&
                         categories.map((category: any) => (
-                          <MenuItem
-                            onClick={() =>
-                              handleClickOnCategory(category.id, popupState)
-                            }
-                            key={category.id}
-                            sx={categoriesDropdownSx}
-                          >
-                            <CategoryIcon name={category.icon} />
-                            <span style={{ marginLeft: ".5rem" }}>
-                              {category.name}
-                            </span>
+                          <MenuItem key={category.id} sx={categoriesDropdownSx}>
+                            <Typography
+                              component="a"
+                              href={`/category/${category.id}`}
+                              sx={{ display: "flex", alignItems: "center" }}
+                            >
+                              <CategoryIcon name={category.icon} />
+                              <span style={{ marginLeft: ".5rem" }}>
+                                {category.name}
+                              </span>
+                            </Typography>
                           </MenuItem>
                         ))}
                     </Menu>

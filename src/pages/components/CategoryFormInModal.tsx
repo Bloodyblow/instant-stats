@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
 import CategoryForm from "../components/CategoryForm";
 import { LinearProgress, Modal, Stack, Typography } from "@mui/material";
-import { setShowCategoryForm } from "../../app/store/categorySlice";
+import {
+  setShouldRefreshCategories,
+  setShowCategoryForm,
+} from "../../app/store/categorySlice";
 import { useMutation } from "@tanstack/react-query";
 import { updateCategory } from "@/app/apiService";
 
@@ -23,6 +26,7 @@ const CategoryFormInModal = ({
     mutationFn: updateCategory,
     onSuccess: (category: Omit<CategoryExtend, "values">) => {
       dispatch(setShowCategoryForm(false));
+      dispatch(setShouldRefreshCategories(true));
       onFinish();
     },
   });

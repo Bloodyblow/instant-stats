@@ -6,12 +6,14 @@ export interface CategoryState {
   category: CategoryExtend | null;
   showCategoryForm: boolean;
   selectedValue: Value | null;
+  shouldRefetchCategories: boolean;
 }
 
 const initialState: CategoryState = {
   category: null,
   showCategoryForm: false,
   selectedValue: null,
+  shouldRefetchCategories: false,
 };
 
 export const categorySlice = createSlice({
@@ -30,6 +32,9 @@ export const categorySlice = createSlice({
     setSelectedValue: (state, action: PayloadAction<Value | null>) => {
       state.selectedValue = action.payload;
     },
+    setShouldRefreshCategories: (state, action: PayloadAction<boolean>) => {
+      state.shouldRefetchCategories = action.payload;
+    },
   },
 });
 
@@ -38,6 +43,7 @@ export const {
   setShowCategoryForm,
   setSelectedValue,
   removeCategory,
+  setShouldRefreshCategories,
 } = categorySlice.actions;
 
 export default categorySlice.reducer;

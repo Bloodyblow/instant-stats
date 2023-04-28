@@ -4,7 +4,7 @@ import React from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from "react-redux";
 import ConfirmDialog from "./ConfirmDialog";
-import router from "next/router";
+import Router from "next/router";
 import { useMutation } from "@tanstack/react-query";
 import { deleteCategory } from "@/app/apiService";
 import { RootState } from "@/app/store/store";
@@ -18,7 +18,7 @@ export default function DeleteCategory() {
     onSuccess: () => {
       dispatch(removeCategory());
       setOpenConfirmDialog(false);
-      router.push("/");
+      Router.push("/");
     },
   });
 

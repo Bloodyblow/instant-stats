@@ -6,13 +6,17 @@ import { CategoryExtend, CategoryFormData } from "@/app/types";
 import { useMutation } from "@tanstack/react-query";
 import { createCategory } from "@/app/apiService";
 import { LinearProgress } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { setShouldRefreshCategories } from "@/app/store/categorySlice";
 
 const Category = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const { mutate, isLoading } = useMutation({
     mutationFn: createCategory,
     onSuccess: (category: Omit<CategoryExtend, "values">) => {
       router.push("/category/" + category.id);
+      dispatch(setShouldRefreshCategories(true));
     },
   });
 

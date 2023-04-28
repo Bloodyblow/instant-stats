@@ -23,7 +23,7 @@ export function CategoryIcon({ name }: { name: string }) {
       return <PieChartIcon />;
     case ICON_NAMES.scale:
       return <ScaleIcon />;
-    case ICON_NAMES.showChart:
+    case ICON_NAMES.show:
       return <ShowChartIcon />;
     case ICON_NAMES.table:
       return <TableChartIcon />;
