@@ -120,6 +120,7 @@ export default function ValuesTable({
         onConfirm={onConfirmDialog}
         title="Delete value"
         content={`Are you sure you want to delete the value ${valueToDelete?.value} at the date ${valueToDelete?.date}?`}
+        type="delete"
       />
     </div>
   );

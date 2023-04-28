@@ -21,6 +21,9 @@ export const categorySlice = createSlice({
     setCategory: (state, action: PayloadAction<CategoryExtend>) => {
       state.category = action.payload;
     },
+    removeCategory: (state) => {
+      state.category = null;
+    },
     setShowCategoryForm: (state, action: PayloadAction<boolean>) => {
       state.showCategoryForm = action.payload;
     },
@@ -30,7 +33,11 @@ export const categorySlice = createSlice({
   },
 });
 
-export const { setCategory, setShowCategoryForm, setSelectedValue } =
-  categorySlice.actions;
+export const {
+  setCategory,
+  setShowCategoryForm,
+  setSelectedValue,
+  removeCategory,
+} = categorySlice.actions;
 
 export default categorySlice.reducer;

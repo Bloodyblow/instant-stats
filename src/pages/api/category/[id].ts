@@ -31,6 +31,13 @@ export default async function handler(
         },
       });
       return res.status(200).json(updatedCategory);
+    case "DELETE":
+      const deletedCategory = await prisma.category.delete({
+        where: {
+          id: Number(id),
+        },
+      });
+      return res.status(200).json(deletedCategory);
     default:
       return res.status(405).end(`Method ${req.method} Not Allowed`);
   }

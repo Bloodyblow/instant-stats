@@ -6,18 +6,20 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-export default function AlertDialog({
+export default function ConfirmDialog({
   content,
   onClose,
   onConfirm,
   open,
   title,
+  type = "edit",
 }: {
   content: string;
   onClose: () => void;
   onConfirm: () => void;
   open: boolean;
   title: string;
+  type?: "delete" | "edit";
 }) {
   return (
     <Dialog
@@ -33,8 +35,15 @@ export default function AlertDialog({
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Annuler</Button>
-        <Button onClick={onConfirm} autoFocus>
+        <Button onClick={onClose} variant="contained">
+          Annuler
+        </Button>
+        <Button
+          onClick={onConfirm}
+          autoFocus
+          color={type === "delete" ? "error" : "primary"}
+          variant="contained"
+        >
           OK
         </Button>
       </DialogActions>

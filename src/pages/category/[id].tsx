@@ -20,6 +20,7 @@ import prisma from "prisma/prisma";
 import { CategoryIcon } from "../components/CategoryIcon";
 import { Box, Button, Stack } from "@mui/material";
 import CategoryFormInModal from "../components/CategoryFormInModal";
+import DeleteCategory from "../components/DeleteCategory";
 
 export const getServerSideProps: GetServerSideProps = async (
   context: Context
@@ -110,6 +111,8 @@ const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
       {showCategoryForm && (
         <CategoryFormInModal initialValues={category} onFinish={onFinish} />
       )}
+
+      <DeleteCategory />
     </Layout>
   );
 };

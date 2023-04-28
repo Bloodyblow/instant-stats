@@ -11,6 +11,7 @@ const headers = {
 };
 
 // Categories
+
 export const getCategory = (id: number): Promise<CategoryExtend> =>
   fetch(`/api/category/${id}`).then((res) => res.json());
 
@@ -31,7 +32,13 @@ export const updateCategory = (category: CategoryFormData) =>
     body: JSON.stringify(category),
   }).then((res) => res.json());
 
+export const deleteCategory = (id: number) =>
+  fetch(`/api/category/${id}`, {
+    method: "DELETE",
+  }).then((res) => res.json());
+
 // Values
+
 export const addValue = (formData: ValueFormData) => {
   const { categoryId, ...value } = formData;
   return fetch(`/api/value/${categoryId}`, {
