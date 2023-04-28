@@ -5,10 +5,11 @@ import CategoryForm from "../components/CategoryForm";
 import { CategoryExtend, CategoryFormData } from "@/app/types";
 import { useMutation } from "@tanstack/react-query";
 import { createCategory } from "@/app/apiService";
+import { LinearProgress } from "@mui/material";
 
 const Category = () => {
   const router = useRouter();
-  const { mutate } = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationFn: createCategory,
     onSuccess: (category: Omit<CategoryExtend, "values">) => {
       router.push("/category/" + category.id);
@@ -24,8 +25,11 @@ const Category = () => {
   };
 
   return (
-    <Layout pageTitle={"Create a new set of data"}>
-      <CategoryForm onFinish={onFinish} onCancel={onCancel} />
+    <Layout pageTitle={"Create a new category"}>
+      <div style={{ width: "100%" }}>
+        {isLoading && <LinearProgress color="info" />}
+        <CategoryForm onFinish={onFinish} onCancel={onCancel} />
+      </div>
     </Layout>
   );
 };

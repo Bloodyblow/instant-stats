@@ -2,7 +2,7 @@ import { CategoryExtend } from "@/app/types";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
 import CategoryForm from "../components/CategoryForm";
-import { Modal, Stack, Typography } from "@mui/material";
+import { LinearProgress, Modal, Stack, Typography } from "@mui/material";
 import { setShowCategoryForm } from "../../app/store/categorySlice";
 import { useMutation } from "@tanstack/react-query";
 import { updateCategory } from "@/app/apiService";
@@ -19,7 +19,7 @@ const CategoryFormInModal = ({
     (state: RootState) => state.category
   );
 
-  const { mutate } = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationFn: updateCategory,
     onSuccess: (category: Omit<CategoryExtend, "values">) => {
       dispatch(setShowCategoryForm(false));
@@ -46,16 +46,17 @@ const CategoryFormInModal = ({
     >
       <Stack
         direction="column"
-        spacing={1}
+        spacing={0}
         sx={{
           width: "80%",
           minWidth: "300px",
           maxWidth: "900px",
         }}
       >
-        <Typography variant="h4" component="h2" id="edit-category">
+        <Typography variant="h4" component="h2" id="edit-category" style={{}}>
           Edit the category
         </Typography>
+        {isLoading && <LinearProgress color="secondary" />}
         <CategoryForm
           initialValues={initialValues}
           onCancel={onCancelCategoryForm}
