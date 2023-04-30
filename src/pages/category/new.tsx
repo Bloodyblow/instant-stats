@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
-import Layout from "../components/Layout";
-import CategoryForm from "../components/CategoryForm";
+import Layout from "../../components/Layout";
+import CategoryForm from "../../components/CategoryForm";
 import { CategoryExtend, CategoryFormData } from "@/app/types";
 import { useMutation } from "@tanstack/react-query";
 import { createCategory } from "@/app/apiService";

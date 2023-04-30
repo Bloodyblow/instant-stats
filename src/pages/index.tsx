@@ -1,7 +1,7 @@
 import Router from "next/router";
-import CategoriesList from "./components/CategoriesList";
+import CategoriesList from "../components/CategoriesList";
 import Button from "@mui/material/Button";
-import Layout from "./components/Layout";
+import Layout from "../components/Layout";
 import { Card, Typography } from "@mui/material";
 import { GetServerSideProps } from "next";
 import prisma from "prisma/prisma";
@@ -15,7 +15,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 const typographySx = {
   textWrap: "balance",
-  minWidth: "400px",
   width: "80vw",
   maxWidth: "800px",
 };

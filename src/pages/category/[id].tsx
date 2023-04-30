@@ -1,15 +1,15 @@
 import { useEffect } from "react";
-import Layout from "../components/Layout";
+import Layout from "../../components/Layout";
 import { CategoryExtend, ChartType } from "@/app/types";
-import ValuesTable from "../components/ValuesTable";
-import ValueForm from "../components/ValueForm";
+import ValuesTable from "../../components/ValuesTable";
+import ValueForm from "../../components/ValueForm";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setCategory,
   setChart,
   setShowCategoryForm,
 } from "../../app/store/categorySlice";
-import Chart, { CHART_TYPES, CHART_TYPE_LABELS } from "../components/Chart";
+import Chart, { CHART_TYPES, CHART_TYPE_LABELS } from "../../components/Chart";
 import { useQuery } from "@tanstack/react-query";
 import LinearProgress from "@mui/material/LinearProgress";
 import EditIcon from "@mui/icons-material/Edit";
@@ -18,7 +18,7 @@ import { RootState } from "@/app/store/store";
 import { GetServerSideProps } from "next";
 import { Context } from "vm";
 import prisma from "prisma/prisma";
-import { CategoryIcon } from "../components/CategoryIcon";
+import { CategoryIcon } from "../../components/CategoryIcon";
 import {
   Box,
   Button,
@@ -29,8 +29,8 @@ import {
   SelectChangeEvent,
   Stack,
 } from "@mui/material";
-import CategoryFormInModal from "../components/CategoryFormInModal";
-import DeleteCategory from "../components/DeleteCategory";
+import CategoryFormInModal from "../../components/CategoryFormInModal";
+import DeleteCategory from "../../components/DeleteCategory";
 
 export const getServerSideProps: GetServerSideProps = async (
   context: Context

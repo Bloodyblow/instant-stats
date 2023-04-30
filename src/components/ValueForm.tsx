@@ -21,7 +21,7 @@ import { ValueFormData } from "@/app/types";
 import { RootState } from "@/app/store/store";
 import { useMutation } from "@tanstack/react-query";
 import { addValue, updateValue } from "@/app/apiService";
-import { setSelectedValue } from "../../app/store/categorySlice";
+import { setSelectedValue } from "../app/store/categorySlice";
 import { useSnackbar } from "notistack";
 
 const textFieldSx = {

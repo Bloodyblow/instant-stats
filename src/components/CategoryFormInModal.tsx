@@ -1,12 +1,12 @@
 import { CategoryExtend } from "@/app/types";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
-import CategoryForm from "../components/CategoryForm";
+import CategoryForm from "./CategoryForm";
 import { LinearProgress, Modal, Stack, Typography } from "@mui/material";
 import {
   setShouldRefreshCategories,
   setShowCategoryForm,
-} from "../../app/store/categorySlice";
+} from "../app/store/categorySlice";
 import { useMutation } from "@tanstack/react-query";
 import { updateCategory } from "@/app/apiService";
 import { useSnackbar } from "notistack";
