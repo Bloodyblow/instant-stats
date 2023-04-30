@@ -33,8 +33,9 @@ const textFieldSx = {
 export default function ValueForm({ onFinish }: { onFinish: () => void }) {
   const { category } = useSelector((state: RootState) => state.category);
   const { selectedValue } = useSelector((state: RootState) => state.category);
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
+
   const [date, setDate] = useState<Dayjs | null>(
     selectedValue ? dayjs(selectedValue?.date) : null
   );

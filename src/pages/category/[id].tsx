@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import Layout from "../../components/Layout";
-import { CategoryExtend, ChartType } from "@/app/types";
+import { CategoryExtend } from "@/app/types";
 import ValuesTable from "../../components/ValuesTable";
 import ValueForm from "../../components/ValueForm";
 import { useDispatch, useSelector } from "react-redux";
