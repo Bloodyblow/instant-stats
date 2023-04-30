@@ -4,33 +4,20 @@ import { CategoryExtend, ChartType } from "@/app/types";
 import ValuesTable from "../../components/ValuesTable";
 import ValueForm from "../../components/ValueForm";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setCategory,
-  setChart,
-  setShowCategoryForm,
-} from "../../app/store/categorySlice";
-import Chart, { CHART_TYPES, CHART_TYPE_LABELS } from "../../components/Chart";
+import { setCategory } from "../../app/store/categorySlice";
+import Chart from "../../components/Chart";
 import { useQuery } from "@tanstack/react-query";
 import LinearProgress from "@mui/material/LinearProgress";
-import EditIcon from "@mui/icons-material/Edit";
 import { getCategory } from "@/app/apiService";
 import { RootState } from "@/app/store/store";
 import { GetServerSideProps } from "next";
 import { Context } from "vm";
 import prisma from "prisma/prisma";
 import { CategoryIcon } from "../../components/CategoryIcon";
-import {
-  Box,
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  Stack,
-} from "@mui/material";
+import { Box } from "@mui/material";
 import CategoryFormInModal from "../../components/CategoryFormInModal";
 import DeleteCategory from "../../components/DeleteCategory";
+import CategoryHeader from "@/components/CategoryHeader";
 
 export const getServerSideProps: GetServerSideProps = async (
   context: Context
@@ -49,7 +36,7 @@ export const getServerSideProps: GetServerSideProps = async (
 
 const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
   const dispatch = useDispatch();
-  const { showCategoryForm, chart } = useSelector(
+  const { showCategoryForm } = useSelector(
     (state: RootState) => state.category
   );
 
@@ -88,9 +75,6 @@ const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
 
   const onFinish = () => refetch();
 
-  const onChangeChartType = (event: SelectChangeEvent<"line" | "bar">) =>
-    dispatch(setChart(event.target.value as ChartType));
-
   return (
     <Layout pageTitle={pageTitle}>
       {isFetching && (
@@ -98,41 +82,8 @@ const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
           <LinearProgress color="info" />
         </div>
       )}
-      <Stack
-        spacing={2}
-        alignItems="center"
-        direction="row"
-        sx={{
-          justifyContent: "space-between",
-          width: "100%",
-        }}
-      >
-        <Button
-          onClick={() => dispatch(setShowCategoryForm(true))}
-          startIcon={<EditIcon />}
-          color="info"
-        >
-          Edit the category
-        </Button>
 
-        <FormControl>
-          <InputLabel id="select-chart-type">Chart type</InputLabel>
-          <Select
-            labelId="select-chart-type"
-            id="demo-simple-select"
-            value={chart}
-            label="Chart type"
-            onChange={onChangeChartType}
-          >
-            {CHART_TYPES.map((type, index) => (
-              <MenuItem key={`${type}-${index}`} value={type}>
-                {CHART_TYPE_LABELS[type as keyof typeof CHART_TYPE_LABELS]}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Stack>
-
+      <CategoryHeader />
       <Chart />
       <ValueForm onFinish={onFinish} />
       <ValuesTable onValueDeleted={onFinish} />
