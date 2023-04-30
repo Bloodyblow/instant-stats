@@ -1,14 +1,15 @@
 import { useEffect } from "react";
 import Layout from "../components/Layout";
-import { CategoryExtend } from "@/app/types";
+import { CategoryExtend, ChartType } from "@/app/types";
 import ValuesTable from "../components/ValuesTable";
 import ValueForm from "../components/ValueForm";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setCategory,
+  setChart,
   setShowCategoryForm,
 } from "../../app/store/categorySlice";
-import Chart from "../components/Chart";
+import Chart, { CHART_TYPES, CHART_TYPE_LABELS } from "../components/Chart";
 import { useQuery } from "@tanstack/react-query";
 import LinearProgress from "@mui/material/LinearProgress";
 import EditIcon from "@mui/icons-material/Edit";
@@ -18,7 +19,16 @@ import { GetServerSideProps } from "next";
 import { Context } from "vm";
 import prisma from "prisma/prisma";
 import { CategoryIcon } from "../components/CategoryIcon";
-import { Box, Button, Stack } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Stack,
+} from "@mui/material";
 import CategoryFormInModal from "../components/CategoryFormInModal";
 import DeleteCategory from "../components/DeleteCategory";
 
@@ -39,7 +49,7 @@ export const getServerSideProps: GetServerSideProps = async (
 
 const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
   const dispatch = useDispatch();
-  const { showCategoryForm } = useSelector(
+  const { showCategoryForm, chart } = useSelector(
     (state: RootState) => state.category
   );
 
@@ -58,26 +68,28 @@ const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
     dispatch(setCategory(category));
   }, [category, dispatch]);
 
-  const pageTitle =
-    (
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          "& svg": {
-            color: "#49c575",
-            height: "100%",
-            fontSize: "3rem",
-            marginRight: "10px",
-          },
-        }}
-      >
-        <CategoryIcon name={category.icon} />
-        {category?.name}
-      </Box>
-    ) || "Get my data"; // TODO: add title
+  const pageTitle = (
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        "& svg": {
+          color: "#49c575",
+          height: "100%",
+          fontSize: "3rem",
+          marginRight: "10px",
+        },
+      }}
+    >
+      <CategoryIcon name={category.icon} />
+      {category?.name}
+    </Box>
+  );
 
   const onFinish = () => refetch();
+
+  const onChangeChartType = (event: SelectChangeEvent<"line" | "bar">) =>
+    dispatch(setChart(event.target.value as ChartType));
 
   return (
     <Layout pageTitle={pageTitle}>
@@ -91,7 +103,7 @@ const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
         alignItems="center"
         direction="row"
         sx={{
-          justifyContent: "flex-start",
+          justifyContent: "space-between",
           width: "100%",
         }}
       >
@@ -102,6 +114,23 @@ const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
         >
           Edit the category
         </Button>
+
+        <FormControl>
+          <InputLabel id="select-chart-type">Chart type</InputLabel>
+          <Select
+            labelId="select-chart-type"
+            id="demo-simple-select"
+            value={chart}
+            label="Chart type"
+            onChange={onChangeChartType}
+          >
+            {CHART_TYPES.map((type, index) => (
+              <MenuItem key={`${type}-${index}`} value={type}>
+                {CHART_TYPE_LABELS[type as keyof typeof CHART_TYPE_LABELS]}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </Stack>
 
       <Chart />

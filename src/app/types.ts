@@ -33,3 +33,5 @@ export type Message = {
 export type StoredMessage = Message & {
   id: number;
 };
+
+export type ChartType = "line" | "bar";
