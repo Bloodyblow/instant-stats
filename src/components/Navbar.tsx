@@ -21,6 +21,7 @@ import { CategoryIcon } from "./CategoryIcon";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/app/store/store";
 import { setShouldRefreshCategories } from "@/app/store/categorySlice";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -32,6 +33,10 @@ const categoriesDropdownSx = {
 };
 
 function Navbar() {
+  const { data: session, status } = useSession();
+  const username = session?.user?.name;
+  const userImage = session?.user?.image;
+  console.log("Navbar userEmail", session?.user);
   const { shouldRefetchCategories } = useSelector(
     (state: RootState) => state.category
   );
@@ -82,6 +87,7 @@ function Navbar() {
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          {/* On the left  */}
           {/* Desktop */}
           <BarChart sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
@@ -225,36 +231,39 @@ function Navbar() {
             </Box>
           )}
 
+          {/* On the right */}
           {/* Desktop & mobile */}
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+          {session?.user && (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt={username as string} src={userImage as string} />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
