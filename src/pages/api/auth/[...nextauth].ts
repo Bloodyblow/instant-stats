@@ -2,14 +2,13 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import GithubProvider from "next-auth/providers/github";
-import type { Adapter } from "@auth/core/adapters";
 // import GoogleProvider from "next-auth/providers/google";
 // import FacebookProvider from "next-auth/providers/facebook";
 // import TwitterProvider from "next-auth/providers/twitter";
 // import Auth0Provider from "next-auth/providers/auth0";
 
 const prisma = new PrismaClient();
-
+/*
 export default NextAuth({
   adapter: PrismaAdapter(prisma) as any, // TODO: will be fix on next-auth v5
   providers: [
@@ -19,8 +18,9 @@ export default NextAuth({
     }),
   ],
 });
-
+*/
 export const authOptions: NextAuthOptions = {
+  secret: process.env.NEXTAUTH_SECRET,
   // https://next-auth.js.org/configuration/providers/oauth
   providers: [
     /* EmailProvider({
@@ -48,12 +48,25 @@ export const authOptions: NextAuthOptions = {
     // }),
   ],
   theme: {
-    colorScheme: "light",
+    colorScheme: "dark",
   },
   callbacks: {
     async jwt({ token }) {
       token.userRole = "admin";
       return token;
     },
+    // async session({ session, user }) {
+    //   console.log("nextauth ...............................................");
+    //   console.log("nextauth ...............................................");
+    //   console.log(user);
+    //   console.log("nextauth ...............................................");
+    //   console.log("nextauth ...............................................");
+    //   console.log("nextauth ...............................................");
+
+    //   if (session.user) session.user.id = user.id;
+    //   return session;
+    // },
   },
 };
+
+export default NextAuth(authOptions);

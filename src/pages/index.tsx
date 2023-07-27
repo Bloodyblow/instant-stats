@@ -3,6 +3,7 @@ import CategoriesList from "../components/CategoriesList";
 import Button from "@mui/material/Button";
 import Layout from "../components/Layout";
 import { Card, Typography } from "@mui/material";
+import { getServerSession } from "next-auth/next";
 import { GetServerSideProps } from "next";
 import prisma from "prisma/prisma";
 import { Category } from "@/app/types";
@@ -10,18 +11,22 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import HomePresentation from "@/components/HomePresentation";
 import HomeCategories from "@/components/HomeCategories";
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const categories = await prisma.category.findMany();
-  return { props: { categories } };
-};
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   const session = await getServerSession();
+//   const userEmail = session?.user?.email as string;
+//   // get all categories by user
+//   // const categories = await prisma.category.findMany();
+//   const categories = await prisma.category.findMany({
+//     where: {
+//       user: {
+//         email: userEmail,
+//       },
+//     },
+//   });
+//   return { props: { categories } };
+// };
 
-const typographySx = {
-  textWrap: "balance",
-  width: "80vw",
-  maxWidth: "800px",
-};
-
-export default function Home({ categories }: { categories: Category[] }) {
+export default function Home() {
   const { data: session, status } = useSession();
   const userEmail = session?.user?.email;
 
@@ -32,7 +37,7 @@ export default function Home({ categories }: { categories: Category[] }) {
   return (
     <Layout pageTitle="Instant stats">
       <HomePresentation />
-      {status === "authenticated" && <HomeCategories categories={categories} />}
+      {status === "authenticated" && <HomeCategories />}
       {status === "unauthenticated" && (
         <Card
           sx={{
@@ -48,7 +53,6 @@ export default function Home({ categories }: { categories: Category[] }) {
         >
           <Typography
             sx={{
-              ...typographySx,
               marginTop: "3rem",
               fontSize: "2rem",
               letterSpacing: "0.2rem",

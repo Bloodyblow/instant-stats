@@ -97,7 +97,6 @@ export default function ValuesTable({
                       aria-label="edit"
                       onClick={() => {
                         dispatch(setSelectedValue(value));
-                        console.log(value.id);
                       }}
                     >
                       <EditIcon />

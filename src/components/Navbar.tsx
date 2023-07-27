@@ -33,10 +33,11 @@ const categoriesDropdownSx = {
 };
 
 function Navbar() {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
+  console.log('Navbar', session);
   const username = session?.user?.name;
   const userImage = session?.user?.image;
-  console.log("Navbar userEmail", session?.user);
+
   const { shouldRefetchCategories } = useSelector(
     (state: RootState) => state.category
   );

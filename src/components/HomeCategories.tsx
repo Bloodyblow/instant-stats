@@ -2,13 +2,16 @@ import Router from "next/router";
 import CategoriesList from "../components/CategoriesList";
 import Button from "@mui/material/Button";
 import { Card } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
 import { Category } from "@/app/types";
+import { getCategories } from "@/app/apiService";
 
-export default function HomeCategories({
-  categories,
-}: {
-  categories: Category[];
-}) {
+export default function HomeCategories() {
+  const { data: categories } = useQuery({
+    queryKey: ["categories"],
+    queryFn: () => getCategories(),
+  });
+
   return (
     <Card
       sx={{
