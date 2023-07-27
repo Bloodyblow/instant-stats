@@ -34,7 +34,6 @@ const categoriesDropdownSx = {
 
 function Navbar() {
   const { data: session } = useSession();
-  console.log('Navbar', session);
   const username = session?.user?.name;
   const userImage = session?.user?.image;
 

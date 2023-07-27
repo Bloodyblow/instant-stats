@@ -12,6 +12,7 @@ export const CHART_TYPE_LABELS = {
 
 export default function Chart() {
   const { category, chart } = useSelector((state: RootState) => state.category);
+  console.log("categories", category);
   if (!category || !category.values || category.values.length === 0)
     return null;
 

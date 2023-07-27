@@ -87,7 +87,11 @@ export default function ValuesTable({
             {(values || []).map((value: Value) => (
               <TableRow
                 key={value.id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                sx={{
+                  "&:last-child td, &:last-child th": { border: 0 },
+                  "& td": { padding: "6px 16px" },
+                  "&:hover": { backgroundColor: "#1b505999" },
+                }}
               >
                 <TableCell align="left">{value.date}</TableCell>
                 <TableCell align="left">{value.value}</TableCell>

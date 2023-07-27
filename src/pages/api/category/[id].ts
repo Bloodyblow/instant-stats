@@ -19,7 +19,11 @@ export default async function handler(
           id: Number(id),
         },
         include: {
-          values: true,
+          values: {
+            orderBy: {
+              date: "asc",
+            },
+          },
         },
       });
       return res.status(200).json(category);
