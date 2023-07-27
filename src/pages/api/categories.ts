@@ -9,21 +9,11 @@ export default async function handler(
   res: NextApiResponse<Category[]>
 ) {
   const session = await getServerSession(req, res, authOptions);
-  console.log(" Categories -----------------------------------------------");
-  console.log(" Categories -----------------------------------------------");
-  console.log(authOptions);
-  console.log(session);
-  console.log(" Categories -----------------------------------------------");
-  console.log(" Categories -----------------------------------------------");
-  console.log(" Categories -----------------------------------------------");
-  console.log(" Categories -----------------------------------------------");
   const sessionId = session?.user?.email;
   if (!sessionId) return res.status(401).end("Unauthorized");
 
   const categories = await prisma.category.findMany({
-    // where: {
-    //   userId: sessionId,
-    // },
+    where: { user: { email: sessionId } },
   });
   res.status(200).json(categories);
 }

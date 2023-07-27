@@ -12,8 +12,16 @@ export default async function handler(
   if (!session) return res.status(401).end("Unauthorized");
 
   const { name, unit, icon } = req.body;
+
   const newCategory = await prisma.category.create({
-    data: { name, icon, unit },
+    data: {
+      name,
+      icon,
+      unit,
+      user: {
+        connect: { email: session.user.email },
+      },
+    },
   });
   return res.status(200).json(newCategory);
 }

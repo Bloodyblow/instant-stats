@@ -56,13 +56,6 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     // async session({ session, user }) {
-    //   console.log("nextauth ...............................................");
-    //   console.log("nextauth ...............................................");
-    //   console.log(user);
-    //   console.log("nextauth ...............................................");
-    //   console.log("nextauth ...............................................");
-    //   console.log("nextauth ...............................................");
-
     //   if (session.user) session.user.id = user.id;
     //   return session;
     // },
