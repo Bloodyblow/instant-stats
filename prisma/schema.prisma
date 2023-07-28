@@ -57,7 +57,7 @@ model Category {
 
 model Value {
   id         Int      @id @default(autoincrement())
-  date       String
+  date       DateTime
   value      Float
   category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId Int

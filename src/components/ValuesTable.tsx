@@ -27,7 +27,10 @@ export default function ValuesTable({
   const { enqueueSnackbar } = useSnackbar();
   const [openConfirmDelete, setOpenConfirmDelete] = React.useState(false);
   const [valueToDelete, setValueToDelete] = React.useState<Value | null>(null);
-  const { category } = useSelector((state: RootState) => state.category);
+  const { category, values } = useSelector(
+    (state: RootState) => state.category
+  );
+  console.log("ValuesTable", values);
   const { mutate: mutateDeleteValue, isLoading } = useMutation({
     mutationFn: deleteValue,
     onSuccess: (value: Value) => {
@@ -42,10 +45,9 @@ export default function ValuesTable({
     },
   });
 
-  if (!category || !category.values || category.values.length === 0)
-    return null;
+  if (!category || values.length === 0) return null;
 
-  const { values, unit } = category!!;
+  const { unit } = category!!;
 
   const onCloseConfirmDialog = () => setOpenConfirmDelete(false);
   const onConfirmDialog = () => {
@@ -56,7 +58,6 @@ export default function ValuesTable({
       categoryId: category.id,
     });
   };
-
   return (
     <div
       style={{

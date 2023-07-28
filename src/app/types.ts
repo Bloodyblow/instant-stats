@@ -18,7 +18,6 @@ export type Category = { id: number; name: string; icon: string };
 
 export type CategoryExtend = Category & {
   unit: string;
-  values: Value[];
 };
 
 export type CategoryFormData = Omit<CategoryExtend, "id" | "values"> & {
