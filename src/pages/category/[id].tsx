@@ -4,11 +4,11 @@ import { CategoryExtend } from "@/app/types";
 import ValuesTable from "../../components/ValuesTable";
 import ValueForm from "../../components/ValueForm";
 import { useDispatch, useSelector } from "react-redux";
-import { setCategory } from "../../app/store/categorySlice";
+import { setCategory, setValues } from "../../app/store/categorySlice";
 import Chart from "../../components/Chart";
 import { useQuery } from "@tanstack/react-query";
 import LinearProgress from "@mui/material/LinearProgress";
-import { getCategory } from "@/app/apiService";
+import { getCategory, getValues } from "@/app/apiService";
 import { RootState } from "@/app/store/store";
 import { GetServerSideProps } from "next";
 import { Context } from "vm";
@@ -18,6 +18,7 @@ import { Box } from "@mui/material";
 import CategoryFormInModal from "../../components/CategoryFormInModal";
 import DeleteCategory from "../../components/DeleteCategory";
 import CategoryHeader from "@/components/CategoryHeader";
+import dayjs from "dayjs";
 
 export const getServerSideProps: GetServerSideProps = async (
   context: Context
@@ -27,23 +28,22 @@ export const getServerSideProps: GetServerSideProps = async (
     where: {
       id: Number(id),
     },
-    include: {
-      values: true,
-    },
   });
   return { props: { categoryData } };
 };
 
 const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
   const dispatch = useDispatch();
+  const endDate = dayjs().format("YYYY-MM-DD");
+  const startDate = dayjs().subtract(1, "month").format("YYYY-MM-DD");
   const { showCategoryForm } = useSelector(
     (state: RootState) => state.category
   );
 
   const {
     data: category,
-    isFetching,
-    refetch,
+    isFetching: isFetchingCategory,
+    refetch: refetchCategory,
   } = useQuery({
     queryKey: ["category"],
     queryFn: () => getCategory(categoryData.id),
@@ -51,9 +51,25 @@ const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
     enabled: false,
   });
 
+  const {
+    data: values,
+    isFetching: isFetchingValues,
+    refetch: refetchValues,
+  } = useQuery({
+    queryKey: ["values"],
+    queryFn: () => getValues(categoryData.id, startDate, endDate),
+    initialData: [],
+    enabled: true,
+  });
+
   useEffect(() => {
     dispatch(setCategory(category));
   }, [category, dispatch]);
+
+  console.log("category page", values);
+  useEffect(() => {
+    dispatch(setValues(values));
+  }, [values, dispatch]);
 
   const pageTitle = (
     <Box
@@ -73,7 +89,9 @@ const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
     </Box>
   );
 
-  const onFinish = () => refetch();
+  const onFinishValues = () => refetchValues();
+  const onFinishCategory = () => refetchCategory();
+  const isFetching = isFetchingCategory || isFetchingValues;
 
   return (
     <Layout pageTitle={pageTitle}>
@@ -85,11 +103,14 @@ const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
 
       <CategoryHeader />
       <Chart />
-      <ValueForm onFinish={onFinish} />
-      <ValuesTable onValueDeleted={onFinish} />
+      <ValueForm onFinish={onFinishValues} />
+      <ValuesTable onValueDeleted={onFinishValues} />
 
       {showCategoryForm && (
-        <CategoryFormInModal initialValues={category} onFinish={onFinish} />
+        <CategoryFormInModal
+          initialValues={category}
+          onFinish={onFinishCategory}
+        />
       )}
 
       <DeleteCategory />

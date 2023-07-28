@@ -39,6 +39,15 @@ export const deleteCategory = (id: number) =>
 
 // Values
 
+export const getValues = (
+  categoryId: number,
+  startDate: string,
+  endDate: string
+) =>
+  fetch(
+    `/api/values/${categoryId}?startDate=${startDate}&endDate=${endDate}`
+  ).then((res) => res.json());
+
 export const addValue = (formData: ValueFormData) => {
   const { categoryId, ...value } = formData;
   return fetch(`/api/value/${categoryId}`, {

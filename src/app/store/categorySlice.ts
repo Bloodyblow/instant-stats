@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import dayjs from "dayjs";
 import { CategoryExtend, ChartType, Value } from "@/app/types";
 
 export interface CategoryState {
@@ -8,6 +9,7 @@ export interface CategoryState {
   selectedValue: Value | null;
   shouldRefetchCategories: boolean;
   showCategoryForm: boolean;
+  values: Value[];
 }
 
 const initialState: CategoryState = {
@@ -16,6 +18,7 @@ const initialState: CategoryState = {
   showCategoryForm: false,
   selectedValue: null,
   shouldRefetchCategories: false,
+  values: [],
 };
 
 export const categorySlice = createSlice({
@@ -40,6 +43,9 @@ export const categorySlice = createSlice({
     setChart: (state, action: PayloadAction<"line" | "bar">) => {
       state.chart = action.payload;
     },
+    setValues: (state, action: PayloadAction<Value[]>) => {
+      state.values = action.payload;
+    },
   },
 });
 
@@ -50,6 +56,7 @@ export const {
   setSelectedValue,
   removeCategory,
   setShouldRefreshCategories,
+  setValues,
 } = categorySlice.actions;
 
 export default categorySlice.reducer;

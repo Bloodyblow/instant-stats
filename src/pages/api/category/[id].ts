@@ -18,13 +18,6 @@ export default async function handler(
         where: {
           id: Number(id),
         },
-        include: {
-          values: {
-            orderBy: {
-              date: "asc",
-            },
-          },
-        },
       });
       return res.status(200).json(category);
     case "PUT":

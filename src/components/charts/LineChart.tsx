@@ -1,11 +1,17 @@
 // install (please make sure versions match peerDependencies)
 // yarn add @nivo/core @nivo/line
-import { CategoryExtend } from "@/app/types";
+import { CategoryExtend, Value } from "@/app/types";
 import { Box } from "@mui/material";
 import { ResponsiveLine, Serie } from "@nivo/line";
 
-export default function LineChart({ category }: { category: CategoryExtend }) {
-  const { values, name, unit } = category;
+export default function LineChart({
+  category,
+  values,
+}: {
+  category: CategoryExtend;
+  values: Value[];
+}) {
+  const { name, unit } = category;
 
   const data: Serie[] = [
     {

@@ -11,10 +11,10 @@ export const CHART_TYPE_LABELS = {
 };
 
 export default function Chart() {
-  const { category, chart } = useSelector((state: RootState) => state.category);
-  console.log("categories", category);
-  if (!category || !category.values || category.values.length === 0)
-    return null;
+  const { category, chart, values } = useSelector(
+    (state: RootState) => state.category
+  );
+  if (!category || values.length === 0) return null;
 
   return (
     <Card
@@ -25,9 +25,9 @@ export default function Chart() {
       }}
     >
       {chart === "line" ? (
-        <LineChart category={category} />
+        <LineChart category={category} values={values} />
       ) : (
-        <BarChart category={category} />
+        <BarChart category={category} values={values} />
       )}
     </Card>
   );

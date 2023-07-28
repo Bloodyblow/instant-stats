@@ -1,9 +1,15 @@
 import { ResponsiveBar } from "@nivo/bar";
 import { Box } from "@mui/material";
-import { CategoryExtend } from "@/app/types";
+import { CategoryExtend, Value } from "@/app/types";
 
-export default function BarChart({ category }: { category: CategoryExtend }) {
-  const { values, name, unit } = category;
+export default function BarChart({
+  category,
+  values,
+}: {
+  category: CategoryExtend;
+  values: Value[];
+}) {
+  const { name, unit } = category;
 
   return (
     <Box
