@@ -22,6 +22,7 @@ export default NextAuth({
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   // https://next-auth.js.org/configuration/providers/oauth
+  adapter: PrismaAdapter(prisma) as any, // TODO: will be fix on next-auth v5
   providers: [
     /* EmailProvider({
          server: process.env.EMAIL_SERVER,
