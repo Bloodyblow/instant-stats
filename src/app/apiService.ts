@@ -2,6 +2,7 @@ import {
   Category,
   CategoryExtend,
   CategoryFormData,
+  DateRange,
   DeleteValueFormData,
   ValueFormData,
 } from "./types";
@@ -39,13 +40,9 @@ export const deleteCategory = (id: number) =>
 
 // Values
 
-export const getValues = (
-  categoryId: number,
-  startDate: string,
-  endDate: string
-) =>
+export const getValues = (categoryId: number, range: DateRange) =>
   fetch(
-    `/api/values/${categoryId}?startDate=${startDate}&endDate=${endDate}`
+    `/api/values/${categoryId}?startDate=${range[0]}&endDate=${range[1]}`
   ).then((res) => res.json());
 
 export const addValue = (formData: ValueFormData) => {

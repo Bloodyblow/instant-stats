@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import dayjs from "dayjs";
-import { CategoryExtend, ChartType, Value } from "@/app/types";
+import { CategoryExtend, ChartType, DateRange, Value } from "@/app/types";
 
 export interface CategoryState {
   category: CategoryExtend | null;
   chart: ChartType;
+  dateRange: DateRange;
   selectedValue: Value | null;
   shouldRefetchCategories: boolean;
   showCategoryForm: boolean;
@@ -15,6 +16,7 @@ export interface CategoryState {
 const initialState: CategoryState = {
   category: null,
   chart: "bar",
+  dateRange: [dayjs().subtract(1, "month"), dayjs()],
   showCategoryForm: false,
   selectedValue: null,
   shouldRefetchCategories: false,
@@ -46,6 +48,9 @@ export const categorySlice = createSlice({
     setValues: (state, action: PayloadAction<Value[]>) => {
       state.values = action.payload;
     },
+    setDateRange: (state, action: PayloadAction<DateRange>) => {
+      state.dateRange = action.payload;
+    },
   },
 });
 
@@ -57,6 +62,7 @@ export const {
   removeCategory,
   setShouldRefreshCategories,
   setValues,
+  setDateRange,
 } = categorySlice.actions;
 
 export default categorySlice.reducer;

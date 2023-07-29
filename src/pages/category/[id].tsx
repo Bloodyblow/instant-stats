@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import { CategoryExtend } from "@/app/types";
 import ValuesTable from "../../components/ValuesTable";
@@ -34,9 +34,7 @@ export const getServerSideProps: GetServerSideProps = async (
 
 const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
   const dispatch = useDispatch();
-  const endDate = dayjs().format("YYYY-MM-DD");
-  const startDate = dayjs().subtract(1, "month").format("YYYY-MM-DD");
-  const { showCategoryForm } = useSelector(
+  const { showCategoryForm, dateRange } = useSelector(
     (state: RootState) => state.category
   );
 
@@ -57,7 +55,7 @@ const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
     refetch: refetchValues,
   } = useQuery({
     queryKey: ["values"],
-    queryFn: () => getValues(categoryData.id, startDate, endDate),
+    queryFn: () => getValues(categoryData.id, dateRange),
     initialData: [],
     enabled: true,
   });
@@ -66,7 +64,6 @@ const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
     dispatch(setCategory(category));
   }, [category, dispatch]);
 
-  console.log("category page", values);
   useEffect(() => {
     dispatch(setValues(values));
   }, [values, dispatch]);
@@ -89,8 +86,6 @@ const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
     </Box>
   );
 
-  const onFinishValues = () => refetchValues();
-  const onFinishCategory = () => refetchCategory();
   const isFetching = isFetchingCategory || isFetchingValues;
 
   return (
@@ -101,15 +96,15 @@ const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
         </div>
       )}
 
-      <CategoryHeader />
+      <CategoryHeader onFinish={refetchValues} />
       <Chart />
-      <ValueForm onFinish={onFinishValues} />
-      <ValuesTable onValueDeleted={onFinishValues} />
+      <ValueForm onFinish={refetchValues} />
+      <ValuesTable onValueDeleted={refetchValues} />
 
       {showCategoryForm && (
         <CategoryFormInModal
           initialValues={category}
-          onFinish={onFinishCategory}
+          onFinish={refetchCategory}
         />
       )}
 

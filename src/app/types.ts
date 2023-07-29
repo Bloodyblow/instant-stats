@@ -1,3 +1,5 @@
+import { Dayjs } from "dayjs";
+
 export type Value = {
   id: number;
   date: string;
@@ -34,3 +36,5 @@ export type StoredMessage = Message & {
 };
 
 export type ChartType = "line" | "bar";
+
+export type DateRange = [Dayjs, Dayjs];
