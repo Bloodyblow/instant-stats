@@ -26,7 +26,11 @@ export default async function handler(
           lte: end,
         },
       },
+      orderBy: {
+        date: "asc",
+      },
     });
+
     return res.status(200).json(values);
   }
   return res.status(405).end("Method not allowed");
