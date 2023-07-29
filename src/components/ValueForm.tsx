@@ -76,22 +76,22 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
     },
   });
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!category || !date || !value) return;
     const data = {
-      date: date?.format("YYYY-MM-DD"),
+      date: date?.toISOString(),
       value,
       categoryId: category.id,
     };
 
     if (selectedValue) {
-      mutateUpdateValue({
+      await mutateUpdateValue({
         ...data,
         id: selectedValue.id,
       });
     } else {
-      mutateCreateValue(data);
+      await mutateCreateValue(data);
     }
     onFinish();
   };
@@ -134,9 +134,7 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
               <DatePicker
                 label="Date"
                 value={date}
-                onChange={(newValue) => {
-                  setDate(newValue);
-                }}
+                onChange={(newValue) => setDate(newValue)}
                 renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>

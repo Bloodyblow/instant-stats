@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
 import BarChart from "./charts/BarChart";
 import LineChart from "./charts/LineChart";
+import dayjs from "dayjs";
 
 export const CHART_TYPES = ["line", "bar"];
 export const CHART_TYPE_LABELS = {
@@ -16,6 +17,11 @@ export default function Chart() {
   );
   if (!category || values.length === 0) return null;
 
+  console.log("values", values);
+  const valuesReady = values.map((item) => ({
+    ...item,
+    date: dayjs(item.date).format("DD/MM/YYYY"),
+  }));
   return (
     <Card
       sx={{
@@ -25,9 +31,9 @@ export default function Chart() {
       }}
     >
       {chart === "line" ? (
-        <LineChart category={category} values={values} />
+        <LineChart category={category} values={valuesReady} />
       ) : (
-        <BarChart category={category} values={values} />
+        <BarChart category={category} values={valuesReady} />
       )}
     </Card>
   );

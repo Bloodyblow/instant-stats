@@ -17,6 +17,7 @@ import { deleteValue } from "@/app/apiService";
 import { useMutation } from "@tanstack/react-query";
 import ConfirmDialog from "./ConfirmDialog";
 import { useSnackbar } from "notistack";
+import dayjs from "dayjs";
 
 export default function ValuesTable({
   onValueDeleted,
@@ -94,7 +95,9 @@ export default function ValuesTable({
                   "&:hover": { backgroundColor: "#1b505999" },
                 }}
               >
-                <TableCell align="left">{value.date}</TableCell>
+                <TableCell align="left">
+                  {dayjs(value.date).format("DD/MM/YYYY")}
+                </TableCell>
                 <TableCell align="left">{value.value}</TableCell>
                 <TableCell align="left">
                   <Tooltip title="Edit value">
