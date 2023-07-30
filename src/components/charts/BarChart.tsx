@@ -1,6 +1,7 @@
 import { ResponsiveBar } from "@nivo/bar";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { CategoryExtend, Value } from "@/app/types";
+import ChartTooltip from "../ChartTooltip";
 
 export default function BarChart({
   category,
@@ -49,6 +50,7 @@ export default function BarChart({
           textColor: "white",
           fontSize: 14,
         }}
+        tooltip={({ value }) => <ChartTooltip value={value} unit={unit} />}
       />
     </Box>
   );
