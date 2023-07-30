@@ -93,7 +93,7 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
     } else {
       await mutateCreateValue(data);
     }
-    onFinish();
+    setTimeout(() => onFinish(), 1000);
   };
 
   const onReset = () => {

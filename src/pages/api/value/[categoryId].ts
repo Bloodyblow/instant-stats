@@ -15,6 +15,18 @@ export default async function handler(
   const { categoryId } = req.query;
   if (method === "POST") {
     const { date, value } = req.body;
+
+    const existingValue = await prisma.value.findFirst({
+      where: { date, categoryId: parseInt(categoryId as string) },
+    });
+    if (existingValue) {
+      const updatedValue = await prisma.value.update({
+        where: { id: existingValue.id },
+        data: { value },
+      });
+      return res.status(200).json(updatedValue);
+    }
+
     const newValue = await prisma.value.create({
       data: {
         date,

@@ -32,7 +32,7 @@ export function CategoryIcon({ name }: { name: string }) {
       return <ChildCareIcon />;
     case "height":
       return <HeightIcon />;
-    case "height":
+    case "pie chart":
       return <PieChartIcon />;
     case "scale":
       return <ScaleIcon />;
