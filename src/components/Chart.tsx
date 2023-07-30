@@ -4,6 +4,7 @@ import { RootState } from "@/app/store/store";
 import BarChart from "./charts/BarChart";
 import LineChart from "./charts/LineChart";
 import dayjs from "dayjs";
+import { DATEFORMAT_en } from "@/app/constants";
 
 export const CHART_TYPES = ["line", "bar"];
 export const CHART_TYPE_LABELS = {
@@ -19,7 +20,7 @@ export default function Chart() {
 
   const valuesReady = values.map((item) => ({
     ...item,
-    date: dayjs(item.date).format("DD/MM/YYYY"),
+    date: dayjs(item.date).format(DATEFORMAT_en),
   }));
   return (
     <Card

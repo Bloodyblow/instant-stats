@@ -23,6 +23,7 @@ import { useMutation } from "@tanstack/react-query";
 import { addValue, updateValue } from "@/app/apiService";
 import { setSelectedValue } from "../app/store/categorySlice";
 import { useSnackbar } from "notistack";
+import { DATEFORMAT_en } from "@/app/constants";
 
 const textFieldSx = {
   color: "secondary.contrastText",
@@ -136,6 +137,7 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
                 value={date}
                 onChange={(newValue) => setDate(newValue)}
                 renderInput={(params) => <TextField {...params} />}
+                inputFormat={DATEFORMAT_en}
               />
             </LocalizationProvider>
             <TextField

@@ -18,6 +18,7 @@ import { useMutation } from "@tanstack/react-query";
 import ConfirmDialog from "./ConfirmDialog";
 import { useSnackbar } from "notistack";
 import dayjs from "dayjs";
+import { DATEFORMAT_en } from "@/app/constants";
 
 export default function ValuesTable({
   onValueDeleted,
@@ -96,7 +97,7 @@ export default function ValuesTable({
                 }}
               >
                 <TableCell align="left">
-                  {dayjs(value.date).format("DD/MM/YYYY")}
+                  {dayjs(value.date).format(DATEFORMAT_en)}
                 </TableCell>
                 <TableCell align="left">{value.value}</TableCell>
                 <TableCell align="left">
