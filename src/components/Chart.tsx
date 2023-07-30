@@ -17,7 +17,6 @@ export default function Chart() {
   );
   if (!category || values.length === 0) return null;
 
-  console.log("values", values);
   const valuesReady = values.map((item) => ({
     ...item,
     date: dayjs(item.date).format("DD/MM/YYYY"),

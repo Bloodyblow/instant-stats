@@ -22,8 +22,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/app/store/store";
 import { setShouldRefreshCategories } from "@/app/store/categorySlice";
 import { useSession, signIn, signOut } from "next-auth/react";
+import DeleteAccountModal from "./DeleteAccountModal";
 
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Logout", "Delete account"];
 
 const categoriesDropdownSx = {
   transition: "background-color .3s ease-in-out",
@@ -36,6 +37,9 @@ function Navbar() {
   const { data: session } = useSession();
   const username = session?.user?.name;
   const userImage = session?.user?.image;
+
+  const [openDeleteAccountModal, setOpenDeleteAccountModal] =
+    React.useState(false);
 
   const { shouldRefetchCategories } = useSelector(
     (state: RootState) => state.category
@@ -77,202 +81,227 @@ function Navbar() {
       await signOut();
       router.push("/");
     }
+    if (setting === "Delete account") {
+      setOpenDeleteAccountModal(true);
+    }
   };
 
   const isHomePage = router.pathname === "/";
 
   return (
-    <AppBar
-      position="static"
-      sx={{
-        backgroundColor: "primary.main",
-      }}
-    >
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          {/* On the left  */}
-          {/* Desktop */}
-          <BarChart sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              flexGrow: isHomePage ? 1 : 0,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            {appTitle}
-          </Typography>
+    <>
+      <AppBar
+        position="static"
+        sx={{
+          backgroundColor: "primary.main",
+        }}
+      >
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            {/* On the left  */}
+            {/* Desktop */}
+            <BarChart sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                flexGrow: isHomePage ? 1 : 0,
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              {appTitle}
+            </Typography>
 
-          {/* Mobile */}
-          {!isHomePage && (
-            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-              {categories && categories?.length > 0 && (
+            {/* Mobile */}
+            {!isHomePage && (
+              <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleOpenNavMenu}
+                  color="inherit"
+                >
+                  <MenuIcon />
+                </IconButton>
+                {categories && categories?.length > 0 && (
+                  <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorElNav}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "left",
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "left",
+                    }}
+                    open={Boolean(anchorElNav)}
+                    onClose={handleCloseNavMenu}
+                    sx={{
+                      display: { xs: "block", md: "none" },
+                      "& .MuiList-root": {
+                        backgroundColor: "primary.main",
+                      },
+                    }}
+                  >
+                    <MenuItem disabled key="go-to">
+                      Go to chart
+                    </MenuItem>
+                    {categories.map((category: Category) => (
+                      <MenuItem key={category.id} sx={categoriesDropdownSx}>
+                        <Typography
+                          component="a"
+                          href={`/category/${category.id}`}
+                          sx={{ display: "flex", alignItems: "center" }}
+                        >
+                          <CategoryIcon name={category.icon} />
+                          <span style={{ marginLeft: ".5rem" }}>
+                            {category.name}
+                          </span>
+                        </Typography>
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                )}
+              </Box>
+            )}
+
+            {/* Mobile */}
+            <BarChart sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href=""
+              sx={{
+                mr: 2,
+                display: { xs: "flex", md: "none" },
+                flexGrow: 1,
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              {appTitle}
+            </Typography>
+
+            {/* Desktop */}
+            {!isHomePage && (
+              <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+                <PopupState variant="popover" popupId="go-to-chart-popup-menu">
+                  {(popupState: any) => (
+                    <React.Fragment>
+                      <Button
+                        variant="text"
+                        {...bindTrigger(popupState)}
+                        sx={{ color: "text.primary" }}
+                      >
+                        Go to chart
+                      </Button>
+                      <Menu
+                        {...bindMenu(popupState)}
+                        sx={{
+                          "& .MuiList-root": {
+                            backgroundColor: "primary.main",
+                          },
+                        }}
+                      >
+                        {categories?.length &&
+                          categories?.length > 0 &&
+                          categories.map((category: any) => (
+                            <MenuItem
+                              key={category.id}
+                              sx={categoriesDropdownSx}
+                            >
+                              <Typography
+                                component="a"
+                                href={`/category/${category.id}`}
+                                sx={{ display: "flex", alignItems: "center" }}
+                              >
+                                <CategoryIcon name={category.icon} />
+                                <span style={{ marginLeft: ".5rem" }}>
+                                  {category.name}
+                                </span>
+                              </Typography>
+                            </MenuItem>
+                          ))}
+                      </Menu>
+                    </React.Fragment>
+                  )}
+                </PopupState>
+              </Box>
+            )}
+
+            {/* On the right */}
+            {/* Desktop & mobile */}
+            {session?.user && (
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar
+                      alt={username as string}
+                      src={userImage as string}
+                    />
+                  </IconButton>
+                </Tooltip>
                 <Menu
+                  sx={{ mt: "45px" }}
                   id="menu-appbar"
-                  anchorEl={anchorElNav}
+                  anchorEl={anchorElUser}
                   anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left",
+                    vertical: "top",
+                    horizontal: "right",
                   }}
                   keepMounted
                   transformOrigin={{
                     vertical: "top",
-                    horizontal: "left",
+                    horizontal: "right",
                   }}
-                  open={Boolean(anchorElNav)}
-                  onClose={handleCloseNavMenu}
-                  sx={{
-                    display: { xs: "block", md: "none" },
-                    "& .MuiList-root": {
-                      backgroundColor: "primary.main",
-                    },
-                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
                 >
-                  <MenuItem disabled key="go-to">
-                    Go to chart
-                  </MenuItem>
-                  {categories.map((category: Category) => (
-                    <MenuItem key={category.id} sx={categoriesDropdownSx}>
+                  {settings.map((setting) => (
+                    <MenuItem
+                      key={setting}
+                      onClick={() => handleClickOnUserMenu(setting)}
+                    >
                       <Typography
-                        component="a"
-                        href={`/category/${category.id}`}
-                        sx={{ display: "flex", alignItems: "center" }}
+                        textAlign="center"
+                        sx={
+                          setting === "Delete account"
+                            ? { color: "#f26b6b" }
+                            : { color: "inherit" }
+                        }
                       >
-                        <CategoryIcon name={category.icon} />
-                        <span style={{ marginLeft: ".5rem" }}>
-                          {category.name}
-                        </span>
+                        {setting}
                       </Typography>
                     </MenuItem>
                   ))}
                 </Menu>
-              )}
-            </Box>
-          )}
-
-          {/* Mobile */}
-          <BarChart sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            {appTitle}
-          </Typography>
-
-          {/* Desktop */}
-          {!isHomePage && (
-            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              <PopupState variant="popover" popupId="go-to-chart-popup-menu">
-                {(popupState: any) => (
-                  <React.Fragment>
-                    <Button
-                      variant="text"
-                      {...bindTrigger(popupState)}
-                      sx={{ color: "text.primary" }}
-                    >
-                      Go to chart
-                    </Button>
-                    <Menu
-                      {...bindMenu(popupState)}
-                      sx={{
-                        "& .MuiList-root": {
-                          backgroundColor: "primary.main",
-                        },
-                      }}
-                    >
-                      {categories?.length &&
-                        categories?.length > 0 &&
-                        categories.map((category: any) => (
-                          <MenuItem key={category.id} sx={categoriesDropdownSx}>
-                            <Typography
-                              component="a"
-                              href={`/category/${category.id}`}
-                              sx={{ display: "flex", alignItems: "center" }}
-                            >
-                              <CategoryIcon name={category.icon} />
-                              <span style={{ marginLeft: ".5rem" }}>
-                                {category.name}
-                              </span>
-                            </Typography>
-                          </MenuItem>
-                        ))}
-                    </Menu>
-                  </React.Fragment>
-                )}
-              </PopupState>
-            </Box>
-          )}
-
-          {/* On the right */}
-          {/* Desktop & mobile */}
-          {session?.user && (
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt={username as string} src={userImage as string} />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting) => (
-                  <MenuItem
-                    key={setting}
-                    onClick={() => handleClickOnUserMenu(setting)}
-                  >
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
-          )}
-        </Toolbar>
-      </Container>
-    </AppBar>
+              </Box>
+            )}
+          </Toolbar>
+        </Container>
+      </AppBar>
+      <DeleteAccountModal
+        openModal={openDeleteAccountModal}
+        onConfirm={() => setOpenDeleteAccountModal(false)}
+        onCancel={() => setOpenDeleteAccountModal(false)}
+      />
+    </>
   );
 }
 export default Navbar;

@@ -51,12 +51,14 @@ export const categorySlice = createSlice({
     setDateRange: (state, action: PayloadAction<DateStringRange>) => {
       state.dateRange = action.payload;
     },
+    clearAll: () => initialState,
   },
 });
 
 export const {
   setCategory,
   setChart,
+  clearAll,
   setShowCategoryForm,
   setSelectedValue,
   removeCategory,

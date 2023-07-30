@@ -71,3 +71,10 @@ export const deleteValue = (formData: DeleteValueFormData) => {
     body: JSON.stringify({ valueId }),
   }).then((res) => res.json());
 };
+
+// User
+
+export const deleteUserAccount = (email: string) =>
+  fetch(`/api/user/${email}`, {
+    method: "DELETE",
+  }).then((res) => res.json());
