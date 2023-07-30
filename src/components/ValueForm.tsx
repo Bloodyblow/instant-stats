@@ -145,7 +145,11 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
               type="number"
               sx={textFieldSx}
               value={value || ""}
-              onChange={(e) => setValue(parseInt(e.target.value))}
+              onChange={(e) => setValue(parseFloat(e.target.value))}
+              inputProps={{
+                step: 0.01,
+                min: 0,
+              }}
             />
             <Tooltip title="Add data">
               <Button
