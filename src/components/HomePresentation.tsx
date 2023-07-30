@@ -21,8 +21,8 @@ export default function HomePresentation() {
         Simplifies data organization and analysis.
       </Typography>
       <Typography sx={typographySx}>
-        Users can create custom categories and enter values to track progress
-        and analyze relevant data. The app presents data in table and provides{" "}
+        You can create custom categories and enter values to track progress and
+        analyze relevant data. The app presents data in table and provides{" "}
         <span style={{ color: "#ffef1d", letterSpacing: "2px" }}>
           multiple charts
         </span>{" "}
