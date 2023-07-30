@@ -37,4 +37,5 @@ export type StoredMessage = Message & {
 
 export type ChartType = "line" | "bar";
 
+export type DateRange = [Dayjs, Dayjs];
 export type DateStringRange = [string, string];

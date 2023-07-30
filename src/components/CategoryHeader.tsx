@@ -1,4 +1,4 @@
-import { ChartType } from "@/app/types";
+import { ChartType, DateRange } from "@/app/types";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setChart,
