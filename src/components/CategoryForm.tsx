@@ -10,6 +10,7 @@ import {
   Tooltip,
   Card,
   Stack,
+  Typography,
 } from "@mui/material";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import { CategoryExtend, CategoryFormData } from "@/app/types";
@@ -28,6 +29,10 @@ const buttonSx = {
   height: "fit-content",
 };
 
+const ErrorMessage = ({ message }: { message: string }) => (
+  <Typography style={{ color: "#f26b6b" }}>{message}</Typography>
+);
+
 export default function CatergoryForm({
   initialValues,
   onFinish,
@@ -40,9 +45,16 @@ export default function CatergoryForm({
   const [name, setName] = useState<string | null>(initialValues?.name || null);
   const [unit, setUnit] = useState<string | null>(initialValues?.unit || null);
   const [icon, setIcon] = useState<string | null>(initialValues?.icon || null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!name || !unit || !icon) {
+      setIsSubmitting(true);
+      return;
+    }
+
+    setIsSubmitting(false);
     onFinish({
       name: name || "",
       unit: unit || "",
@@ -82,6 +94,9 @@ export default function CatergoryForm({
               value={name || ""}
               onChange={(e) => setName(e.target.value)}
             />
+            {isSubmitting && !name && (
+              <ErrorMessage message="Name is required" />
+            )}
             <TextField
               id="unit"
               label="Unit"
@@ -91,10 +106,16 @@ export default function CatergoryForm({
               value={unit || ""}
               onChange={(e) => setUnit(e.target.value)}
             />
+            {isSubmitting && !unit && (
+              <ErrorMessage message="Unit is required" />
+            )}
             <SelectIcon
               selectedIconName={icon}
               setSelectedIconName={(iconName) => setIcon(iconName)}
             />
+            {isSubmitting && !icon && (
+              <ErrorMessage message="Icon is required" />
+            )}
             <Stack
               direction="row"
               spacing={1}

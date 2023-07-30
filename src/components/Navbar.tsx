@@ -34,7 +34,9 @@ const categoriesDropdownSx = {
 
 function Navbar() {
   const { data: session } = useSession();
-  const { name: username, email: userEmail, image: userImage } = session?.user;
+  const username = session?.user?.name;
+  const userEmail = session?.user?.email;
+  const userImage = session?.user?.image;
 
   const [openDeleteAccountModal, setOpenDeleteAccountModal] =
     React.useState(false);
