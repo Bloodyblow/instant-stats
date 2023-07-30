@@ -1,4 +1,4 @@
-import { ChartType, DateRange } from "@/app/types";
+import { ChartType } from "@/app/types";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setChart,
@@ -9,6 +9,7 @@ import { CHART_TYPES, CHART_TYPE_LABELS } from "./Chart";
 import EditIcon from "@mui/icons-material/Edit";
 import { RootState } from "@/app/store/store";
 import { LocalizationProvider } from "@mui/x-date-pickers-pro";
+import SyncIcon from "@mui/icons-material/Sync";
 import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
 import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 
@@ -22,7 +23,9 @@ import {
   Select,
   SelectChangeEvent,
   Stack,
+  IconButton,
 } from "@mui/material";
+import dayjs from "dayjs";
 
 const CategoryHeader = ({ onFinish }: { onFinish: () => void }) => {
   const dispatch = useDispatch();
@@ -34,7 +37,8 @@ const CategoryHeader = ({ onFinish }: { onFinish: () => void }) => {
     dispatch(setChart(event.target.value as ChartType));
 
   const onChangeDateRange = (dateRange: DateRange) => {
-    dispatch(setDateRange(dateRange));
+    const [start, end] = dateRange;
+    dispatch(setDateRange([start.toISOString(), end.toISOString()]));
     onFinish();
   };
   return (
@@ -47,6 +51,7 @@ const CategoryHeader = ({ onFinish }: { onFinish: () => void }) => {
         width: "100%",
       }}
     >
+      {/* Row 1 */}
       <Stack direction="row" spacing={2}>
         <Button
           onClick={() => dispatch(setShowCategoryForm(true))}
@@ -57,6 +62,7 @@ const CategoryHeader = ({ onFinish }: { onFinish: () => void }) => {
         </Button>
       </Stack>
 
+      {/* Row 2 */}
       <Stack
         spacing={2}
         alignItems="center"
@@ -66,24 +72,30 @@ const CategoryHeader = ({ onFinish }: { onFinish: () => void }) => {
           width: "100%",
         }}
       >
-        <FormControl>
-          <LocalizationProvider
-            dateAdapter={AdapterDayjs}
-            localeText={{ start: "Start", end: "End" }}
-          >
-            <DateRangePicker
-              value={dateRange}
-              onChange={onChangeDateRange}
-              renderInput={(startProps: any, endProps: any) => (
-                <>
-                  <TextField {...startProps} />
-                  <Box sx={{ mx: 2 }}> to </Box>
-                  <TextField {...endProps} />
-                </>
-              )}
-            />
-          </LocalizationProvider>
-        </FormControl>
+        {/* Column 1 */}
+        <Stack direction="row">
+          <FormControl>
+            <LocalizationProvider
+              dateAdapter={AdapterDayjs}
+              localeText={{ start: "Start", end: "End" }}
+            >
+              <DateRangePicker
+                value={[dayjs(dateRange[0]), dayjs(dateRange[1])]}
+                onChange={onChangeDateRange}
+                renderInput={(startProps: any, endProps: any) => (
+                  <>
+                    <TextField {...startProps} />
+                    <Box sx={{ mx: 2 }}> to </Box>
+                    <TextField {...endProps} />
+                  </>
+                )}
+              />
+            </LocalizationProvider>
+          </FormControl>
+          <IconButton onClick={onFinish} sx={{ ml: 1, p: "8px 12px" }}>
+            <SyncIcon />
+          </IconButton>
+        </Stack>
 
         <FormControl>
           <InputLabel id="select-chart-type">Chart type</InputLabel>
