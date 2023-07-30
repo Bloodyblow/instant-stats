@@ -53,9 +53,10 @@ export default function Home() {
         >
           <Typography
             sx={{
-              marginTop: "3rem",
-              fontSize: "2rem",
-              letterSpacing: "0.2rem",
+              m: 1,
+              fontSize: "1.2rem",
+              letterSpacing: "0.1rem",
+              textAlign: "center",
             }}
           >
             Sign in to start tracking

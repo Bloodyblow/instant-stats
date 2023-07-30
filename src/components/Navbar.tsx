@@ -23,8 +23,7 @@ import { RootState } from "@/app/store/store";
 import { setShouldRefreshCategories } from "@/app/store/categorySlice";
 import { useSession, signIn, signOut } from "next-auth/react";
 import DeleteAccountModal from "./DeleteAccountModal";
-
-const settings = ["Logout", "Delete account"];
+import { Divider } from "@mui/material";
 
 const categoriesDropdownSx = {
   transition: "background-color .3s ease-in-out",
@@ -35,8 +34,7 @@ const categoriesDropdownSx = {
 
 function Navbar() {
   const { data: session } = useSession();
-  const username = session?.user?.name;
-  const userImage = session?.user?.image;
+  const { name: username, email: userEmail, image: userImage } = session?.user;
 
   const [openDeleteAccountModal, setOpenDeleteAccountModal] =
     React.useState(false);
@@ -75,15 +73,14 @@ function Navbar() {
   };
   const handleCloseNavMenu = () => setAnchorElNav(null);
   const handleCloseUserMenu = () => setAnchorElUser(null);
-  const handleClickOnUserMenu = async (setting: string) => {
+  const handleClickOnLogout = async () => {
     handleCloseUserMenu();
-    if (setting === "Logout") {
-      await signOut();
-      router.push("/");
-    }
-    if (setting === "Delete account") {
-      setOpenDeleteAccountModal(true);
-    }
+    await signOut();
+    router.push("/");
+  };
+  const handleClickOnDeleteAccount = () => {
+    handleCloseUserMenu();
+    setOpenDeleteAccountModal(true);
   };
 
   const isHomePage = router.pathname === "/";
@@ -273,23 +270,22 @@ function Navbar() {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
-                  {settings.map((setting) => (
-                    <MenuItem
-                      key={setting}
-                      onClick={() => handleClickOnUserMenu(setting)}
-                    >
-                      <Typography
-                        textAlign="center"
-                        sx={
-                          setting === "Delete account"
-                            ? { color: "#f26b6b" }
-                            : { color: "inherit" }
-                        }
-                      >
-                        {setting}
-                      </Typography>
-                    </MenuItem>
-                  ))}
+                  <MenuItem disabled key="email">
+                    {userEmail}
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem key="logout" onClick={() => handleClickOnLogout()}>
+                    <Typography textAlign="center"> Logout</Typography>
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem
+                    key="delete-account"
+                    onClick={() => handleClickOnDeleteAccount()}
+                  >
+                    <Typography textAlign="center" sx={{ color: "#f26b6b" }}>
+                      Delete account
+                    </Typography>
+                  </MenuItem>
                 </Menu>
               </Box>
             )}
