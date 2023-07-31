@@ -5,6 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { useTranslation } from "react-i18next";
 
 export default function ConfirmDialog({
   content,
@@ -21,6 +22,7 @@ export default function ConfirmDialog({
   title: string;
   type?: "delete" | "edit";
 }) {
+  const { t } = useTranslation();
   return (
     <Dialog
       open={open}
@@ -36,7 +38,7 @@ export default function ConfirmDialog({
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} variant="contained">
-          Annuler
+          {t("cancel")}
         </Button>
         <Button
           onClick={onConfirm}
@@ -44,7 +46,7 @@ export default function ConfirmDialog({
           color={type === "delete" ? "error" : "primary"}
           variant="contained"
         >
-          OK
+          {t("ok")}
         </Button>
       </DialogActions>
     </Dialog>

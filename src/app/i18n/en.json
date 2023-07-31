@@ -14,5 +14,14 @@
   "start": "Start",
   "end": "End",
   "to": "to",
-  "chart-type": "Chart Type"
+  "chart-type": "Chart Type",
+  "ok": "OK",
+  "account-deleted": "Account deleted",
+  "delete-account": "Delete Account",
+  "delete-user-account": "Delete User Account",
+  "delete-your-account": "Delete your account",
+  "are-you-sure-delet-account": "Are you sure you want to delete your account?",
+  "action-irreversible-category-data-lost-forever": "This action is irreversible and all your data will be lost forever.",
+  "delete-account-forever": "Delete Account Forever",
+  "cancel-keep-account": "Cancel and keep account"
 }

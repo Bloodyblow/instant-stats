@@ -14,5 +14,17 @@
   "start": "Début",
   "end": "Fin",
   "to": "à",
-  "chart-type": "Type de graphique"
+  "chart-type": "Type de graphique",
+  "ok": "OK",
+  "account-deleted": "Compte supprimé",
+  "delete-account": "Supprimer le compte",
+  "delete-user-account": "Supprimer le compte utilisateur",
+  "delete-your-account": "Supprimer votre compte",
+  "are-you-sure-delet-account": "Êtes-vous sûr de vouloir supprimer votre compte?",
+  "action-irreversible-category-data-lost-forever": "Cette action est irréversible. Toutes les données de la catégorie seront perdues pour toujours.",
+  "delete-account-forever": "Supprimer le compte pour toujours",
+  "cancel-keep-account": "Annuler et garder le compte"
+
+
+
 }

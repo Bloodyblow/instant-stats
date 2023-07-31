@@ -11,11 +11,12 @@ import {
 import { useState } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
-import { deleteUserAccount, updateCategory } from "@/app/apiService";
+import { deleteUserAccount } from "@/app/apiService";
 import { useSnackbar } from "notistack";
 import { clearAll } from "@/app/store/categorySlice";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useTranslation } from "react-i18next";
 
 const buttonSx = {
   width: "fit-content",
@@ -32,6 +33,7 @@ const DeleteAccountModal = ({
   onCancel: () => void;
   openModal: boolean;
 }) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
@@ -46,7 +48,7 @@ const DeleteAccountModal = ({
     await signOut({ redirect: false, callbackUrl: "/" });
     dispatch(clearAll());
     router.push("/");
-    enqueueSnackbar("Account deleted", {
+    enqueueSnackbar(t("account-deleted"), {
       variant: "success",
     });
     onConfirm();
@@ -56,8 +58,8 @@ const DeleteAccountModal = ({
     <Modal
       open={openModal}
       onClose={onCancel}
-      aria-labelledby="delete account"
-      aria-describedby="Delete the user account"
+      aria-labelledby={t("delete-account")}
+      aria-describedby={t("delete-user-account")}
       sx={{
         display: "flex",
         alignItems: "center",
@@ -77,7 +79,7 @@ const DeleteAccountModal = ({
         }}
       >
         <Typography variant="h4" component="h2" id="edit-category" style={{}}>
-          Delete your account
+          {t("delete-your-account")}
         </Typography>
         {isLoading && <LinearProgress color="secondary" />}
         <Card
@@ -89,10 +91,9 @@ const DeleteAccountModal = ({
           }}
         >
           <Typography variant="body1" component="p">
-            <strong>Are you sure you want to delete your account?</strong>
+            <strong>{t("are-you-sure-delete-account")}</strong>
             <br />
-            This action is irreversible, all your categories and data will be
-            lost forever.
+            {t("action-irreversible-category-data-lost-forever")}
           </Typography>
           <Stack
             direction="row"
@@ -102,7 +103,7 @@ const DeleteAccountModal = ({
               justifyContent: "flex-end",
             }}
           >
-            <Tooltip title="Delete account forever">
+            <Tooltip title={t("delete-account-forever")}>
               <Button
                 variant="contained"
                 type="submit"
@@ -113,7 +114,7 @@ const DeleteAccountModal = ({
                 <CheckIcon />
               </Button>
             </Tooltip>
-            <Tooltip title="Cancel and keep my account">
+            <Tooltip title={t("cancel-keep-account")}>
               <Button
                 variant="outlined"
                 sx={buttonSx}
