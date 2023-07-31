@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  padding: 4rem;
+  font-size: 1rem;
+  color: white;
+}
+
+.container button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: white;
+  transition: color 0.2s;
+}
+
+.container button.selected {
+  color: #ffe739;
+}
+
+.container button:active, 
+.container button:focus, 
+.container button:hover  {
+  color: #ffd13a;
+}
+
+.container span {
+  margin: 0 1rem;
+  font-size: 1.4rem;
+}
+
+@media (max-width: 600px) {
+  .container button {
+    font-size: 0.9rem;
+    text-shadow: none;
+  } 
+    
+  .container {
+    padding: 1rem 2rem;
+    align-self: center;
+
+  }
+  .container span {
+    font-size: 0.9rem;
+  }
+  .links a img {
+    width: 20px;
+  }
+}

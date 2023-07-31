@@ -3,6 +3,7 @@ import Stack from "@mui/material/Stack";
 import React from "react";
 import Button from "@mui/material/Button";
 import { CategoryIcon } from "./CategoryIcon";
+import { useTranslation } from "react-i18next";
 import Typography from "@mui/material/Typography";
 
 export default function SelectIcon({
@@ -12,6 +13,8 @@ export default function SelectIcon({
   selectedIconName: string | null;
   setSelectedIconName: (iconName: string) => void;
 }) {
+  const { t } = useTranslation();
+
   return (
     <Stack
       direction="column"
@@ -30,7 +33,7 @@ export default function SelectIcon({
       }}
     >
       <Typography sx={{ textTransform: "capitalize" }}>
-        Icon {selectedIconName ? `: ${selectedIconName}` : ""}
+        {t("icon")} {selectedIconName ? `: ${selectedIconName}` : ""}
       </Typography>
       <Stack
         direction="row"

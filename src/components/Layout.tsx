@@ -4,6 +4,7 @@ import styles from "./Layout.module.css";
 import { Stack } from "@mui/system";
 import { Typography } from "@mui/material";
 import Navbar from "./Navbar";
+import ChooseLanguage from "./ChooseLanguage";
 
 export default function Layout({
   pageTitle,
@@ -54,6 +55,9 @@ export default function Layout({
           </Box>
         </Stack>
       </main>
+      <footer>
+        <ChooseLanguage />
+      </footer>
     </>
   );
 }

@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
+import { useTranslation } from "react-i18next";
 import {
   Button,
   FormControl,
@@ -42,6 +43,7 @@ export default function CatergoryForm({
   onFinish: (values: CategoryFormData) => void;
   onCancel: () => void;
 }) {
+  const { t } = useTranslation();
   const [name, setName] = useState<string | null>(initialValues?.name || null);
   const [unit, setUnit] = useState<string | null>(initialValues?.unit || null);
   const [icon, setIcon] = useState<string | null>(initialValues?.icon || null);
@@ -87,7 +89,7 @@ export default function CatergoryForm({
           <FormGroup row sx={{ alignItems: "center" }}>
             <TextField
               id="name"
-              label="Name"
+              label={t("name")}
               variant="outlined"
               type="text"
               sx={textFieldSx}
@@ -99,7 +101,7 @@ export default function CatergoryForm({
             )}
             <TextField
               id="unit"
-              label="Unit"
+              label={t("unit")}
               variant="outlined"
               type="text"
               sx={textFieldSx}
@@ -107,14 +109,18 @@ export default function CatergoryForm({
               onChange={(e) => setUnit(e.target.value)}
             />
             {isSubmitting && !unit && (
-              <ErrorMessage message="Unit is required" />
+              <ErrorMessage
+                message={t("item-is-required", { item: t("unit") })}
+              />
             )}
             <SelectIcon
               selectedIconName={icon}
               setSelectedIconName={(iconName) => setIcon(iconName)}
             />
             {isSubmitting && !icon && (
-              <ErrorMessage message="Icon is required" />
+              <ErrorMessage
+                message={t("item-is-required", { item: t("icon") })}
+              />
             )}
             <Stack
               direction="row"
@@ -124,7 +130,7 @@ export default function CatergoryForm({
                 justifyContent: "flex-end",
               }}
             >
-              <Tooltip title="Add data">
+              <Tooltip title={t("submit")}>
                 <Button
                   variant="contained"
                   type="submit"
@@ -138,7 +144,7 @@ export default function CatergoryForm({
                   <CheckIcon />
                 </Button>
               </Tooltip>
-              <Tooltip title="Reset form">
+              <Tooltip title={t("reset-form")}>
                 <Button
                   variant="outlined"
                   sx={buttonSx}
@@ -148,7 +154,7 @@ export default function CatergoryForm({
                   <RestartAltIcon />
                 </Button>
               </Tooltip>
-              <Tooltip title="Cancel">
+              <Tooltip title={t("cancel")}>
                 <Button
                   variant="outlined"
                   sx={buttonSx}

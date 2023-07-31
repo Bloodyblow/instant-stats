@@ -1,0 +1,9 @@
+{
+  "name": "Name",
+  "unit": "Unit",
+  "item-is-required": "{{item}} is required",
+  "icon": "Icon",
+  "submit": "Submit",
+  "reset-form": "Reset Form",
+  "cancel": "Cancel"
+}

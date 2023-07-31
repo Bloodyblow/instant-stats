@@ -1,0 +1,9 @@
+{
+  "name": "Nom",
+  "unit": "Unité",
+  "item-is-required": "{{item}} est requis",
+  "icon": "Icône",
+  "submit": "Soumettre",
+  "reset-form": "Réinitialiser le formulaire",
+  "cancel": "Annuler"
+}
