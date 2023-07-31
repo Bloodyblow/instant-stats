@@ -10,6 +10,7 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import { updateCategory } from "@/app/apiService";
 import { useSnackbar } from "notistack";
+import { useTranslation } from "react-i18next";
 
 const CategoryFormInModal = ({
   initialValues,
@@ -18,6 +19,7 @@ const CategoryFormInModal = ({
   initialValues: Partial<CategoryExtend>;
   onFinish: () => void;
 }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { showCategoryForm } = useSelector(
     (state: RootState) => state.category
@@ -29,13 +31,18 @@ const CategoryFormInModal = ({
     onSuccess: (category: Omit<CategoryExtend, "values">) => {
       dispatch(setShowCategoryForm(false));
       dispatch(setShouldRefreshCategories(true));
-      enqueueSnackbar("Category updated", { variant: "success" });
+      enqueueSnackbar(t("item-updated", { item: t("category") }), {
+        variant: "success",
+      });
       onFinish();
     },
     onError: () => {
-      enqueueSnackbar("An error occurred while updating category", {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        t("error-occured-while-updating-item", { item: t("category") }),
+        {
+          variant: "error",
+        }
+      );
     },
   });
 
@@ -46,7 +53,7 @@ const CategoryFormInModal = ({
       open={showCategoryForm}
       onClose={onCancelCategoryForm}
       aria-labelledby="edit-category"
-      aria-describedby="Edit the name, unit and icon of the current category"
+      aria-describedby={t("edit-name-unit-icon-of-current-category")}
       sx={{
         display: "flex",
         alignItems: "center",
@@ -66,7 +73,7 @@ const CategoryFormInModal = ({
         }}
       >
         <Typography variant="h4" component="h2" id="edit-category" style={{}}>
-          Edit the category
+          {t("edit-item", { item: t("category") })}
         </Typography>
         {isLoading && <LinearProgress color="secondary" />}
         <CategoryForm

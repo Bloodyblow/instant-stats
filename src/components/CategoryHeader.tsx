@@ -12,7 +12,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers-pro";
 import SyncIcon from "@mui/icons-material/Sync";
 import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
 import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
-
+import { useTranslation } from "react-i18next";
 import {
   Button,
   FormControl,
@@ -28,6 +28,7 @@ import {
 import dayjs from "dayjs";
 
 const CategoryHeader = ({ onFinish }: { onFinish: () => void }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { chart, dateRange } = useSelector(
     (state: RootState) => state.category
@@ -58,7 +59,7 @@ const CategoryHeader = ({ onFinish }: { onFinish: () => void }) => {
           startIcon={<EditIcon />}
           color="info"
         >
-          Edit the category
+          {t("edit-item", { item: t("category") })}
         </Button>
       </Stack>
 
@@ -77,7 +78,7 @@ const CategoryHeader = ({ onFinish }: { onFinish: () => void }) => {
           <FormControl>
             <LocalizationProvider
               dateAdapter={AdapterDayjs}
-              localeText={{ start: "Start", end: "End" }}
+              localeText={{ start: t("start"), end: t("end") }}
             >
               <DateRangePicker
                 value={[dayjs(dateRange[0]), dayjs(dateRange[1])]}
@@ -85,7 +86,7 @@ const CategoryHeader = ({ onFinish }: { onFinish: () => void }) => {
                 renderInput={(startProps: any, endProps: any) => (
                   <>
                     <TextField {...startProps} />
-                    <Box sx={{ mx: 2 }}> to </Box>
+                    <Box sx={{ mx: 2 }}> {t("to")} </Box>
                     <TextField {...endProps} />
                   </>
                 )}
@@ -98,7 +99,7 @@ const CategoryHeader = ({ onFinish }: { onFinish: () => void }) => {
         </Stack>
 
         <FormControl>
-          <InputLabel id="select-chart-type">Chart type</InputLabel>
+          <InputLabel id="select-chart-type">{t("chart-type")}</InputLabel>
           <Select
             labelId="select-chart-type"
             id="demo-simple-select"

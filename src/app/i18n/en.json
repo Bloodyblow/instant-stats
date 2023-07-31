@@ -5,5 +5,14 @@
   "icon": "Icon",
   "submit": "Submit",
   "reset-form": "Reset Form",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "item-updated": "{{item}} updated",
+  "category": "Category",
+  "error-occured-while-updating-item": "Error occured while updating {{item}}",
+  "edit-name-unit-icon-of-current-category": "Edit the name, unit and icon of the current category",
+  "edit-item": "Edit {{item}}",
+  "start": "Start",
+  "end": "End",
+  "to": "to",
+  "chart-type": "Chart Type"
 }
