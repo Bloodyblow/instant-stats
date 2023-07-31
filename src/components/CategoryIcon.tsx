@@ -1,51 +1,76 @@
 import React from "react";
-import BarChartIcon from "@mui/icons-material/BarChart";
+import AgricultureIcon from "@mui/icons-material/Agriculture";
+import BathtubIcon from "@mui/icons-material/Bathtub";
+import Battery5BarIcon from "@mui/icons-material/Battery5Bar";
+import CelebrationIcon from "@mui/icons-material/Celebration";
 import ChildCareIcon from "@mui/icons-material/ChildCare";
+import ColorLensIcon from "@mui/icons-material/ColorLens";
+import DriveEtaIcon from "@mui/icons-material/DriveEta";
+import ElderlyWomanIcon from "@mui/icons-material/ElderlyWoman";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
-import HeightIcon from "@mui/icons-material/Height";
-import PieChartIcon from "@mui/icons-material/PieChart";
+import GroupsIcon from "@mui/icons-material/Groups";
+import HandymanIcon from "@mui/icons-material/Handyman";
+import LocalCafeIcon from "@mui/icons-material/LocalCafe";
+import LocalDiningIcon from "@mui/icons-material/LocalDining";
+import QuestionIcon from "@mui/icons-material/HelpOutline";
 import ScaleIcon from "@mui/icons-material/Scale";
-import ShowChartIcon from "@mui/icons-material/ShowChart";
-import TableChartIcon from "@mui/icons-material/TableChart";
 import TimerIcon from "@mui/icons-material/Timer";
 import WorkIcon from "@mui/icons-material/Work";
-import QuestionIcon from "@mui/icons-material/HelpOutline";
 
 export const ICON_NAMES = [
-  "bar chart",
+  "bathtub",
+  "building",
+  "car",
   "child",
-  "height",
-  "pie chart",
+  "coffee",
+  "colors",
+  "culture",
+  "elder",
+  "energy",
+  "fitness",
+  "meal",
+  "party",
+  "people",
   "scale",
-  "show chart",
-  "table",
   "timer",
-  "weight",
   "work",
 ];
 
 export function CategoryIcon({ name }: { name: string }) {
   switch (name) {
-    case "bar chart":
-      return <BarChartIcon />;
+    case "culture":
+      return <AgricultureIcon />;
+    case "bathtub":
+      return <BathtubIcon />;
+    case "energy":
+      return <Battery5BarIcon />;
+    case "party":
+      return <CelebrationIcon />;
     case "child":
       return <ChildCareIcon />;
-    case "height":
-      return <HeightIcon />;
-    case "pie chart":
-      return <PieChartIcon />;
+    case "colors":
+      return <ColorLensIcon />;
+    case "car":
+      return <DriveEtaIcon />;
+    case "elder":
+      return <ElderlyWomanIcon />;
+    case "fitness":
+      return <FitnessCenterIcon />;
+    case "people":
+      return <GroupsIcon />;
+    case "building":
+      return <HandymanIcon />;
+    case "coffee":
+      return <LocalCafeIcon />;
+    case "meal":
+      return <LocalDiningIcon />;
     case "scale":
       return <ScaleIcon />;
-    case "show chart":
-      return <ShowChartIcon />;
-    case "table":
-      return <TableChartIcon />;
     case "timer":
       return <TimerIcon />;
-    case "weight":
-      return <FitnessCenterIcon />;
     case "work":
       return <WorkIcon />;
+
     default:
       return <QuestionIcon sx={{ color: "grey" }} />;
   }

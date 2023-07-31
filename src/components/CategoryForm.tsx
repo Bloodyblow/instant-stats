@@ -129,7 +129,11 @@ export default function CatergoryForm({
                   variant="contained"
                   type="submit"
                   color="secondary"
-                  sx={buttonSx}
+                  sx={{
+                    ...buttonSx,
+                    border: (theme) =>
+                      `1px solid ${theme.palette.secondary.main}`,
+                  }}
                 >
                   <CheckIcon />
                 </Button>
