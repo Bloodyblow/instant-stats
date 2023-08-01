@@ -18,57 +18,57 @@ import TimerIcon from "@mui/icons-material/Timer";
 import WorkIcon from "@mui/icons-material/Work";
 
 export const ICON_NAMES = [
-  "bathtub",
-  "building",
-  "car",
-  "child",
-  "coffee",
-  "colors",
-  "culture",
-  "elder",
-  "energy",
-  "fitness",
-  "meal",
-  "party",
-  "people",
-  "scale",
-  "timer",
-  "work",
+  "enum-bathtub",
+  "enum-building",
+  "enum-car",
+  "enum-child",
+  "enum-coffee",
+  "enum-colors",
+  "enum-culture",
+  "enum-elder",
+  "enum-energy",
+  "enum-fitness",
+  "enum-meal",
+  "enum-party",
+  "enum-people",
+  "enum-scale",
+  "enum-timer",
+  "enum-work",
 ];
 
 export function CategoryIcon({ name }: { name: string }) {
   switch (name) {
-    case "culture":
+    case "enum-culture":
       return <AgricultureIcon />;
-    case "bathtub":
+    case "enum-bathtub":
       return <BathtubIcon />;
-    case "energy":
+    case "enum-energy":
       return <Battery5BarIcon />;
-    case "party":
+    case "enum-party":
       return <CelebrationIcon />;
-    case "child":
+    case "enum-child":
       return <ChildCareIcon />;
-    case "colors":
+    case "enum-colors":
       return <ColorLensIcon />;
-    case "car":
+    case "enum-car":
       return <DriveEtaIcon />;
-    case "elder":
+    case "enum-elder":
       return <ElderlyWomanIcon />;
-    case "fitness":
+    case "enum-fitness":
       return <FitnessCenterIcon />;
-    case "people":
+    case "enum-people":
       return <GroupsIcon />;
-    case "building":
+    case "enum-building":
       return <HandymanIcon />;
-    case "coffee":
+    case "enum-coffee":
       return <LocalCafeIcon />;
-    case "meal":
+    case "enum-meal":
       return <LocalDiningIcon />;
-    case "scale":
+    case "enum-scale":
       return <ScaleIcon />;
-    case "timer":
+    case "enum-timer":
       return <TimerIcon />;
-    case "work":
+    case "enum-work":
       return <WorkIcon />;
 
     default:
