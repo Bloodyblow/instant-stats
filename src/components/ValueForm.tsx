@@ -122,7 +122,7 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
   return (
     <Card sx={{ width: "100%" }}>
       <CardHeader
-        title="Add data"
+        title={t("add-item", { item: t("data") })}
         sx={{ backgroundColor: "secondary.main" }}
       ></CardHeader>
       {isLoading && <LinearProgress color="info" />}

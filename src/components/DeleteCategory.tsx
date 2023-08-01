@@ -9,9 +9,10 @@ import { useMutation } from "@tanstack/react-query";
 import { deleteCategory } from "@/app/apiService";
 import { RootState } from "@/app/store/store";
 import { useSnackbar } from "notistack";
-
+import { useTranslation } from "react-i18next";
 
 export default function DeleteCategory() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [openConfirmDialog, setOpenConfirmDialog] = React.useState(false);
   const { enqueueSnackbar } = useSnackbar();
@@ -28,7 +29,7 @@ export default function DeleteCategory() {
       enqueueSnackbar("An error occurred while deleting category", {
         variant: "error",
       });
-    }
+    },
   });
 
   if (!category) return null;
@@ -48,17 +49,17 @@ export default function DeleteCategory() {
           startIcon={<DeleteIcon />}
           color="info"
         >
-          Delete this category
+          {t("delete-this-category")}
         </Button>
       </Stack>
       {isLoading && <LinearProgress color="error" />}
       {openConfirmDialog && (
         <ConfirmDialog
-          content="Are you sure you want to delete this category? All the values will be deleted too."
+          content={t("confirm-delete-category")}
           onConfirm={() => mutateDeleteCategory(category.id)}
           onClose={() => setOpenConfirmDialog(false)}
           open={openConfirmDialog}
-          title="Delete this category?"
+          title={t("delete-this-category")}
           type="delete"
         />
       )}
