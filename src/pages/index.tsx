@@ -10,23 +10,10 @@ import { Category } from "@/app/types";
 import { useSession, signIn, signOut } from "next-auth/react";
 import HomePresentation from "@/components/HomePresentation";
 import HomeCategories from "@/components/HomeCategories";
-
-// export const getServerSideProps: GetServerSideProps = async () => {
-//   const session = await getServerSession();
-//   const userEmail = session?.user?.email as string;
-//   // get all categories by user
-//   // const categories = await prisma.category.findMany();
-//   const categories = await prisma.category.findMany({
-//     where: {
-//       user: {
-//         email: userEmail,
-//       },
-//     },
-//   });
-//   return { props: { categories } };
-// };
+import { useTranslation } from "react-i18next";
 
 export default function Home() {
+  const { t } = useTranslation();
   const { data: session, status } = useSession();
   const userEmail = session?.user?.email;
 
@@ -59,7 +46,7 @@ export default function Home() {
               textAlign: "center",
             }}
           >
-            Sign in to start tracking
+            {t("sign-in-to-start-tracking")}
           </Typography>
           <Button
             variant="contained"
@@ -73,7 +60,7 @@ export default function Home() {
             }}
             onClick={() => signIn("github")}
           >
-            Sign in with github
+            {t("sign-in-with-item", { item: "Github" })}
           </Button>
         </Card>
       )}

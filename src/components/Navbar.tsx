@@ -79,8 +79,8 @@ function Navbar() {
   const handleCloseUserMenu = () => setAnchorElUser(null);
   const handleClickOnLogout = async () => {
     handleCloseUserMenu();
-    await signOut();
     router.push("/");
+    await signOut();
   };
   const handleClickOnDeleteAccount = () => {
     handleCloseUserMenu();

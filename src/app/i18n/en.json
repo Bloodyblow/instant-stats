@@ -54,6 +54,8 @@
   "open-settings": "Open Settings",
   "reset-form": "Reset Form",
   "start": "Start",
+  "sign-in-to-start-tracking": "Sign in to start tracking",
+  "sign-in-with-item": "Sign in with {{item}}",
   "submit": "Submit",
   "to": "to",
   "unit": "Unit",

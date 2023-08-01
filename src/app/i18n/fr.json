@@ -54,6 +54,8 @@
   "open-settings": "Ouvrir les paramètres",
   "reset-form": "Réinitialiser le formulaire",
   "start": "Début",
+  "sign-in-to-start-tracking": "Connectez-vous pour commencer",
+  "sign-in-with-item": "Connectez-vous avec {{item}}",
   "submit": "Soumettre",
   "to": "à",
   "unit": "Unité",
