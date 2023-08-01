@@ -39,5 +39,22 @@
   "to": "à",
   "unit": "Unité",
   "value": "Valeur",
-  "values": "Valeurs"
+  "values": "Valeurs",
+  "presentation": {
+    "simplify-data-organization-and-analysis": "Simplifiez l'organisation et l'analyse des données.",
+    "you-can-create": "Vous pouvez créer des catégories personnalisées et saisir des valeurs pour suivre les progrès et analyser les données pertinentes.",
+    "app-presents-data-in-table-and-provides": "L'application présente les données dans un tableau et fournit",
+    "various-charts": "divers graphiques",
+    "for-easy-visualisation": "pour une visualisation facile.",
+    "as-a": "S'agissant d'un",
+    "side-project": "projet secondaire",
+    "and-a-work-in-progress-we-plan-to-add": "et d'un travail en cours, nous prévoyons d'ajouter",
+    "more-features": "plus de fonctionnalités",
+    "and-improvements": "et d'améliorations.",
+    "to-get-started, add a": "Pour commencer, ajoutez une",
+    "new-category": "nouvelle catégorie",
+    "or": "ou",
+    "select": "sélectionnez",
+    "an-existing-one": "une catégorie existante."
+  }
 }

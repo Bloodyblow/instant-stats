@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import { Category } from "@/app/types";
+import { useTranslation } from "react-i18next";
 
 const typographySx = {
   textWrap: "balance",
@@ -8,6 +8,7 @@ const typographySx = {
 };
 
 export default function HomePresentation() {
+  const { t } = useTranslation();
   return (
     <>
       <Typography
@@ -18,34 +19,36 @@ export default function HomePresentation() {
           letterSpacing: "0.2rem",
         }}
       >
-        Simplifies data organization and analysis.
+        {t("presentation.simplify-data-organization-and-analysis")}
       </Typography>
       <Typography sx={typographySx}>
-        You can create custom categories and enter values to track progress and
-        analyze relevant data. The app presents data in table and provides{" "}
+        {t("presentation.you-can-create")}{" "}
+        {t("presentation.app-presents-data-in-table-and-provides")}{" "}
         <span style={{ color: "#ffef1d", letterSpacing: "2px" }}>
-          multiple charts
+          {t("presentation.various-charts")}
         </span>{" "}
-        for easy visualization. As a{" "}
-        <span style={{ color: "#44df89" }}>side project</span> and a work in
-        progress, we plan to add{" "}
+        {t("presentation.for-easy-visualisation")} {t("presentation.as-a")}{" "}
+        <span style={{ color: "#44df89" }}>
+          {t("presentation.side-project")}
+        </span>{" "}
+        {t("presentation.and-a-work-in-progress-we-plan-to-add")}{" "}
         <span style={{ color: "#e16868", letterSpacing: "2px" }}>
-          new features
+          {t("presentation.more-features")}
         </span>{" "}
-        and improvements.
+        {t("presentation.and-improvements")}
       </Typography>
       <Typography
         sx={{ ...typographySx, color: "#d27ce0", fontSize: "1.2rem" }}
       >
-        To get started, add a{" "}
+        {t("presentation.to-get-started, add a")}{" "}
         <strong style={{ letterSpacing: "-1px", color: "#c3a5c8" }}>
-          new category
+          {t("presentation.new-category")}
         </strong>{" "}
-        or{" "}
+        {t("presentation.or")}{" "}
         <strong style={{ letterSpacing: "-1px", color: "#c3a5c8" }}>
-          select
+          {t("presentation.select")}
         </strong>{" "}
-        an existing one.
+        {t("presentation.an-existing-one")}
       </Typography>
     </>
   );
