@@ -1,4 +1,4 @@
-import { ChartType, DateRange } from "@/app/types";
+import { ChartType, DateStringRange } from "@/app/types";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setChart,
@@ -11,21 +11,23 @@ import { RootState } from "@/app/store/store";
 import { LocalizationProvider } from "@mui/x-date-pickers-pro";
 import SyncIcon from "@mui/icons-material/Sync";
 import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
-import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useTranslation } from "react-i18next";
 import {
   Button,
   FormControl,
   InputLabel,
-  Box,
   TextField,
   MenuItem,
   Select,
   SelectChangeEvent,
   Stack,
   IconButton,
+  FormGroup,
+  Typography,
 } from "@mui/material";
 import dayjs from "dayjs";
+import { DATEFORMAT_en } from "@/app/constants";
 
 const CategoryHeader = ({ onFinish }: { onFinish: () => void }) => {
   const { t } = useTranslation();
@@ -37,11 +39,14 @@ const CategoryHeader = ({ onFinish }: { onFinish: () => void }) => {
   const onChangeChartType = (event: SelectChangeEvent<"line" | "bar">) =>
     dispatch(setChart(event.target.value as ChartType));
 
-  const onChangeDateRange = (dateRange: DateRange) => {
+  const onChangeDateRange = (dateRange: DateStringRange) => {
     const [start, end] = dateRange;
-    dispatch(setDateRange([start.toISOString(), end.toISOString()]));
-    onFinish();
+    dispatch(
+      setDateRange([dayjs(start).toISOString(), dayjs(end).toISOString()])
+    );
+    setTimeout(() => onFinish(), 200);
   };
+
   return (
     <Stack
       spacing={2}
@@ -76,22 +81,34 @@ const CategoryHeader = ({ onFinish }: { onFinish: () => void }) => {
         {/* Column 1 */}
         <Stack direction="row">
           <FormControl>
-            <LocalizationProvider
-              dateAdapter={AdapterDayjs}
-              localeText={{ start: t("start"), end: t("end") }}
+            <FormGroup
+              row
+              sx={{ justifyContent: "space-between", alignItems: "center" }}
             >
-              <DateRangePicker
-                value={[dayjs(dateRange[0]), dayjs(dateRange[1])]}
-                onChange={onChangeDateRange}
-                renderInput={(startProps: any, endProps: any) => (
-                  <>
-                    <TextField {...startProps} />
-                    <Box sx={{ mx: 2 }}> {t("to")} </Box>
-                    <TextField {...endProps} />
-                  </>
-                )}
-              />
-            </LocalizationProvider>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={t("start")}
+                  value={dateRange[0]}
+                  onChange={(newDate) =>
+                    newDate && onChangeDateRange([newDate, dateRange[1]])
+                  }
+                  renderInput={(params) => <TextField {...params} />}
+                  inputFormat={DATEFORMAT_en}
+                />
+              </LocalizationProvider>
+              <Typography sx={{ m: 1 }}>{t("to")}</Typography>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={t("end")}
+                  value={dateRange[1]}
+                  onChange={(newDate) =>
+                    newDate && onChangeDateRange([dateRange[0], newDate])
+                  }
+                  renderInput={(params) => <TextField {...params} />}
+                  inputFormat={DATEFORMAT_en}
+                />
+              </LocalizationProvider>
+            </FormGroup>
           </FormControl>
           <IconButton onClick={onFinish} sx={{ ml: 1, p: "8px 12px" }}>
             <SyncIcon />
