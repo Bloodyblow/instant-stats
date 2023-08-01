@@ -65,7 +65,7 @@ export default function Layout({
         </main>
         <footer className={styles.footer}>
           <ChooseLanguage />
-          <a href="mailto:test@gmail.com">
+          <a href="mailto:dev.instantstats@gmail.com">
             <Typography>{t("contact")}</Typography>
           </a>
         </footer>
