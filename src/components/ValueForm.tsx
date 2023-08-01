@@ -24,6 +24,7 @@ import { addValue, updateValue } from "@/app/apiService";
 import { setSelectedValue } from "../app/store/categorySlice";
 import { useSnackbar } from "notistack";
 import { DATEFORMAT_en } from "@/app/constants";
+import { useTranslation } from "react-i18next";
 
 const textFieldSx = {
   color: "secondary.contrastText",
@@ -32,6 +33,7 @@ const textFieldSx = {
 };
 
 export default function ValueForm({ onFinish }: { onFinish: () => void }) {
+  const { t } = useTranslation();
   const { category } = useSelector((state: RootState) => state.category);
   const { selectedValue } = useSelector((state: RootState) => state.category);
   const { enqueueSnackbar } = useSnackbar();
@@ -54,26 +56,38 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
   const { mutate: mutateCreateValue, isLoading } = useMutation({
     mutationFn: addValue,
     onSuccess: (value: ValueFormData) => {
-      enqueueSnackbar("Value added", { variant: "success" });
+      enqueueSnackbar(t("item-added", { item: t("value") }), {
+        variant: "success",
+      });
       onReset();
     },
     onError: () => {
-      enqueueSnackbar("An error occurred while adding value", {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        t("error-occured-while-adding-item", { item: t("value") }),
+        {
+          variant: "error",
+        }
+      );
     },
   });
 
   const { mutate: mutateUpdateValue } = useMutation({
     mutationFn: updateValue,
     onSuccess: () => {
-      enqueueSnackbar("Value updated", { variant: "success" });
+      enqueueSnackbar(t("item-updated", { item: t("value") }), {
+        variant: "success",
+      });
       onReset();
     },
     onError: () => {
-      enqueueSnackbar("An error occurred while updating value", {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        t("error-occured-while-updating-item", {
+          item: t("value"),
+        }),
+        {
+          variant: "error",
+        }
+      );
     },
   });
 
@@ -133,7 +147,7 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
           >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
-                label="Date"
+                label={t("date")}
                 value={date}
                 onChange={(newValue) => setDate(newValue)}
                 renderInput={(params) => <TextField {...params} />}
@@ -142,7 +156,7 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
             </LocalizationProvider>
             <TextField
               id="outlined-basic"
-              label={`Value (${category?.unit})`}
+              label={`${t("value")} (${category?.unit})`}
               variant="outlined"
               type="number"
               sx={textFieldSx}
@@ -153,7 +167,7 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
                 min: 0,
               }}
             />
-            <Tooltip title="Add data">
+            <Tooltip title={t("add-item", { item: t("data") })}>
               <Button
                 variant="contained"
                 type="submit"
@@ -172,7 +186,7 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
                 <CheckIcon />
               </Button>
             </Tooltip>
-            <Tooltip title="Reset form">
+            <Tooltip title={t("reset-form")}>
               <Button
                 variant="outlined"
                 sx={{ width: "fit-content", padding: "15px" }}

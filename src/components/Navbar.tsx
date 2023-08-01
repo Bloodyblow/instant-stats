@@ -21,9 +21,10 @@ import { CategoryIcon } from "./CategoryIcon";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/app/store/store";
 import { setShouldRefreshCategories } from "@/app/store/categorySlice";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import DeleteAccountModal from "./DeleteAccountModal";
 import { Divider } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const categoriesDropdownSx = {
   transition: "background-color .3s ease-in-out",
@@ -33,6 +34,7 @@ const categoriesDropdownSx = {
 };
 
 function Navbar() {
+  const { t } = useTranslation();
   const { data: session } = useSession();
   const username = session?.user?.name;
   const userEmail = session?.user?.email;
@@ -124,7 +126,7 @@ function Navbar() {
               <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                 <IconButton
                   size="large"
-                  aria-label="account of current user"
+                  aria-label={t("account-of-current-user")}
                   aria-controls="menu-appbar"
                   aria-haspopup="true"
                   onClick={handleOpenNavMenu}
@@ -155,7 +157,7 @@ function Navbar() {
                     }}
                   >
                     <MenuItem disabled key="go-to">
-                      Go to chart
+                      {t("go-to-chart")}
                     </MenuItem>
                     {categories.map((category: Category) => (
                       <MenuItem key={category.id} sx={categoriesDropdownSx}>
@@ -208,7 +210,7 @@ function Navbar() {
                         {...bindTrigger(popupState)}
                         sx={{ color: "text.primary" }}
                       >
-                        Go to chart
+                        {t("go-to-chart")}
                       </Button>
                       <Menu
                         {...bindMenu(popupState)}
@@ -248,7 +250,7 @@ function Navbar() {
             {/* Desktop & mobile */}
             {session?.user && (
               <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title="Open settings">
+                <Tooltip title={t("open-settings")}>
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar
                       alt={username as string}
@@ -277,7 +279,7 @@ function Navbar() {
                   </MenuItem>
                   <Divider />
                   <MenuItem key="logout" onClick={() => handleClickOnLogout()}>
-                    <Typography textAlign="center"> Logout</Typography>
+                    <Typography textAlign="center">{t("logout")}</Typography>
                   </MenuItem>
                   <Divider />
                   <MenuItem
@@ -285,7 +287,7 @@ function Navbar() {
                     onClick={() => handleClickOnDeleteAccount()}
                   >
                     <Typography textAlign="center" sx={{ color: "#f26b6b" }}>
-                      Delete account
+                      {t("delete-account")}
                     </Typography>
                   </MenuItem>
                 </Menu>

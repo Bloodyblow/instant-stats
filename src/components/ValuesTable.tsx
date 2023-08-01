@@ -19,12 +19,14 @@ import ConfirmDialog from "./ConfirmDialog";
 import { useSnackbar } from "notistack";
 import dayjs from "dayjs";
 import { DATEFORMAT_en } from "@/app/constants";
+import { useTranslation } from "react-i18next";
 
 export default function ValuesTable({
   onValueDeleted,
 }: {
   onValueDeleted: () => void;
 }) {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const [openConfirmDelete, setOpenConfirmDelete] = React.useState(false);
@@ -32,18 +34,27 @@ export default function ValuesTable({
   const { category, values } = useSelector(
     (state: RootState) => state.category
   );
-  console.log("ValuesTable", values);
   const { mutate: mutateDeleteValue, isLoading } = useMutation({
     mutationFn: deleteValue,
     onSuccess: (value: Value) => {
       dispatch(setSelectedValue(null));
-      enqueueSnackbar("Value deleted", { variant: "success" });
+      enqueueSnackbar(
+        t("item-deleted", {
+          item: t("value"),
+        }),
+        { variant: "success" }
+      );
       onValueDeleted();
     },
     onError: () => {
-      enqueueSnackbar("An error occurred while deleting value", {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        t("error-occured-while-deleting-item", {
+          item: t("value"),
+        }),
+        {
+          variant: "error",
+        }
+      );
     },
   });
 
@@ -81,9 +92,11 @@ export default function ValuesTable({
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="left">Date</TableCell>
-              <TableCell align="left">Values&nbsp;({unit})</TableCell>
-              <TableCell align="left">Actions</TableCell>
+              <TableCell align="left">{t("date")}</TableCell>
+              <TableCell align="left">
+                {t("values")}&nbsp;({t("unit")})
+              </TableCell>
+              <TableCell align="left">{t("actions")}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -111,7 +124,7 @@ export default function ValuesTable({
                       <EditIcon />
                     </IconButton>
                   </Tooltip>
-                  <Tooltip title="Delete value">
+                  <Tooltip title={t("delete-item", { item: t("value") })}>
                     <IconButton
                       aria-label="delete"
                       color="secondary"
@@ -134,8 +147,11 @@ export default function ValuesTable({
         open={openConfirmDelete}
         onClose={onCloseConfirmDialog}
         onConfirm={onConfirmDialog}
-        title="Delete value"
-        content={`Are you sure you want to delete the value ${valueToDelete?.value} at the date ${valueToDelete?.date}?`}
+        title={t("delete-item", { item: t("value") })}
+        content={t("confirm-delete-value-date", {
+          value: valueToDelete?.value,
+          date: dayjs(valueToDelete?.date).format(DATEFORMAT_en),
+        })}
         type="delete"
       />
     </div>

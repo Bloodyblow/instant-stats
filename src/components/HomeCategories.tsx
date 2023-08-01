@@ -3,10 +3,11 @@ import CategoriesList from "../components/CategoriesList";
 import Button from "@mui/material/Button";
 import { Card } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { Category } from "@/app/types";
 import { getCategories } from "@/app/apiService";
+import { useTranslation } from "react-i18next";
 
 export default function HomeCategories() {
+  const { t } = useTranslation();
   const { data: categories } = useQuery({
     queryKey: ["categories"],
     queryFn: () => getCategories(),
@@ -43,7 +44,7 @@ export default function HomeCategories() {
         }}
         onClick={() => Router.push("category/new")}
       >
-        Add a new category
+        {t("add-new-item", { item: t("category") })}
       </Button>
     </Card>
   );
