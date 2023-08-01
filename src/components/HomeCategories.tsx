@@ -44,7 +44,7 @@ export default function HomeCategories() {
         }}
         onClick={() => Router.push("category/new")}
       >
-        {t("add-new-item", { item: t("category") })}
+        {t("add-item", { item: t("category") })}
       </Button>
     </Card>
   );

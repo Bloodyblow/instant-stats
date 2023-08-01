@@ -10,6 +10,7 @@
   "category": "Category",
   "chart-type": "Chart Type",
   "confirm-delete-value-date": "Are you sure you want to delete the value of {{item}} on {{date}}?",
+  "contact": "Contact",
   "data": "data",
   "date": "Date",
   "delete-account-forever": "Delete Account Forever",
