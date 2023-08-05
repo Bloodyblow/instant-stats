@@ -3,6 +3,8 @@ import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import translationEN from "./en.json";
 import translationFR from "./fr.json";
+import HttpBackend from "i18next-http-backend";
+import LocalStorageBackend from "i18next-localstorage-backend";
 
 export enum Language {
   FR = "fr",
@@ -25,10 +27,21 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: defaultLanguage,
+    fallbackLng: defaultLanguage,
     keySeparator: ".",
     interpolation: {
       escapeValue: false, // react already safes from xss
+    },
+    backend: {
+      backends: [LocalStorageBackend, HttpBackend],
+      backendOptions: [
+        {
+          expirationTime: 7 * 24 * 60 * 60 * 1000, // 7 days
+        },
+        {
+          loadPath: "/locales/{{lng}}/{{ns}}.json",
+        },
+      ],
     },
   });
 

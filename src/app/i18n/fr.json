@@ -11,6 +11,7 @@
   "chart-type": "Type de graphique",
   "confirm-delete-category": "Êtes-vous sûr de vouloir supprimer cette catégorie? Toutes les valeurs seront également supprimées.",
   "confirm-delete-value-date": "Confirmer la suppression de la valeur {{value}} du {{date}}",
+  "create-a-new-category": "Créer une nouvelle catégorie",
   "contact": "Contact",
   "data": "des données",
   "date": "Date",

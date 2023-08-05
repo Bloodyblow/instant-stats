@@ -9,23 +9,32 @@ import { LinearProgress } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { setShouldRefreshCategories } from "@/app/store/categorySlice";
 import { useSnackbar } from "notistack";
+import { useTranslation } from "react-i18next";
 
 const NewCategory = () => {
   const router = useRouter();
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const { mutate, isLoading } = useMutation({
     mutationFn: createCategory,
     onSuccess: (category: Omit<CategoryExtend, "values">) => {
-      enqueueSnackbar("Category created", { variant: "success" });
+      enqueueSnackbar(t("item-created", { item: t("category") }), {
+        variant: "success",
+      });
       router.push("/category/" + category.id);
       dispatch(setShouldRefreshCategories(true));
     },
     onError: () => {
-      enqueueSnackbar("An error occurred while creating category", {
-        variant: "error",
-      });
+      enqueueSnackbar(
+        t("error-occured-while-adding-item", {
+          item: t("category"),
+        }),
+        {
+          variant: "error",
+        }
+      );
     },
   });
 
@@ -38,7 +47,7 @@ const NewCategory = () => {
   };
 
   return (
-    <Layout pageTitle={"Create a new category"}>
+    <Layout pageTitle={t("create-a-new-category")}>
       <div style={{ width: "100%" }}>
         {isLoading && <LinearProgress color="info" />}
         <CategoryForm onFinish={onFinish} onCancel={onCancel} />
