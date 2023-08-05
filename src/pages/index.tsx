@@ -58,9 +58,9 @@ export default function Home() {
                 backgroundColor: "#1cc9b3",
               },
             }}
-            onClick={() => signIn("github")}
+            onClick={() => signIn("email")}
           >
-            {t("sign-in-with-item", { item: "Github" })}
+            {t("sign-in-with-item", { item: "email" })}
           </Button>
         </Card>
       )}
