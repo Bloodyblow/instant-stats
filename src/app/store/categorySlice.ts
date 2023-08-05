@@ -16,7 +16,10 @@ export interface CategoryState {
 const initialState: CategoryState = {
   category: null,
   chart: "bar",
-  dateRange: [dayjs().subtract(1, "week").toISOString(), dayjs().toISOString()],
+  dateRange: [
+    dayjs().subtract(2, "week").toISOString(),
+    dayjs().add(2, "week").toISOString(),
+  ],
   showCategoryForm: false,
   selectedValue: null,
   shouldRefetchCategories: false,

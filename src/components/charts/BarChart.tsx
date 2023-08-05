@@ -50,7 +50,7 @@ export default function BarChart({
           textColor: "white",
           fontSize: 14,
         }}
-        tooltip={({ value }) => <ChartTooltip value={value} unit={unit} />}
+        tooltip={(param) => <ChartTooltip value={param.value} unit={unit} />}
       />
     </Box>
   );
