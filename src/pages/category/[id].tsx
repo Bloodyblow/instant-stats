@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Layout from "../../components/Layout";
 import { CategoryExtend } from "@/app/types";
 import ValuesTable from "../../components/ValuesTable";
@@ -18,17 +18,10 @@ import { Box } from "@mui/material";
 import CategoryFormInModal from "../../components/CategoryFormInModal";
 import DeleteCategory from "../../components/DeleteCategory";
 import CategoryHeader from "@/components/CategoryHeader";
-import { useRouter } from "next/router";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]";
 
 export const getServerSideProps: GetServerSideProps = async (
   context: Context
 ) => {
-  const { req, res } = context;
-  const session = await getServerSession(req, res, authOptions);
-  const isUserAuthenticated = session?.user ? true : false;
-
   const { id } = context.params;
   const categoryData = await prisma.category.findUnique({
     where: {
@@ -37,20 +30,12 @@ export const getServerSideProps: GetServerSideProps = async (
   });
   return {
     props: {
-      categoryData: isUserAuthenticated ? categoryData : null,
-      isUserAuthenticated,
+      categoryData: categoryData,
     },
   };
 };
 
-const Category = ({
-  categoryData,
-  isUserAuthenticated,
-}: {
-  categoryData: CategoryExtend;
-  isUserAuthenticated: boolean;
-}) => {
-  const router = useRouter();
+const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
   const dispatch = useDispatch();
   const { showCategoryForm, dateRange } = useSelector(
     (state: RootState) => state.category
@@ -85,11 +70,6 @@ const Category = ({
   useEffect(() => {
     dispatch(setValues(values));
   }, [values, dispatch]);
-
-  if (!isUserAuthenticated) {
-    router.push("/");
-    return null;
-  }
 
   const pageTitle = (
     <Box
