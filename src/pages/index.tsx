@@ -1,12 +1,6 @@
-import Router from "next/router";
-import CategoriesList from "../components/CategoriesList";
 import Button from "@mui/material/Button";
 import Layout from "../components/Layout";
-import { Card, Typography } from "@mui/material";
-import { getServerSession } from "next-auth/next";
-import { GetServerSideProps } from "next";
-import prisma from "prisma/prisma";
-import { Category } from "@/app/types";
+import { Card, LinearProgress, Typography } from "@mui/material";
 import { useSession, signIn, signOut } from "next-auth/react";
 import HomePresentation from "@/components/HomePresentation";
 import HomeCategories from "@/components/HomeCategories";
@@ -15,10 +9,9 @@ import { useTranslation } from "react-i18next";
 export default function Home() {
   const { t } = useTranslation();
   const { data: session, status } = useSession();
-  const userEmail = session?.user?.email;
 
   if (status === "loading") {
-    return <p>Hang on there...</p>;
+    return <LinearProgress />;
   }
 
   return (

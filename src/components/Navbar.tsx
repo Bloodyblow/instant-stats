@@ -156,9 +156,11 @@ function Navbar() {
                       },
                     }}
                   >
-                    <MenuItem disabled key="go-to">
-                      {t("go-to-chart")}
-                    </MenuItem>
+                    {categories.length > 0 && (
+                      <MenuItem disabled key="go-to">
+                        {t("go-to-chart")}
+                      </MenuItem>
+                    )}
                     {categories.map((category: Category) => (
                       <MenuItem key={category.id} sx={categoriesDropdownSx}>
                         <Typography
@@ -205,13 +207,15 @@ function Navbar() {
                 <PopupState variant="popover" popupId="go-to-chart-popup-menu">
                   {(popupState: any) => (
                     <React.Fragment>
-                      <Button
-                        variant="text"
-                        {...bindTrigger(popupState)}
-                        sx={{ color: "text.primary" }}
-                      >
-                        {t("go-to-chart")}
-                      </Button>
+                      {categories && categories?.length > 0 && (
+                        <Button
+                          variant="text"
+                          {...bindTrigger(popupState)}
+                          sx={{ color: "text.primary" }}
+                        >
+                          {t("go-to-chart")}
+                        </Button>
+                      )}
                       <Menu
                         {...bindMenu(popupState)}
                         sx={{

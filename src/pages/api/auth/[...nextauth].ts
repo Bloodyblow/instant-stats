@@ -77,16 +77,20 @@ export const authOptions: NextAuthOptions = {
   theme: {
     colorScheme: "dark",
   },
-  callbacks: {
-    async jwt({ token }) {
-      token.userRole = "admin";
-      return token;
-    },
-    // async session({ session, user }) {
-    //   if (session.user) session.user.id = user.id;
-    //   return session;
-    // },
+  pages: {
+    signIn: "/auth/email-signin",
+    verifyRequest: "/auth/verify-request",
   },
+  // callbacks: {
+  //   async jwt({ token }) {
+  //     token.userRole = "admin";
+  //     return token;
+  //   },
+  //   // async session({ session, user }) {
+  //   //   if (session.user) session.user.id = user.id;
+  //   //   return session;
+  //   // },
+  // },
 };
 
 export default NextAuth(authOptions);
