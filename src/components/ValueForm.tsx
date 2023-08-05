@@ -120,6 +120,8 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
     }
   };
 
+  const { unit } = category || {};
+
   return (
     <Card sx={{ width: "100%" }}>
       <CardHeader
@@ -157,7 +159,7 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
             </LocalizationProvider>
             <TextField
               id="outlined-basic"
-              label={`${t("value")} (${category?.unit})`}
+              label={`${t("value")} ${unit ? `(${unit})` : ""} `}
               variant="outlined"
               type="number"
               sx={textFieldSx}
