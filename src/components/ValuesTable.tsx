@@ -20,6 +20,7 @@ import { useSnackbar } from "notistack";
 import dayjs from "dayjs";
 import { DATEFORMAT_en } from "@/app/constants";
 import { useTranslation } from "react-i18next";
+import styles from "./ValuesTable.module.css";
 
 export default function ValuesTable({
   onValueDeleted,
@@ -82,6 +83,7 @@ export default function ValuesTable({
     >
       {isLoading && <LinearProgress color="secondary" />}
       <TableContainer
+        className={styles.tableContainer}
         component={Paper}
         sx={{
           width: "100%",

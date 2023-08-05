@@ -14,6 +14,7 @@ import {
   Card,
   CardHeader,
   LinearProgress,
+  Stack,
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,8 +29,8 @@ import { useTranslation } from "react-i18next";
 
 const textFieldSx = {
   color: "secondary.contrastText",
-  flexGrow: 1,
-  margin: "0 20px",
+  flexGrow: { sm: 1 },
+  margin: { xs: "10px 0", sm: "0 20px" },
 };
 
 export default function ValueForm({ onFinish }: { onFinish: () => void }) {
@@ -133,7 +134,7 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
           backgroundColor: "background.paper",
           color: "secondary.contrastText",
           width: "100%",
-          padding: "20px 40px",
+          padding: { xs: "20px 5px 20px 20px", sm: "20px 40px" },
           alignItems: "center",
         }}
         noValidate
@@ -167,35 +168,39 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
                 min: 0,
               }}
             />
-            <Tooltip title={t("add-item", { item: t("data") })}>
-              <Button
-                variant="contained"
-                type="submit"
-                sx={{
-                  width: "fit-content",
-                  padding: "15px",
-                  marginRight: "20px",
-                  backgroundColor: "#d7c702",
-                  transition: "all 0.3s ease",
-                  "&:hover, &:active, &:focus": {
-                    backgroundColor: "#dc8100",
-                  },
-                  color: "primary.main",
-                }}
-              >
-                <CheckIcon />
-              </Button>
-            </Tooltip>
-            <Tooltip title={t("reset-form")}>
-              <Button
-                variant="outlined"
-                sx={{ width: "fit-content", padding: "15px" }}
-                onClick={onReset}
-                color="info"
-              >
-                <ClearIcon />
-              </Button>
-            </Tooltip>
+            <Stack direction="row" spacing={2}>
+              <Tooltip title={t("add-item", { item: t("data") })}>
+                <Button
+                  variant="contained"
+                  type="submit"
+                  sx={{
+                    width: { xs: "100%", sm: "fit-content" },
+                    padding: "15px",
+                    backgroundColor: "#d7c702",
+                    transition: "all 0.3s ease",
+                    "&:hover, &:active, &:focus": {
+                      backgroundColor: "#dc8100",
+                    },
+                    color: "primary.main",
+                  }}
+                >
+                  <CheckIcon />
+                </Button>
+              </Tooltip>
+              <Tooltip title={t("reset-form")}>
+                <Button
+                  variant="outlined"
+                  sx={{
+                    width: { xs: "100%", sm: "fit-content" },
+                    padding: "15px",
+                  }}
+                  onClick={onReset}
+                  color="info"
+                >
+                  <ClearIcon />
+                </Button>
+              </Tooltip>
+            </Stack>
           </FormGroup>
         </FormControl>
       </Box>

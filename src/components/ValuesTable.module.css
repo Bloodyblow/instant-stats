@@ -1,0 +1,15 @@
+
+.tableContainer td {
+  padding: 5px 15px;
+  }
+
+@media (max-width: 768px) {
+  .tableContainer {
+    max-height: unset;
+  }
+  
+  .tableContainer td, .tableContainer th {
+    padding: 10px;
+    width: fit-content;
+  }
+}

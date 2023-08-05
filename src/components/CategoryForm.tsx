@@ -79,7 +79,7 @@ export default function CatergoryForm({
           backgroundColor: "background.paper",
           color: "secondary.contrastText",
           width: "100%",
-          padding: "20px 40px",
+          padding: "20px",
         }}
         noValidate
         autoComplete="off"
