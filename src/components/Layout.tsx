@@ -2,7 +2,7 @@ import Head from "next/head";
 import Box from "@mui/material/Box";
 import styles from "./Layout.module.css";
 import { Stack } from "@mui/system";
-import { Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import Navbar from "./Navbar";
 import ChooseLanguage from "./ChooseLanguage";
 import { useTranslation } from "react-i18next";
@@ -63,12 +63,14 @@ export default function Layout({
             </Box>
           </Stack>
         </main>
-        <footer className={styles.footer}>
-          <ChooseLanguage />
-          <a href="mailto:dev.instantstats@gmail.com">
-            <Typography>{t("contact")}</Typography>
-          </a>
-        </footer>
+        <Container maxWidth="xl">
+          <footer className={styles.footer}>
+            <ChooseLanguage />
+            <a href="mailto:dev.instantstats@gmail.com">
+              <Typography>{t("contact")}</Typography>
+            </a>
+          </footer>
+        </Container>
       </Stack>
     </>
   );
