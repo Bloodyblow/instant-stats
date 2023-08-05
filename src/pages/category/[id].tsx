@@ -18,21 +18,39 @@ import { Box } from "@mui/material";
 import CategoryFormInModal from "../../components/CategoryFormInModal";
 import DeleteCategory from "../../components/DeleteCategory";
 import CategoryHeader from "@/components/CategoryHeader";
-import dayjs from "dayjs";
+import { useRouter } from "next/router";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]";
 
 export const getServerSideProps: GetServerSideProps = async (
   context: Context
 ) => {
+  const { req, res } = context;
+  const session = await getServerSession(req, res, authOptions);
+  const isUserAuthenticated = session?.user ? true : false;
+
   const { id } = context.params;
   const categoryData = await prisma.category.findUnique({
     where: {
       id: Number(id),
     },
   });
-  return { props: { categoryData } };
+  return {
+    props: {
+      categoryData: isUserAuthenticated ? categoryData : null,
+      isUserAuthenticated,
+    },
+  };
 };
 
-const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
+const Category = ({
+  categoryData,
+  isUserAuthenticated,
+}: {
+  categoryData: CategoryExtend;
+  isUserAuthenticated: boolean;
+}) => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const { showCategoryForm, dateRange } = useSelector(
     (state: RootState) => state.category
@@ -67,6 +85,11 @@ const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
   useEffect(() => {
     dispatch(setValues(values));
   }, [values, dispatch]);
+
+  if (!isUserAuthenticated) {
+    router.push("/");
+    return null;
+  }
 
   const pageTitle = (
     <Box

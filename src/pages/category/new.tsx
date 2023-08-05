@@ -9,8 +9,30 @@ import { LinearProgress } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { setShouldRefreshCategories } from "@/app/store/categorySlice";
 import { useSnackbar } from "notistack";
+import { GetServerSideProps } from "next";
+import { Context } from "vm";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]";
 
-const Category = () => {
+export const getServerSideProps: GetServerSideProps = async (
+  context: Context
+) => {
+  const { req, res } = context;
+  const session = await getServerSession(req, res, authOptions);
+  const isUserAuthenticated = session?.user ? true : false;
+
+  return {
+    props: {
+      isUserAuthenticated,
+    },
+  };
+};
+
+const Category = ({
+  isUserAuthenticated,
+}: {
+  isUserAuthenticated: boolean;
+}) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
@@ -27,6 +49,11 @@ const Category = () => {
       });
     },
   });
+
+  if (!isUserAuthenticated) {
+    router.push("/");
+    return null;
+  }
 
   const onFinish = (category: CategoryFormData) => {
     mutate(category);
