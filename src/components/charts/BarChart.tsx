@@ -18,7 +18,6 @@ export default function BarChart({
         height: "400px",
         width: "100%",
         backgroundColor: "background.paper",
-        border: "1px solid red",
       }}
     >
       <ResponsiveBar

@@ -3,6 +3,8 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import GithubProvider from "next-auth/providers/github";
 import EmailProvider from "next-auth/providers/email";
+import { createTransport } from "nodemailer";
+import { text, html } from "@/app/nodemailer/authEmail";
 // import GoogleProvider from "next-auth/providers/google";
 // import FacebookProvider from "next-auth/providers/facebook";
 // import TwitterProvider from "next-auth/providers/twitter";
@@ -28,11 +30,36 @@ export const authOptions: NextAuthOptions = {
     EmailProvider({
       server: process.env.EMAIL_SERVER,
       from: process.env.EMAIL_FROM,
+      async sendVerificationRequest({
+        identifier: email,
+        url,
+        provider: { server, from },
+        theme,
+      }) {
+        const { host } = new URL(url);
+
+        const transport = createTransport(server);
+        const result = await transport.sendMail({
+          to: email,
+          from: from,
+          subject: `Sign in to ${host} / Connexion à ${host}`,
+          text: text({ url, host }),
+          html: html({ url, host, theme }),
+        });
+        const failed = result.rejected.concat(result.pending).filter(Boolean);
+        if (failed.length) {
+          throw new Error(
+            `Email(s) (${failed.join(
+              ", "
+            )}) could not be sent / Le ou les emails n'ont pas pu être envoyé`
+          );
+        }
+      },
     }),
-    GithubProvider({
-      clientId: process.env.GITHUB_ID || "",
-      clientSecret: process.env.GITHUB_SECRET || "",
-    }),
+    // GithubProvider({
+    //   clientId: process.env.GITHUB_ID || "",
+    //   clientSecret: process.env.GITHUB_SECRET || "",
+    // }),
     // GoogleProvider({
     //   clientId: process.env.GOOGLE_ID || "",
     //   clientSecret: process.env.GOOGLE_SECRET || "",
