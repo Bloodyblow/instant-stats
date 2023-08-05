@@ -20,7 +20,7 @@ export default function VerifyRequest({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { t } = useTranslation();
   return (
-    <Layout pageTitle={t("sign-in")}>
+    <Layout pageTitle={t("request-sent")}>
       <Card sx={{ width: "100%", height: "fit-content" }}>
         <Box
           sx={{
