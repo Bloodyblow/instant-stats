@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { setShouldRefreshCategories } from "@/app/store/categorySlice";
 import { useSnackbar } from "notistack";
 
-const Category = () => {
+const NewCategory = () => {
   const router = useRouter();
 
   const dispatch = useDispatch();
@@ -47,4 +47,6 @@ const Category = () => {
   );
 };
 
-export default Category;
+NewCategory.requireAuth = true;
+
+export default NewCategory;

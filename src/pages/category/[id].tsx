@@ -116,4 +116,6 @@ const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
   );
 };
 
+Category.requireAuth = true;
+
 export default Category;
