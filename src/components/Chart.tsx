@@ -9,9 +9,9 @@ import { DATEFORMAT_en } from "@/app/constants";
 
 export const CHART_TYPES = ["line", "bar", "timeRange"];
 export const CHART_TYPE_LABELS = {
-  line: "Line chart",
-  bar: "Bar chart",
-  timeRange: "Time range chart",
+  line: "enum-line-chart",
+  bar: "enum-bar-chart",
+  timeRange: "enum-time-range-chart",
 };
 
 export default function Chart() {

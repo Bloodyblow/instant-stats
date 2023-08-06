@@ -153,7 +153,7 @@ const CategoryHeader = ({ onFinish }: { onFinish: () => void }) => {
             >
               {CHART_TYPES.map((type, index) => (
                 <MenuItem key={`${type}-${index}`} value={type}>
-                  {CHART_TYPE_LABELS[type as keyof typeof CHART_TYPE_LABELS]}
+                  {t(CHART_TYPE_LABELS[type as keyof typeof CHART_TYPE_LABELS])}
                 </MenuItem>
               ))}
             </Select>
