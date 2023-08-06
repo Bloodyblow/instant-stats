@@ -30,22 +30,22 @@ export default function BarChart({
         role="application"
         ariaLabel={`${name} (${unit})`}
         barAriaLabel={(e) => `${e.value} ${unit}`}
-        legends={[
-          {
-            dataFrom: "keys",
-            anchor: "bottom",
-            direction: "column",
-            justify: false,
-            translateX: 120,
-            translateY: 0,
-            itemsSpacing: 2,
-            itemWidth: 100,
-            itemHeight: 20,
-            itemDirection: "left-to-right",
-            itemOpacity: 0.85,
-            symbolSize: 20,
-          },
-        ]}
+        // legends={[
+        //   {
+        //     dataFrom: "keys",
+        //     anchor: "bottom-right",
+        //     direction: "column",
+        //     justify: false,
+        //     translateX: 120,
+        //     translateY: 0,
+        //     itemsSpacing: 2,
+        //     itemWidth: 100,
+        //     itemHeight: 20,
+        //     itemDirection: "left-to-right",
+        //     itemOpacity: 0.85,
+        //     symbolSize: 20,
+        //   },
+        // ]}
         theme={{
           textColor: "white",
           fontSize: 14,
