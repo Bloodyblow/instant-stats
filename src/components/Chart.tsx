@@ -1,4 +1,4 @@
-import { Card } from "@mui/material";
+import { Card, useTheme } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
 import BarChart from "./charts/BarChart";
@@ -18,6 +18,9 @@ export default function Chart() {
   const { category, chart, values } = useSelector(
     (state: RootState) => state.category
   );
+
+  const themeMode = useTheme().palette.mode;
+
   if (!category || values.length === 0) return null;
 
   const valuesReady = values.map((item) => ({
@@ -25,14 +28,29 @@ export default function Chart() {
     date: dayjs(item.date).format(DATEFORMAT_en),
   }));
 
+  const theme = {
+    textColor: themeMode === "dark" ? "white" : "black",
+    fontSize: 14,
+  };
+
   const getChart = (type: string) => {
     switch (type) {
       case "line":
-        return <LineChart category={category} values={valuesReady} />;
+        return (
+          <LineChart category={category} values={valuesReady} theme={theme} />
+        );
       case "bar":
-        return <BarChart category={category} values={valuesReady} />;
+        return (
+          <BarChart category={category} values={valuesReady} theme={theme} />
+        );
       case "timeRange":
-        return <TimeRangeChart category={category} values={valuesReady} />;
+        return (
+          <TimeRangeChart
+            category={category}
+            values={valuesReady}
+            theme={theme}
+          />
+        );
       default:
         return null;
     }

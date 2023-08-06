@@ -6,9 +6,11 @@ import ChartTooltip from "../ChartTooltip";
 export default function BarChart({
   category,
   values,
+  theme,
 }: {
   category: CategoryExtend;
   values: Value[];
+  theme: any;
 }) {
   const { name, unit } = category;
 
@@ -46,10 +48,7 @@ export default function BarChart({
         //     symbolSize: 20,
         //   },
         // ]}
-        theme={{
-          textColor: "white",
-          fontSize: 14,
-        }}
+        theme={theme}
         tooltip={(param) => <ChartTooltip value={param.value} unit={unit} />}
       />
     </Box>

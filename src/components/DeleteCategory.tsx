@@ -49,6 +49,7 @@ export default function DeleteCategory() {
           onClick={() => setOpenConfirmDialog(true)}
           startIcon={<DeleteIcon />}
           color="info"
+          sx={{ color: "text.secondary" }}
         >
           {t("delete-this-category")}
         </Button>

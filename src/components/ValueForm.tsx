@@ -124,7 +124,7 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
   const { unit } = category || {};
 
   return (
-    <Card sx={widthSx} >
+    <Card sx={widthSx}>
       <CardHeader
         title={t("add-item", { item: t("data") })}
         sx={{ backgroundColor: "secondary.main" }}
@@ -196,6 +196,7 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
                   sx={{
                     width: { xs: "100%", sm: "fit-content" },
                     padding: "15px",
+                    color: "text.secondary",
                   }}
                   onClick={onReset}
                   color="info"

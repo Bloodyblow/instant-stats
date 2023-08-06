@@ -2,15 +2,22 @@
 // yarn add @nivo/core @nivo/line
 import { CategoryExtend, Value } from "@/app/types";
 import { Box } from "@mui/material";
-import { ResponsiveLine, Serie } from "@nivo/line";
+import {
+  PointTooltip,
+  PointTooltipProps,
+  ResponsiveLine,
+  Serie,
+} from "@nivo/line";
 import ChartTooltip from "../ChartTooltip";
 
 export default function LineChart({
   category,
   values,
+  theme,
 }: {
   category: CategoryExtend;
   values: Value[];
+  theme: any;
 }) {
   const { name, unit } = category;
 
@@ -44,10 +51,7 @@ export default function LineChart({
           reverse: false,
         }}
         colors={{ scheme: "accent" }}
-        theme={{
-          textColor: "white",
-          fontSize: 14,
-        }}
+        theme={theme}
         yFormat=" >-.2f"
         axisTop={null}
         axisRight={null}
@@ -66,7 +70,12 @@ export default function LineChart({
           legendPosition: "middle",
         }}
         pointSize={10}
-        tooltip={(param) => <ChartTooltip value={param.value} unit={unit} />}
+        tooltip={(param: PointTooltipProps) => {
+          console.log(param);
+          return (
+            <ChartTooltip value={param.point.data.yFormatted} unit={unit} />
+          );
+        }}
         pointColor={{ theme: "background" }}
         pointBorderWidth={2}
         pointBorderColor={{ from: "serieColor" }}

@@ -11,9 +11,11 @@ import ChartTooltip from "../ChartTooltip";
 export default function TimeRangeChart({
   category,
   values,
+  theme,
 }: {
   category: CategoryExtend;
   values: Value[];
+  theme: any;
 }) {
   const { dateRange } = useSelector((state: RootState) => state.category);
   const { name, unit } = category;
@@ -40,10 +42,7 @@ export default function TimeRangeChart({
         emptyColor="transparent"
         colors={["#61cdbb", "#97e3d5", "#e8c1a0", "#f47560"]}
         margin={{ top: 40, right: 40, bottom: 100, left: 40 }}
-        theme={{
-          textColor: "white",
-          fontSize: 14,
-        }}
+        theme={theme}
         dayBorderWidth={2}
         dayBorderColor="#ffffff25"
         legends={[

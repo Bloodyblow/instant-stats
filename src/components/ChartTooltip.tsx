@@ -4,7 +4,7 @@ export default function ChartTooltip({
   value,
   unit,
 }: {
-  value: number;
+  value: number | string;
   unit: string;
 }) {
   return (

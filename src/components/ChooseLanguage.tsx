@@ -1,7 +1,10 @@
-import styles from "./ChooseLanguage.module.css";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Language } from "@/app/i18n/i18n";
+import { Button, Stack } from "@mui/material";
+
+const getSx = (selected: boolean) =>
+  selected ? { color: "secondary.main" } : { color: "text.primary" };
 
 export default function ChooseLanguage() {
   const { i18n } = useTranslation();
@@ -20,21 +23,29 @@ export default function ChooseLanguage() {
         break;
     }
   };
+
   return (
-    <div className={styles.container}>
-      <button
-        className={lang === Language.EN ? styles.selected : ""}
+    <Stack
+      direction="row"
+      sx={{
+        justifyContent: "center",
+        gap: "1rem",
+        alignItems: "center",
+      }}
+    >
+      <Button
         onClick={() => changeLanguage(Language.EN)}
+        sx={getSx(lang === Language.EN)}
       >
         English
-      </button>
+      </Button>
       <span>|</span>
-      <button
-        className={lang === Language.FR ? styles.selected : ""}
+      <Button
         onClick={() => changeLanguage(Language.FR)}
+        sx={getSx(lang === Language.FR)}
       >
         Français
-      </button>
-    </div>
+      </Button>
+    </Stack>
   );
 }

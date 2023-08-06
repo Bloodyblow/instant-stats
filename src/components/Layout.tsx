@@ -6,6 +6,7 @@ import { Container, Typography } from "@mui/material";
 import Navbar from "./Navbar";
 import ChooseLanguage from "./ChooseLanguage";
 import { useTranslation } from "react-i18next";
+import { ToggleThemeMode } from "./ToggleThemeMode";
 
 export const widthSx = {
   width: { xs: "95%", sm: "80%" },
@@ -36,9 +37,9 @@ export default function Layout({
       <Stack
         sx={{
           height: "calc(100vh - 64px)",
-          overflowY: "auto",
-          overflowX: "hidden",
+          overflow: "hidden auto",
           justifyContent: "space-between",
+          backgroundColor: "background.default",
         }}
       >
         <main className={styles.main}>
@@ -49,7 +50,11 @@ export default function Layout({
             }}
             alignItems="center"
           >
-            <Typography variant="h1" component="h1">
+            <Typography
+              variant="h1"
+              component="h1"
+              sx={{ marginTop: "4rem", color: "text.primary" }}
+            >
               {pageTitle}
             </Typography>
             <Box
@@ -78,8 +83,11 @@ export default function Layout({
               }}
             >
               <ChooseLanguage />
+              <ToggleThemeMode />
               <a href="mailto:dev.instantstats@gmail.com">
-                <Typography>{t("contact")}</Typography>
+                <Typography sx={{ color: "text.secondary" }}>
+                  {t("contact")}
+                </Typography>
               </a>
             </Stack>
           </Container>

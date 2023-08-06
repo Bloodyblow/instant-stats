@@ -70,6 +70,7 @@ const CategoryHeader = ({ onFinish }: { onFinish: () => void }) => {
           onClick={() => dispatch(setShowCategoryForm(true))}
           startIcon={<EditIcon />}
           color="info"
+          sx={{ color: "text.secondary" }}
         >
           {t("edit-category")}
         </Button>
@@ -111,7 +112,9 @@ const CategoryHeader = ({ onFinish }: { onFinish: () => void }) => {
                 inputFormat={DATEFORMAT_en}
               />
             </LocalizationProvider>
-            <Typography sx={{ m: 1 }}>{t("to")}</Typography>
+            <Typography sx={{ m: 1, color: "text.secondary" }}>
+              {t("to")}
+            </Typography>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label={t("end")}
