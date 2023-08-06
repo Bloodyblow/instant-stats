@@ -70,7 +70,7 @@ const CategoryHeader = ({ onFinish }: { onFinish: () => void }) => {
           startIcon={<EditIcon />}
           color="info"
         >
-          {t("edit-item", { item: t("category") })}
+          {t("edit-category")}
         </Button>
       </Stack>
 

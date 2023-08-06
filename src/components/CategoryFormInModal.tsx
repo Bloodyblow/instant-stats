@@ -73,7 +73,7 @@ const CategoryFormInModal = ({
         }}
       >
         <Typography variant="h4" component="h2" id="edit-category" style={{}}>
-          {t("edit-item", { item: t("category") })}
+          {t("edit-category")}
         </Typography>
         {isLoading && <LinearProgress color="secondary" />}
         <CategoryForm
