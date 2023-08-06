@@ -3,13 +3,15 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
 import BarChart from "./charts/BarChart";
 import LineChart from "./charts/LineChart";
+import TimeRangeChart from "./charts/TimeRangeChart";
 import dayjs from "dayjs";
-import { DATEFORMAT_MONTH_DAY_en } from "@/app/constants";
+import { DATEFORMAT_en } from "@/app/constants";
 
-export const CHART_TYPES = ["line", "bar"];
+export const CHART_TYPES = ["line", "bar", "timeRange"];
 export const CHART_TYPE_LABELS = {
   line: "Line chart",
   bar: "Bar chart",
+  timeRange: "Time range chart",
 };
 
 export default function Chart() {
@@ -20,22 +22,32 @@ export default function Chart() {
 
   const valuesReady = values.map((item) => ({
     ...item,
-    date: dayjs(item.date).format(DATEFORMAT_MONTH_DAY_en),
+    date: dayjs(item.date).format(DATEFORMAT_en),
   }));
+
+  const getChart = (type: string) => {
+    switch (type) {
+      case "line":
+        return <LineChart category={category} values={valuesReady} />;
+      case "bar":
+        return <BarChart category={category} values={valuesReady} />;
+      case "timeRange":
+        return <TimeRangeChart category={category} values={valuesReady} />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <Card
       sx={{
         height: "400px",
-        width: "100%",
         backgroundColor: "background.paper",
         borderRadius: "0",
+        width: { xs: "100%", sm: "80%" },
       }}
     >
-      {chart === "line" ? (
-        <LineChart category={category} values={valuesReady} />
-      ) : (
-        <BarChart category={category} values={valuesReady} />
-      )}
+      {getChart(chart)}
     </Card>
   );
 }

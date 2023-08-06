@@ -33,7 +33,7 @@ export default function BarChart({
         legends={[
           {
             dataFrom: "keys",
-            anchor: "bottom-right",
+            anchor: "bottom",
             direction: "column",
             justify: false,
             translateX: 120,

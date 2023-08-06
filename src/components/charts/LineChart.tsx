@@ -3,6 +3,7 @@
 import { CategoryExtend, Value } from "@/app/types";
 import { Box } from "@mui/material";
 import { ResponsiveLine, Serie } from "@nivo/line";
+import ChartTooltip from "../ChartTooltip";
 
 export default function LineChart({
   category,
@@ -65,6 +66,7 @@ export default function LineChart({
           legendPosition: "middle",
         }}
         pointSize={10}
+        tooltip={(param) => <ChartTooltip value={param.value} unit={unit} />}
         pointColor={{ theme: "background" }}
         pointBorderWidth={2}
         pointBorderColor={{ from: "serieColor" }}
@@ -72,7 +74,7 @@ export default function LineChart({
         useMesh={true}
         legends={[
           {
-            anchor: "bottom-right",
+            anchor: "bottom",
             direction: "column",
             justify: false,
             translateX: 100,
