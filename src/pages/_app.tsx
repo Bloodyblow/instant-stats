@@ -10,7 +10,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { SnackbarProvider } from "notistack";
 import { SessionProvider } from "next-auth/react";
 import { ProtectedLayout } from "@/components/ProtectedLayout";
-import { useState, useMemo, createContext } from "react";
+import { useState, useMemo, createContext, useEffect } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const queryClient = new QueryClient();
@@ -25,20 +25,31 @@ export const ThemeModeContext = createContext({
   toggleTheme: () => {},
 });
 
+const getThemeoptions = (isSystemDarkMode: boolean) =>
+  isSystemDarkMode ? darkThemeOptions : lightThemeOptions;
+
 export default function App({ Component, pageProps }: AppPropsWithAuth) {
   const isSystemDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const [themeOptions, setThemeOptions] = useState<ThemeOptions>(
     isSystemDarkMode ? darkThemeOptions : lightThemeOptions
   );
 
+  useEffect(() => {
+    const themeMode = localStorage.getItem("themeMode");
+    if (themeMode) {
+      setThemeOptions(getThemeoptions(themeMode === "dark"));
+    }
+  }, []);
+
   const themeModeContextProvider = useMemo(
     () => ({
       toggleTheme: () => {
-        setThemeOptions((prevMode) =>
-          prevMode?.palette?.mode === "light"
-            ? darkThemeOptions
-            : lightThemeOptions
-        );
+        setThemeOptions((prevMode) => {
+          const newMode =
+            prevMode?.palette?.mode === "light" ? "dark" : "light";
+          localStorage.setItem("themeMode", newMode);
+          return getThemeoptions(newMode === "dark");
+        });
       },
     }),
     []
