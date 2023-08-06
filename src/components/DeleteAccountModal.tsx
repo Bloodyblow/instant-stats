@@ -78,7 +78,12 @@ const DeleteAccountModal = ({
           maxWidth: "900px",
         }}
       >
-        <Typography variant="h4" component="h2" id="edit-category" style={{}}>
+        <Typography
+          variant="h4"
+          component="h2"
+          id="delete-account"
+          sx={{ color: "white" }}
+        >
           {t("delete-your-account")}
         </Typography>
         {isLoading && <LinearProgress color="secondary" />}

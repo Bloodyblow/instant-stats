@@ -72,7 +72,12 @@ const CategoryFormInModal = ({
           maxWidth: "900px",
         }}
       >
-        <Typography variant="h4" component="h2" id="edit-category" style={{}}>
+        <Typography
+          variant="h4"
+          component="h2"
+          id="edit-category"
+          sx={{ color: "white" }}
+        >
           {t("edit-category")}
         </Typography>
         {isLoading && <LinearProgress color="secondary" />}
