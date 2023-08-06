@@ -53,6 +53,7 @@
   "item-added": "{{item}} ajouté",
   "item-deleted": "{{item}} supprimé",
   "item-is-required": "{{item}} est requis",
+  "item-mode": "Mode {{item}}",
   "item-updated": "{{item}} mis à jour",
   "light": "clair",
   "logout": "Se déconnecter",

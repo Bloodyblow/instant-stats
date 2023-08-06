@@ -82,8 +82,10 @@ export default function Layout({
                 alignItems: "center",
               }}
             >
-              <ChooseLanguage />
-              <ToggleThemeMode />
+              <Stack direction="row" gap="1rem">
+                <ChooseLanguage />
+                <ToggleThemeMode />
+              </Stack>
               <a href="mailto:dev.instantstats@gmail.com">
                 <Typography sx={{ color: "text.secondary" }}>
                   {t("contact")}

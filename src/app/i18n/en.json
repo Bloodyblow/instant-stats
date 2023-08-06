@@ -54,6 +54,7 @@
   "item-added": "{{item}} added",
   "item-deleted": "{{item}} deleted",
   "item-is-required": "{{item}} is required",
+  "item-mode": "{{item}} mode",
   "item-updated": "{{item}} updated",
   "light": "light",
   "logout": "Logout",
