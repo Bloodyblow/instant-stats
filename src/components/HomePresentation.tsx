@@ -24,7 +24,7 @@ export default function HomePresentation() {
         sx={{
           ...typographySx,
           marginTop: "3rem",
-          fontSize: "2rem",
+          fontSize: "1.8rem",
           letterSpacing: "0.2rem",
         }}
       >
