@@ -27,12 +27,12 @@ export default function SelectIcon({
         marginBottom: "10px",
         color: "#c9c9c9",
         "&:hover": {
-          borderColor: "white",
-          color: "white",
+          borderColor: "text.primary",
+          color: "text.primary",
         },
       }}
     >
-      <Typography sx={{ textTransform: "capitalize" }}>
+      <Typography sx={{ textTransform: "capitalize", color: "text.primary" }}>
         {t("icon")} {selectedIconName ? `: ${t(selectedIconName)}` : ""}
       </Typography>
       <Stack

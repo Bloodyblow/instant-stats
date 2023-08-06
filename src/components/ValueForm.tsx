@@ -196,10 +196,8 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
                   sx={{
                     width: { xs: "100%", sm: "fit-content" },
                     padding: "15px",
-                    color: "text.secondary",
                   }}
                   onClick={onReset}
-                  color="info"
                 >
                   <ClearIcon />
                 </Button>

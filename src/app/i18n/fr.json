@@ -8,7 +8,7 @@
   "cancel-keep-account": "Annuler et garder le compte",
   "cancel": "Annuler",
   "category": "Catégorie",
-  "chart-type": "Type de graphique",
+  "chart-type": "Type",
   "confirm-delete-category": "Êtes-vous sûr de vouloir supprimer cette catégorie? Toutes les valeurs seront également supprimées.",
   "confirm-delete-value-date": "Confirmer la suppression de la valeur {{value}} du {{date}}",
   "contact": "Contact",

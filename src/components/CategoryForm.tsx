@@ -145,22 +145,12 @@ export default function CatergoryForm({
                 </Button>
               </Tooltip>
               <Tooltip title={t("reset-form")}>
-                <Button
-                  variant="outlined"
-                  sx={buttonSx}
-                  onClick={onReset}
-                  color="info"
-                >
+                <Button variant="outlined" sx={buttonSx} onClick={onReset}>
                   <RestartAltIcon />
                 </Button>
               </Tooltip>
               <Tooltip title={t("cancel")}>
-                <Button
-                  variant="outlined"
-                  sx={buttonSx}
-                  onClick={onCancel}
-                  color="info"
-                >
+                <Button variant="outlined" sx={buttonSx} onClick={onCancel}>
                   <CloseIcon />
                 </Button>
               </Tooltip>
