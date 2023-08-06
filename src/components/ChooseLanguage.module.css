@@ -2,7 +2,6 @@
   display: flex;
   justify-content: flex-start;
   align-items: baseline;
-  padding: 4rem;
   font-size: 1rem;
   color: white;
 }
@@ -38,7 +37,6 @@
   } 
     
   .container {
-    padding: 1rem 2rem;
     align-self: center;
 
   }

@@ -7,6 +7,11 @@ import Navbar from "./Navbar";
 import ChooseLanguage from "./ChooseLanguage";
 import { useTranslation } from "react-i18next";
 
+export const widthSx = {
+  width: { xs: "95%", sm: "80%" },
+  maxWidth: "800px",
+};
+
 export default function Layout({
   pageTitle,
   children,
@@ -32,14 +37,13 @@ export default function Layout({
         sx={{
           height: "calc(100vh - 64px)",
           overflowY: "auto",
+          overflowX: "hidden",
           justifyContent: "space-between",
         }}
       >
         <main className={styles.main}>
           <Stack
             sx={{
-              width: "80vw",
-              maxWidth: "800px",
               justifyContent: "space-between",
               gap: "2rem",
             }}
@@ -54,7 +58,7 @@ export default function Layout({
                 display: "flex",
                 flexGrow: 1,
                 flexDirection: "column",
-                width: "100%",
+                width: "100vw",
                 alignItems: "center",
                 gap: "2rem",
               }}
@@ -63,14 +67,23 @@ export default function Layout({
             </Box>
           </Stack>
         </main>
-        <Container maxWidth="xl">
-          <footer className={styles.footer}>
-            <ChooseLanguage />
-            <a href="mailto:dev.instantstats@gmail.com">
-              <Typography>{t("contact")}</Typography>
-            </a>
-          </footer>
-        </Container>
+        <footer>
+          <Container maxWidth="xl" sx={{ ...widthSx }}>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              sx={{
+                margin: "4rem 0 2rem",
+                alignItems: "center",
+              }}
+            >
+              <ChooseLanguage />
+              <a href="mailto:dev.instantstats@gmail.com">
+                <Typography>{t("contact")}</Typography>
+              </a>
+            </Stack>
+          </Container>
+        </footer>
       </Stack>
     </>
   );

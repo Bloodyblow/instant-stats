@@ -28,6 +28,7 @@ import {
   SxProps,
 } from "@mui/material";
 import dayjs from "dayjs";
+import { widthSx } from "./Layout";
 import { DATEFORMAT_en } from "@/app/constants";
 
 const CategoryHeader = ({ onFinish }: { onFinish: () => void }) => {
@@ -60,7 +61,7 @@ const CategoryHeader = ({ onFinish }: { onFinish: () => void }) => {
       direction="column"
       sx={{
         justifyContent: "space-between",
-        width: "100%",
+        ...widthSx,
       }}
     >
       {/* Row 1 */}

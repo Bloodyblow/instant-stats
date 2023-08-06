@@ -25,6 +25,7 @@ import { useSession, signOut } from "next-auth/react";
 import DeleteAccountModal from "./DeleteAccountModal";
 import { Divider } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import { widthSx } from "./Layout";
 
 const categoriesDropdownSx = {
   transition: "background-color .3s ease-in-out",
@@ -91,13 +92,8 @@ function Navbar() {
 
   return (
     <>
-      <AppBar
-        position="static"
-        sx={{
-          backgroundColor: "primary.main",
-        }}
-      >
-        <Container maxWidth="xl">
+      <AppBar position="static" sx={{ backgroundColor: "primary.main" }}>
+        <Container maxWidth="xl" sx={widthSx}>
           <Toolbar disableGutters>
             {/* On the left  */}
             {/* Desktop */}

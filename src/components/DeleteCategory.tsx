@@ -1,5 +1,5 @@
 import { removeCategory } from "@/app/store/categorySlice";
-import { Stack, Button, LinearProgress } from "@mui/material";
+import { Stack, Button, LinearProgress, Box } from "@mui/material";
 import React from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +10,7 @@ import { deleteCategory } from "@/app/apiService";
 import { RootState } from "@/app/store/store";
 import { useSnackbar } from "notistack";
 import { useTranslation } from "react-i18next";
+import { widthSx } from "./Layout";
 
 export default function DeleteCategory() {
   const { t } = useTranslation();
@@ -34,7 +35,7 @@ export default function DeleteCategory() {
 
   if (!category) return null;
   return (
-    <div style={{ width: "100%" }}>
+    <Box sx={widthSx}>
       <Stack
         spacing={2}
         alignItems="center"
@@ -63,6 +64,6 @@ export default function DeleteCategory() {
           type="delete"
         />
       )}
-    </div>
+    </Box>
   );
 }

@@ -26,6 +26,7 @@ import { setSelectedValue } from "../app/store/categorySlice";
 import { useSnackbar } from "notistack";
 import { DATEFORMAT_en } from "@/app/constants";
 import { useTranslation } from "react-i18next";
+import { widthSx } from "./Layout";
 
 const textFieldSx = {
   color: "secondary.contrastText",
@@ -123,7 +124,7 @@ export default function ValueForm({ onFinish }: { onFinish: () => void }) {
   const { unit } = category || {};
 
   return (
-    <Card sx={{ width: "100%" }}>
+    <Card sx={widthSx} >
       <CardHeader
         title={t("add-item", { item: t("data") })}
         sx={{ backgroundColor: "secondary.main" }}

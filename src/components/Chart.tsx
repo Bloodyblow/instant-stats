@@ -28,6 +28,7 @@ export default function Chart() {
         height: "400px",
         width: "100%",
         backgroundColor: "background.paper",
+        borderRadius: "0",
       }}
     >
       {chart === "line" ? (

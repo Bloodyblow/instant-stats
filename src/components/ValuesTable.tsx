@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Value } from "@/app/types";
-import { IconButton, LinearProgress, Tooltip } from "@mui/material";
+import { Box, IconButton, LinearProgress, Tooltip } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { RootState } from "@/app/store/store";
@@ -21,6 +21,7 @@ import dayjs from "dayjs";
 import { DATEFORMAT_en } from "@/app/constants";
 import { useTranslation } from "react-i18next";
 import styles from "./ValuesTable.module.css";
+import { widthSx } from "./Layout";
 
 export default function ValuesTable({
   onValueDeleted,
@@ -73,12 +74,12 @@ export default function ValuesTable({
     });
   };
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-start",
-        width: "100%",
+        ...widthSx,
       }}
     >
       {isLoading && <LinearProgress color="secondary" />}
@@ -156,6 +157,6 @@ export default function ValuesTable({
         })}
         type="delete"
       />
-    </div>
+    </Box>
   );
 }

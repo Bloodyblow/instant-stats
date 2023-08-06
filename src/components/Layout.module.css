@@ -3,7 +3,6 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 4rem 4rem 2rem;
   width: 100%;
 }
 
@@ -12,13 +11,3 @@
   font-size: 3.2rem;
 }
 
-.footer {
-  /* width: 100%; */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.footer a {
-  margin-right: 4rem;
-}
