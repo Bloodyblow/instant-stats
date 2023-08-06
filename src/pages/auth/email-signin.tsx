@@ -1,4 +1,4 @@
-import Layout from "@/components/Layout";
+import Layout, { widthSx } from "@/components/Layout";
 import {
   Card,
   Box,
@@ -20,7 +20,7 @@ export default function SignIn({
   const { t } = useTranslation();
   return (
     <Layout pageTitle={t("sign-in")}>
-      <Card sx={{ width: "100%", height: "fit-content" }}>
+      <Card sx={{ ...widthSx, height: "fit-content" }}>
         <Box
           component="form"
           sx={{
@@ -36,7 +36,13 @@ export default function SignIn({
           method="post"
           action="/api/auth/signin/email"
         >
-          <Typography sx={{ textAlign: "center", marginBottom: "2rem" }}>
+          <Typography
+            sx={{
+              textAlign: "center",
+              marginBottom: "2rem",
+              color: "text.primary",
+            }}
+          >
             {t("magic-link-explanations")}
           </Typography>
           <FormControl sx={{ m: 1, width: "100%" }}>

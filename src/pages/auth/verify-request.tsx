@@ -1,4 +1,4 @@
-import Layout from "@/components/Layout";
+import Layout, { widthSx } from "@/components/Layout";
 import {
   Card,
   Box,
@@ -21,7 +21,7 @@ export default function VerifyRequest({
   const { t } = useTranslation();
   return (
     <Layout pageTitle={t("request-sent")}>
-      <Card sx={{ width: "100%", height: "fit-content" }}>
+      <Card sx={{ ...widthSx, height: "fit-content" }}>
         <Box
           sx={{
             backgroundColor: "background.paper",
@@ -32,7 +32,13 @@ export default function VerifyRequest({
             alignItems: "center",
           }}
         >
-          <Typography sx={{ textAlign: "center", marginBottom: "2rem" }}>
+          <Typography
+            sx={{
+              textAlign: "center",
+              marginBottom: "2rem",
+              color: "text.primary",
+            }}
+          >
             {t("you-will-receive-an-email")}
           </Typography>
           <Link href="/" style={{}}>
