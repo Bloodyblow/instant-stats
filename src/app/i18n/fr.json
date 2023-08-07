@@ -52,6 +52,7 @@
   "go-to-chart": "Changer de catégorie",
   "icon": "Icône",
   "item-added": "{{item}} ajouté",
+  "item-created": "{{item}} créé",
   "item-deleted": "{{item}} supprimé",
   "item-is-required": "{{item}} est requis",
   "item-mode": "Mode {{item}}",

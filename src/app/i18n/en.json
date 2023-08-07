@@ -52,6 +52,7 @@
   "go-to-chart": "Go to chart",
   "icon": "Icon",
   "item-added": "{{item}} added",
+  "item-created": "{{item}} created",
   "item-deleted": "{{item}} deleted",
   "item-is-required": "{{item}} is required",
   "item-mode": "{{item}} mode",
