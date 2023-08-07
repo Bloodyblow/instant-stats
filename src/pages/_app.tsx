@@ -11,7 +11,7 @@ import { SnackbarProvider } from "notistack";
 import { SessionProvider } from "next-auth/react";
 import { ProtectedLayout } from "@/components/ProtectedLayout";
 import { useState, useMemo, createContext, useEffect } from "react";
-import useMediaQuery from "@mui/material/useMediaQuery";
+// import useMediaQuery from "@mui/material/useMediaQuery";
 
 const queryClient = new QueryClient();
 
@@ -29,10 +29,9 @@ const getThemeoptions = (isSystemDarkMode: boolean) =>
   isSystemDarkMode ? darkThemeOptions : lightThemeOptions;
 
 export default function App({ Component, pageProps }: AppPropsWithAuth) {
-  const isSystemDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-  const [themeOptions, setThemeOptions] = useState<ThemeOptions>(
-    isSystemDarkMode ? darkThemeOptions : lightThemeOptions
-  );
+  // const isSystemDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  const [themeOptions, setThemeOptions] =
+    useState<ThemeOptions>(darkThemeOptions);
 
   useEffect(() => {
     const themeMode = localStorage.getItem("themeMode");

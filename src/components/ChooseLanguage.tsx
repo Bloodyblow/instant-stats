@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Language } from "@/app/i18n/i18n";
-import { Button, Stack } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 
 const getSx = (selected: boolean) =>
   selected ? { color: "secondary.main" } : { color: "text.primary" };
@@ -39,7 +39,7 @@ export default function ChooseLanguage() {
       >
         English
       </Button>
-      <span>|</span>
+      <Typography sx={{ color: "text.secondary" }}>|</Typography>
       <Button
         onClick={() => changeLanguage(Language.FR)}
         sx={getSx(lang === Language.FR)}
