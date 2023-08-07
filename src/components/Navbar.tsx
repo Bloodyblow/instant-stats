@@ -50,6 +50,7 @@ function Navbar() {
   const { data: categories, refetch } = useQuery({
     queryKey: ["categories"],
     queryFn: () => getCategories(),
+    enabled: status === "authenticated",
   });
   const router = useRouter();
   const dispatch = useDispatch();
