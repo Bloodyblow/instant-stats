@@ -53,7 +53,11 @@ export default function Layout({
             <Typography
               variant="h1"
               component="h1"
-              sx={{ marginTop: "4rem", color: "text.primary" }}
+              sx={{
+                marginTop: "4rem",
+                color: "text.primary",
+                textAlign: "center",
+              }}
             >
               {pageTitle}
             </Typography>
