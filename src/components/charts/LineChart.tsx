@@ -71,7 +71,6 @@ export default function LineChart({
         }}
         pointSize={10}
         tooltip={(param: PointTooltipProps) => {
-          console.log(param);
           return (
             <ChartTooltip value={param.point.data.yFormatted} unit={unit} />
           );

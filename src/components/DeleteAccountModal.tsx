@@ -43,7 +43,6 @@ const DeleteAccountModal = ({
   const { enqueueSnackbar } = useSnackbar();
 
   const onDeleteAccount = async () => {
-    console.log("delete account", session, email);
     await deleteUserAccount(email);
     await signOut({ redirect: false, callbackUrl: "/" });
     dispatch(clearAll());

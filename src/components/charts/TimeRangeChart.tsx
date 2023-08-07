@@ -25,8 +25,6 @@ export default function TimeRangeChart({
     value: value.value,
   }));
 
-  console.log(data);
-
   return (
     <Box
       sx={{
