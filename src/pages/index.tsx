@@ -5,7 +5,6 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import HomePresentation from "@/components/HomePresentation";
 import HomeCategories from "@/components/HomeCategories";
 import { useTranslation } from "react-i18next";
-import prisma from '../../lib/prisma';
 
 export default function Home() {
   const { t } = useTranslation();

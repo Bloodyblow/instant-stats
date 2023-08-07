@@ -36,7 +36,7 @@ const categoriesDropdownSx = {
 
 function Navbar() {
   const { t } = useTranslation();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const username = session?.user?.name;
   const userEmail = session?.user?.email;
   const userImage = session?.user?.image;
