@@ -3,14 +3,17 @@ import CategoriesList from "../components/CategoriesList";
 import Button from "@mui/material/Button";
 import { Card } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
 import { getCategories } from "@/app/apiService";
 import { useTranslation } from "react-i18next";
 
 export default function HomeCategories() {
   const { t } = useTranslation();
+  const { status } = useSession();
   const { data: categories } = useQuery({
     queryKey: ["categories"],
     queryFn: () => getCategories(),
+    enabled: status === "authenticated",
   });
 
   return (
