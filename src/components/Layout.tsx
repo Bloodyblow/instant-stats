@@ -36,7 +36,7 @@ export default function Layout({
 
       <Stack
         sx={{
-          height: "calc(100vh - 64px)",
+          height: { xs: "calc(100vh - 56px)", sm: "calc(100vh - 64px)" },
           overflow: "hidden auto",
           justifyContent: "space-between",
           backgroundColor: "background.default",
@@ -86,7 +86,12 @@ export default function Layout({
                 alignItems: "center",
               }}
             >
-              <Stack direction="row" gap="1rem">
+              <Stack
+                sx={{
+                  flexDirection: { xs: "column", sm: "row" },
+                }}
+                gap="1rem"
+              >
                 <ChooseLanguage />
                 <ToggleThemeMode />
               </Stack>

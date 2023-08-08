@@ -20,11 +20,7 @@ export function ToggleThemeMode() {
   const theme = useTheme();
   const themeModeContext = useContext(ThemeModeContext);
   return (
-    <Button
-      sx={{ ml: 1 }}
-      onClick={themeModeContext.toggleTheme}
-      color="inherit"
-    >
+    <Button onClick={themeModeContext.toggleTheme} color="inherit">
       {theme.palette.mode === "dark" ? (
         <>
           <Typography sx={{ color: "text.secondary" }}>
