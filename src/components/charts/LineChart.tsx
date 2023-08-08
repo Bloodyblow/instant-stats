@@ -2,13 +2,12 @@
 // yarn add @nivo/core @nivo/line
 import { CategoryExtend, Value } from "@/app/types";
 import { Box } from "@mui/material";
-import {
-  PointTooltip,
-  PointTooltipProps,
-  ResponsiveLine,
-  Serie,
-} from "@nivo/line";
+import { PointTooltipProps, ResponsiveLine, Serie } from "@nivo/line";
 import ChartTooltip from "../ChartTooltip";
+import { RootState } from "@/app/store/store";
+import { useSelector } from "react-redux";
+import dayjs from "dayjs";
+import isBetween from "dayjs/plugin/isBetween";
 
 export default function LineChart({
   category,
@@ -20,11 +19,17 @@ export default function LineChart({
   theme: any;
 }) {
   const { name, unit } = category;
+  const { dateRange } = useSelector((state: RootState) => state.category);
+  dayjs.extend(isBetween);
+
+  const valuesInRange = values.filter((value) =>
+    dayjs(value.date).isBetween(dateRange[0], dateRange[1])
+  );
 
   const data: Serie[] = [
     {
       id: name,
-      data: values.map((value) => ({
+      data: valuesInRange.map((value) => ({
         x: value.date,
         y: value.value,
       })),

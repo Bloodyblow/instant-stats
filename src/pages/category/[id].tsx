@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import Layout from "../../components/Layout";
-import { CategoryExtend } from "@/app/types";
+import { CategoryExtend, DateStringRange } from "@/app/types";
 import ValuesTable from "../../components/ValuesTable";
 import ValueForm from "../../components/ValueForm";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +18,7 @@ import { Box } from "@mui/material";
 import CategoryFormInModal from "../../components/CategoryFormInModal";
 import DeleteCategory from "../../components/DeleteCategory";
 import CategoryHeader from "@/components/CategoryHeader";
+import dayjs from "dayjs";
 
 export const getServerSideProps: GetServerSideProps = async (
   context: Context
@@ -52,13 +53,18 @@ const Category = ({ categoryData }: { categoryData: CategoryExtend }) => {
     enabled: false,
   });
 
+  const dateRangePlus4Months: DateStringRange = [
+    dayjs(dateRange[0]).subtract(2, "month").toISOString(),
+    dayjs(dateRange[1]).add(2, "month").toISOString(),
+  ];
+
   const {
     data: values,
     isFetching: isFetchingValues,
     refetch: refetchValues,
   } = useQuery({
     queryKey: ["values"],
-    queryFn: () => getValues(categoryData.id, dateRange),
+    queryFn: () => getValues(categoryData.id, dateRangePlus4Months),
     initialData: [],
     enabled: true,
   });

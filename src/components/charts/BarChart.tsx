@@ -1,7 +1,11 @@
 import { ResponsiveBar } from "@nivo/bar";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { CategoryExtend, Value } from "@/app/types";
 import ChartTooltip from "../ChartTooltip";
+import { RootState } from "@/app/store/store";
+import { useSelector } from "react-redux";
+import dayjs from "dayjs";
+import isBetween from "dayjs/plugin/isBetween";
 
 export default function BarChart({
   category,
@@ -13,6 +17,12 @@ export default function BarChart({
   theme: any;
 }) {
   const { name, unit } = category;
+  const { dateRange } = useSelector((state: RootState) => state.category);
+  dayjs.extend(isBetween);
+
+  const valuesInRange = values.filter((value) =>
+    dayjs(value.date).isBetween(dateRange[0], dateRange[1])
+  );
 
   return (
     <Box
@@ -23,7 +33,7 @@ export default function BarChart({
       }}
     >
       <ResponsiveBar
-        data={values}
+        data={valuesInRange}
         keys={["value"]}
         indexBy="date"
         margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
