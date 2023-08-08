@@ -2,7 +2,6 @@ import { Typography, useTheme } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
 const typographySx = {
-  textWrap: "balance",
   width: "80vw",
   maxWidth: "800px",
   color: "text.primary",
@@ -28,10 +27,12 @@ export default function HomePresentation() {
           letterSpacing: "0.2rem",
         }}
       >
-        {t("presentation.simplify-data-organization-and-analysis")}
+        {t("presentation.analyze-your-daily-data-easily")}
       </Typography>
       <Typography sx={typographySx}>
-        {t("presentation.you-can-create")}{" "}
+        {t("presentation.examples")} {t("presentation.you-can-create")}{" "}
+      </Typography>
+      <Typography sx={typographySx}>
         {t("presentation.app-presents-data-in-table-and-provides")}{" "}
         <span style={{ color: yellow, letterSpacing: "2px" }}>
           {t("presentation.various-charts")}

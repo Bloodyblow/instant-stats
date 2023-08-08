@@ -77,8 +77,9 @@
   "values": "Values",
   "you-will-receive-an-email": "You will receive an email with a magic link to sign in to your account.",
   "presentation": {
-    "simplify-data-organization-and-analysis": "Simplifies data organization and analysis.",
-    "you-can-create": "You can create custom categories and enter values to track progress and analyze relevant data.",
+    "analyze-your-daily-data-easily": "Analyze your daily data easily",
+    "examples": "You can track your coffee consumption, your weight, the number of kilometers traveled by bike or books read...",
+    "you-can-create": "Create custom categories and enter values to track progress and analyze everyday life data data.",
     "app-presents-data-in-table-and-provides": "The app presents data in table and provides",
     "various-charts": "multiple charts",
     "for-easy-visualisation": "for easy visualization.",

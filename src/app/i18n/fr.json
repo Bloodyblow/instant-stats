@@ -77,8 +77,9 @@
   "values": "Valeurs",
   "you-will-receive-an-email": "Vous recevrez un e-mail avec un lien magique pour vous connecter sans mot de passe.",
   "presentation": {
-    "simplify-data-organization-and-analysis": "Simplifiez l'organisation et l'analyse des données.",
-    "you-can-create": "Vous pouvez créer des catégories personnalisées et saisir des valeurs pour suivre les progrès et analyser les données pertinentes.",
+    "analyze-your-daily-data-easily": "Analysez facilement vos données quotidiennes",
+    "examples": "Vous pouvez suivre votre consommation de café, votre poids, le nombre de kilomètres parcourus en vélo ou de livres lus...",
+    "you-can-create": "Créez des catégories personnalisées et saisissez des valeurs pour suivre les progrès et analyser les données du quotidien.",
     "app-presents-data-in-table-and-provides": "L'application présente les données dans un tableau et fournit",
     "various-charts": "divers graphiques",
     "for-easy-visualisation": "pour une visualisation facile.",
