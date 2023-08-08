@@ -37,9 +37,6 @@ export default function ConfirmDialog({
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} variant="contained">
-          {t("cancel")}
-        </Button>
         <Button
           onClick={onConfirm}
           autoFocus
@@ -47,6 +44,9 @@ export default function ConfirmDialog({
           variant="contained"
         >
           {t("ok")}
+        </Button>
+        <Button onClick={onClose} variant="outlined">
+          {t("cancel")}
         </Button>
       </DialogActions>
     </Dialog>
